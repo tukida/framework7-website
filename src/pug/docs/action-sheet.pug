@@ -1,7 +1,7 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Action Sheet | Framework7 Documentation';
+  - var title = 'Action Sheet | Zalo Mini Program Components';
 
 block content
   include ../_docs-demo-device
@@ -9,7 +9,7 @@ block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Action Sheet
     ul.docs-index
     p Action Sheet is a slide-up pane for presenting the user with a set of alternatives for how to proceed with a given task.
@@ -204,7 +204,7 @@ block content
     .important-note
       p Note that all of the following parameters can be used in the global app parameters under the `actions` property to set defaults for all action sheets. For example:
       :code(lang="js")
-        var app = new Framework7({
+        var app = new ZMP({
           actions: {
             convertToPopover: false,
             grid: true,

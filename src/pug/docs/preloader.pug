@@ -1,7 +1,7 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Preloader | Framework7 Documentation';
+  - var title = 'Preloader | Zalo Mini Program Components';
 
 block content
   include ../_docs-demo-device
@@ -9,10 +9,10 @@ block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Preloader
     ul.docs-index
-    p Framework7 has a nice preloader indicator. Preloader is made with SVG and animated with CSS so it can be easily resized.
+    p ZaUI has a nice preloader indicator. Preloader is made with SVG and animated with CSS so it can be easily resized.
     h2 Preloader Layout
     p Layout is pretty simple:
     :code(lang="html")
@@ -99,7 +99,7 @@ block content
 
     p For example:
     :code(lang="js")
-          var app = new Framework7();
+          var app = new ZMP();
 
           // Show preloader before Ajax request
           app.preloader.show();

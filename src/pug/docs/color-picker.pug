@@ -1,7 +1,7 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Color Picker | Framework7 Documentation';
+  - var title = 'Color Picker | Zalo Mini Program Components';
 
 block content
   include ../_docs-demo-device
@@ -9,10 +9,10 @@ block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Color Picker
     ul.docs-index
-    p Framework7 comes with ultimate modular Color Picker component that allows to create color picker with limitless combinations of "color modules".
+    p ZaUI comes with ultimate modular Color Picker component that allows to create color picker with limitless combinations of "color modules".
     h2 Color Picker App Methods
     p Let's look at related App methods to work with Color Picker:
     .method-wrap
@@ -378,7 +378,7 @@ block content
     .important-note
       p Note that all following parameters can be used in global app parameters under `colorPicker` property to set defaults for all color pickers. For example:
       :code(lang="js")
-        var app = new Framework7({
+        var app = new ZMP({
           colorPicker: {
             modules: ['hb-spectrum', 'hue-slider'],
             url: 'select-color/',
@@ -498,7 +498,7 @@ block content
           'hue-slider',
         ]
       })
-    p For inspiration and how things work in modules, check the <a href="https://github.com/framework7io/framework7/tree/master/src/core/components/color-picker/modules" target="_blank">built-in modules source code</a>.
+    p For inspiration and how things work in modules, check the <a href="https://github.com/zmpio/zmp/tree/master/src/core/components/color-picker/modules" target="_blank">built-in modules source code</a>.
 
 
     h2 Color Picker Value

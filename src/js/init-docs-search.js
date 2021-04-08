@@ -4,8 +4,8 @@ let algoliaClient;
 let algoliaIndex;
 let searchTimeout;
 if (window.algoliasearch) {
-  algoliaClient = window.algoliasearch('5CN8U5PK9Z', '335298dc09a81387378e525c7824e262');
-  algoliaIndex = algoliaClient.initIndex('f7_docs');
+  // algoliaClient = window.algoliasearch('', '');
+  // algoliaIndex = algoliaClient.initIndex('');
 }
 function renderSearchResults(hits, clear) {
   const tree = {};

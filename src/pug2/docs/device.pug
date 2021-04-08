@@ -1,0 +1,133 @@
+extends ../_docs-template
+
+block vars
+  - var title = 'Device | Framework7 Documentation';
+
+block content
+  .docs-nav
+    include ../_docs-menu
+  .docs-content
+    +improveDocsLink
+    h1 Device
+    ul.docs-index
+    p Framework7 comes with Device detection library with which contains useful information about device and platform.
+    p It is available as a `device` property of Framework7 class (`Framework7.device`) and same property on initialized app instance (`app.device`):
+    :code(lang="js")
+      // If we need it in place where we don't have access to app instance or before we init the app
+      if (Framework7.device.ios) {
+        console.log('It is iOS device');
+      }
+
+
+      // After we init the app we can access it as app instance property
+      var app = new Framework7({ /*...*/ });
+      if (app.device.android) {
+        console.log('It is android device');
+      }
+    h2 `getDevice`
+    p When we use Framework7 on server-side environments or with ES modules, we need to use `getDevice` util instead:
+    ```js
+      import { getDevice } from 'framework7';
+
+      const device = getDevice();
+
+      if (device.android) {
+        console.log('It is android device');
+      }
+    ```
+    p If we use it on server-side, we can also pass `userAgent` for the case if we know it based on the request:
+    ```js
+      import { getDevice } from 'framework7';
+
+      const device = getDevice({ userAgent: 'SOME_USER_AGENT' });
+
+      if (device.android) {
+        console.log('It is android device');
+      }
+    ```
+    h2 Methods & Properties
+    table.methods-table
+      tbody
+        tr
+          th(colspan="2") Properties
+        tr
+          td ios
+          td `true` for iOS device
+        tr
+          td android
+          td `true` for Android device
+        tr
+          td androidChrome
+          td `true` for Android Chrome
+        tr
+          td desktop
+          td `true` for desktop browser
+        tr
+          td iphone
+          td `true` for iPhone
+        tr
+          td ipod
+          td `true` for iPod
+        tr
+          td ipad
+          td `true` for iPad
+        tr
+          td cordova
+          td `true` when app running in cordova environment
+        tr
+          td capacitor
+          td `true` when app running in capacitor environment
+        tr
+          td phonegap
+          td alias for `cordova` prop
+        tr
+          td windows
+          td `true` for desktop windows
+        tr
+          td macos
+          td `true` for desktop macOS
+        tr
+          td ie
+          td `true` for Internet Explorer browser
+        tr
+          td edge
+          td `true` for MS Edge browser
+        tr
+          td firefox
+          td `true` for FireFox browser
+        tr
+          td electron
+          td `true` when app is running under Electron environment
+        tr
+          td nwjs
+          td `true` when app is running under NW.js environment
+        tr
+          td webView
+          td `true` if app runs in web view - webapp installed to home screen, valid for desktop PWAs installed to desktop
+        tr
+          td standalone
+          td Same as `webView`
+        tr
+          td os
+          td Contains OS can be `ios`, `android`, `macos`, `windows`
+        tr
+          td osVersion
+          td Contains OS version, e.g. `11.2.0`
+        tr
+          td pixelRatio
+          td Device pixel ratio
+        tr
+          th(colspan="2") Methods
+        tr
+          td prefersColorScheme()
+          td Returns preferred user system color scheme. Returns `"light"` or `"dark"` where this feature supported or `undefined` otherwise. This feature support is based on <a href="https://caniuse.com/#feat=prefers-color-scheme" target="_blank">`(prefers-color-scheme)` media query support</a>.
+    h2 Device Related Classes
+    p Device detecting library adds additional classes on `<html>` element which can help you with different CSS styles for different OS and platforms.
+    p In other words classes calculated by the following rule:
+    :code
+          device-[os]
+          device-desktop
+          device-macos - if desktop macOS device
+          device-windows - if desktop windows device
+          device-pixel-ratio-[pixel ratio]
+          device-cordova - if app running under cordova

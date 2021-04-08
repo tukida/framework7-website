@@ -1,21 +1,21 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Framework7 Custom Build | Framework7 Documentation';
+  - var title = 'ZaUI Custom Build | Zalo Mini Program Components';
 
 block content
 
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
-    h1 Framework7 Custom Build
+
+    h1 ZaUI Custom Build
     ul.docs-index
     h2 Custom Build
-    p Framework7 comes with Gulp builder that allows to build custom library version where you may include only required components/modules. We need the following:
+    p ZaUI comes with Gulp builder that allows to build custom library version where you may include only required components/modules. We need the following:
     ol
       li
-        p Download and unzip <a href="https://github.com/framework7io/framework7" target="_blank">Framework7 GitHub repository</a> to local folder
+        p Download and unzip <a href="https://github.com/zmpio/zmp" target="_blank">ZaUI GitHub repository</a> to local folder
       li
         p Install <a href="http://nodejs.org/" target="_blank">Node.js</a> (if not installed)
       li
@@ -23,7 +23,7 @@ block content
         :code
           $ npm install --global gulp
       li
-        p Now, we need to install required dependencies. Go to the folder with downloaded and unzipped Framework7 repository and execute in terminal:
+        p Now, we need to install required dependencies. Go to the folder with downloaded and unzipped ZaUI repository and execute in terminal:
         :code
           $ npm install
       li Copy `scripts/build-config.js` file to some place in the downloaded folder and rename it let's say to `scripts/my-config.js`
@@ -188,28 +188,28 @@ block content
               module.exports = config;
 
       li
-        p Now, we are ready to build custom version of Framework7. We need to execute:
+        p Now, we are ready to build custom version of ZaUI. We need to execute:
         :code
           $ npm run build-core:prod -- --config scripts/my-config.js --output path/to/output/folder
       li
         p That is all. Now you should see newly generated js and css files in specified output folder
 
     h2 ES Modules
-    p If you use bundler like Webpack or Rollup you can use only required Framework7 JS components without that build process and by importing only required components:
+    p If you use bundler like Webpack or Rollup you can use only required ZaUI JS components without that build process and by importing only required components:
     :code(lang="js")
           // Import core framework
-          import Framework7 from 'framework7';
+          import ZaUI from 'zmp';
 
           // Import additional components
-          import Searchbar from 'framework7/components/searchbar';
-          import Calendar from 'framework7/components/calendar';
-          import Popup from 'framework7/components/popup';
+          import Searchbar from 'zmp/components/searchbar';
+          import Calendar from 'zmp/components/calendar';
+          import Popup from 'zmp/components/popup';
 
-          // Install F7 Components using .use() method on Framework7 class:
-          Framework7.use([Searchbar, Calendar, Popup]);
+          // Install F7 Components using .use() method on ZaUI class:
+          ZaUI.use([Searchbar, Calendar, Popup]);
 
           // Init app
-          var app = new Framework7({/*...*/});
+          var app = new ZMP({/*...*/});
     p The following components are available for importing (all other components are part of the core):
     table
       thead
@@ -220,186 +220,186 @@ block content
       tbody
         tr
           td Appbar
-          td `framework7/components/appbar`
+          td `zmp/components/appbar`
         tr
           td Dialog
-          td `framework7/components/dialog`
+          td `zmp/components/dialog`
         tr
           td Popup
-          td `framework7/components/popup`
+          td `zmp/components/popup`
         tr
           td LoginScreen
-          td `framework7/components/login-screen`
+          td `zmp/components/login-screen`
         tr
           td Popover
-          td `framework7/components/popover`
+          td `zmp/components/popover`
         tr
           td Actions
-          td `framework7/components/actions`
+          td `zmp/components/actions`
         tr
           td Sheet
-          td `framework7/components/sheet`
+          td `zmp/components/sheet`
         tr
           td Toast
-          td `framework7/components/toast`
+          td `zmp/components/toast`
         tr
           td Preloader
-          td `framework7/components/preloader`
+          td `zmp/components/preloader`
         tr
           td Progressbar
-          td `framework7/components/progressbar`
+          td `zmp/components/progressbar`
         tr
           td Sortable
-          td `framework7/components/sortable`
+          td `zmp/components/sortable`
         tr
           td Swipeout
-          td `framework7/components/swipeout`
+          td `zmp/components/swipeout`
         tr
           td Accordion
-          td `framework7/components/accordion`
+          td `zmp/components/accordion`
         tr
           td ContactsList
-          td `framework7/components/contacts-list`
+          td `zmp/components/contacts-list`
         tr
           td VirtualList
-          td `framework7/components/virtual-list`
+          td `zmp/components/virtual-list`
         tr
           td ListIndex
-          td `framework7/components/list-index`
+          td `zmp/components/list-index`
         tr
           td Timeline
-          td `framework7/components/timeline`
+          td `zmp/components/timeline`
         tr
           td Tabs
-          td `framework7/components/tabs`
+          td `zmp/components/tabs`
         tr
           td Panel
-          td `framework7/components/panel`
+          td `zmp/components/panel`
         tr
           td Card
-          td `framework7/components/card`
+          td `zmp/components/card`
         tr
           td Chip
-          td `framework7/components/chip`
+          td `zmp/components/chip`
         tr
           td Form
-          td `framework7/components/form`
+          td `zmp/components/form`
         tr
           td Input
-          td `framework7/components/input`
+          td `zmp/components/input`
         tr
           td Checkbox
-          td `framework7/components/checkbox`
+          td `zmp/components/checkbox`
         tr
           td Radio
-          td `framework7/components/radio`
+          td `zmp/components/radio`
         tr
           td Toggle
-          td `framework7/components/toggle`
+          td `zmp/components/toggle`
         tr
           td Range
-          td `framework7/components/range`
+          td `zmp/components/range`
         tr
           td Stepper
-          td `framework7/components/stepper`
+          td `zmp/components/stepper`
         tr
           td SmartSelect
-          td `framework7/components/smart-select`
+          td `zmp/components/smart-select`
         tr
           td Grid
-          td `framework7/components/grid`
+          td `zmp/components/grid`
         tr
           td Calendar
-          td `framework7/components/calendar`
+          td `zmp/components/calendar`
         tr
           td Picker
-          td `framework7/components/picker`
+          td `zmp/components/picker`
         tr
           td InfiniteScroll
-          td `framework7/components/infinite-scroll`
+          td `zmp/components/infinite-scroll`
         tr
           td PullToRefresh
-          td `framework7/components/pull-to-refresh`
+          td `zmp/components/pull-to-refresh`
         tr
           td Lazy
-          td `framework7/components/lazy`
+          td `zmp/components/lazy`
         tr
           td DataTable
-          td `framework7/components/data-table`
+          td `zmp/components/data-table`
         tr
           td Fab
-          td `framework7/components/fab`
+          td `zmp/components/fab`
         tr
           td Searchbar
-          td `framework7/components/searchbar`
+          td `zmp/components/searchbar`
         tr
           td Messages
-          td `framework7/components/messages`
+          td `zmp/components/messages`
         tr
           td Messagebar
-          td `framework7/components/messagebar`
+          td `zmp/components/messagebar`
         tr
           td Swiper
-          td `framework7/components/swiper`
+          td `zmp/components/swiper`
         tr
           td PhotoBrowser
-          td `framework7/components/photo-browser`
+          td `zmp/components/photo-browser`
         tr
           td Notification
-          td `framework7/components/notification`
+          td `zmp/components/notification`
         tr
           td Autocomplete
-          td `framework7/components/autocomplete`
+          td `zmp/components/autocomplete`
         tr
           td Tooltip
-          td `framework7/components/tooltip`
+          td `zmp/components/tooltip`
         tr
           td Gauge
-          td `framework7/components/gauge`
+          td `zmp/components/gauge`
         tr
           td Skeleton
-          td `framework7/components/skeleton`
+          td `zmp/components/skeleton`
         tr
           td Menu
-          td `framework7/components/menu`
+          td `zmp/components/menu`
         tr
           td ColorPicker
-          td `framework7/components/color-picker`
+          td `zmp/components/color-picker`
         tr
           td Treeview
-          td `framework7/components/treeview`
+          td `zmp/components/treeview`
         tr
           td Text Editor
-          td `framework7/components/text-editor`
+          td `zmp/components/text-editor`
         tr
           td Pie Chart
-          td `framework7/components/pie-chart`
+          td `zmp/components/pie-chart`
         tr
           td Area Chart
-          td `framework7/components/area-chart`
+          td `zmp/components/area-chart`
         tr
           td Typography
-          td `framework7/components/typography`
+          td `zmp/components/typography`
     h2 Less.js
-    p Framework7 styles are built with <a href="http://lesscss.org/" target="_blank">Less.js</a>. If you use Less and NPM in your app/project then you can easily create custom Framework7 stylesheet with only components you need.
-    p Create your own `framework7.less` file:
+    p ZaUI styles are built with <a href="http://lesscss.org/" target="_blank">Less.js</a>. If you use Less and NPM in your app/project then you can easily create custom ZaUI stylesheet with only components you need.
+    p Create your own `zmp.less` file:
     :code(lang="less")
       // core
-      @import url('path/to/node_modules/framework7/framework7.less');
+      @import url('path/to/node_modules/zmp/zmp.less');
 
       // import only components you need
-      @import url('path/to/node_modules/framework7/components/searchbar/searchbar.less');
-      @import url('path/to/node_modules/framework7/components/calendar/calendar.less');
-      @import url('path/to/node_modules/framework7/components/popup/popup.less');
-    p We can go even further and specify Framework7's main color theme and required colors in custom `framework7.less` file:
+      @import url('path/to/node_modules/zmp/components/searchbar/searchbar.less');
+      @import url('path/to/node_modules/zmp/components/calendar/calendar.less');
+      @import url('path/to/node_modules/zmp/components/popup/popup.less');
+    p We can go even further and specify ZaUI's main color theme and required colors in custom `zmp.less` file:
     :code(lang="less")
       // core
-      @import url('path/to/node_modules/framework7/framework7.less');
+      @import url('path/to/node_modules/zmp/zmp.less');
 
       // import only components you need
-      @import url('path/to/node_modules/framework7/components/searchbar/searchbar.less');
-      @import url('path/to/node_modules/framework7/components/calendar/calendar.less');
-      @import url('path/to/node_modules/framework7/components/popup/popup.less');
+      @import url('path/to/node_modules/zmp/components/searchbar/searchbar.less');
+      @import url('path/to/node_modules/zmp/components/calendar/calendar.less');
+      @import url('path/to/node_modules/zmp/components/popup/popup.less');
 
       // include/exclude themes
       @includeIosTheme: true;

@@ -1,0 +1,48 @@
+extends ../_docs-template
+
+block vars
+  - var title = 'Chips/Tags | Framework7 Documentation';
+
+block content
+  include ../_docs-demo-device
+
+  .docs-nav
+    include ../_docs-menu
+  .docs-content
+    +improveDocsLink
+    h1 Chips
+    ul.docs-index
+    p Chips (Tags) represent complex entities in small blocks, such as a contact. They can contain a photo, short title string, and brief information.
+    h2 Chips Layout
+    p Let's look at basic chip HTML layout
+    :code(lang="html")
+          <div class="chip">
+            <div class="chip-media">
+              <img src="https://cdn.framework7.io/placeholder/people-100x100-9.jpg">
+            </div>
+            <div class="chip-label">Jane Doe</div>
+            <a href="#" class="chip-delete"></a>
+          </div>
+
+          <div class="chip chip-outline">
+            <div class="chip-label">Outline Chip</div>
+          </div>
+    p Where
+    ul
+      li
+        p `<div class="chip">` - Chip container
+        ul
+          li
+            p `<div class="chip-media">` - Chip "media" element, can contain image/avatar or icon. <em>Optional</em>
+          li
+            p `<div class="chip-label">` - Chip text label
+          li
+            p `<a class="chip-delete">` - Chip delete icon-link. <em>Optional</em>
+          li
+            p `chip-outline` - additional class that can be added to chip element to make it outline
+
+    +cssVars('chip')
+
+    .with-device
+      h2(data-device-preview="../docs-demos/core/chips.html") Examples
+      include:coreSource ../docs-demos/core/chips.f7.html

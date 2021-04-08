@@ -1,0 +1,41 @@
+extends ./_sdk-template
+
+block content
+  .docs-nav
+    include ./_sdk-menu
+  .docs-content
+    h1 #{api}
+    .important-note
+      p Start from version #{version}
+    ul.docs-index
+    p #{description}
+
+    if actionList && actionList.length > 0
+      h2 Permissions
+      p Cần được cấp các quyền sau:
+        ul
+          each val, index in actionList
+            li= val
+
+    h2 Parameters
+    h3 Object object
+    table.params-table
+      thead
+        tr
+          th Property
+          th Type
+          th Default
+          th Description
+          th Minimum Version
+      tbody
+        tr
+          td el
+          td string
+          td body
+          td App root element. If you main app layout is not a direct child of the `<body>` then it is required to specify root element here
+          td 1.0.0
+
+    h2 Return Values
+
+    h2 Sample Code
+    :code(lang="js")

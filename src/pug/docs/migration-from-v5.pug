@@ -1,36 +1,36 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Migration from Framework7 v5 | Framework7 Documentation';
+  - var title = 'Migration from ZaUI v5 | Zalo Mini Program Components';
 
 block content
 
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
-    h1 Migration from Framework7 v5
+
+    h1 Migration from ZaUI v5
     ul.docs-index
-    p In this article we will walk through most of the breaking changes to check what needs to be done to migrate your app from Framework7 v5 to Framework7 v6.
+    p In this article we will walk through most of the breaking changes to check what needs to be done to migrate your app from ZaUI v5 to ZaUI v6.
 
     h2 Package
     p Core version has <a href="package.html">new package structure</a>, and you may need to tweak your imports for `lite` and `bundle` versions:
     ul
-      li `framework7/framework7.esm.js` is now `framework7`
-      li `framework7/framework7.esm.bundle.js` is now `framework7/bundle`
-      li `framework7/framework7-lite.esm.js` is now `framework7/lite`
-      li `framework7/framework7-lite.esm.bundle.js` is now `framework7/lite-bundle`
+      li `zmp/zmp.esm.js` is now `zmp`
+      li `zmp/zmp.esm.bundle.js` is now `zmp/bundle`
+      li `zmp/zmp-lite.esm.js` is now `zmp/lite`
+      li `zmp/zmp-lite.esm.bundle.js` is now `zmp/lite-bundle`
     p So if you have something like this in v5:
     ```js
-      import Framework7 from 'framework7/framework7-lite.esm.bundle.js'
+      import ZaUI from 'zmp/zmp-lite.esm.bundle.js'
     ```
     p it should be changed to:
     ```js
-      import Framework7 from 'framework7/lite-bundle'
+      import ZaUI from 'zmp/lite-bundle'
     ```
 
     h2 Dom7
-    p Framework7 v6 uses new Dom7 v3. It has breaking changes for all "iteration" methods like `.each()` and `.map()`. Specifically, order of arguments has been swapped to match native JavaScript array iterators:
+    p ZaUI v6 uses new Dom7 v3. It has breaking changes for all "iteration" methods like `.each()` and `.map()`. Specifically, order of arguments has been swapped to match native JavaScript array iterators:
     ```js
       // in v5 (Dom7 v2)
       $('p').each((index, el) => {
@@ -44,7 +44,7 @@ block content
     ```
 
     h2 Template7
-    p Template7 template library has been completely removed from Framework7. If your app still needs it, just install it manually:
+    p Template7 template library has been completely removed from ZaUI. If your app still needs it, just install it manually:
     ```
       npm i template7
     ```
@@ -58,7 +58,7 @@ block content
     p Request library's import has been renamed from `Request` to `request`. Also now it uses Promises for all methods. Check updated <a href="request.html">Request documentation</a>.
     ```js
       // import renamed
-      import { request } from 'framework7/lite';
+      import { request } from 'zmp/lite';
 
       // not it always uses Promises
       request.get('some-url').then((res) => {
@@ -70,7 +70,7 @@ block content
     p Device & Support imports are also changed. Now only getters functions are available for imports.
     p In v5 we had:
     ```js
-      import { Device, Support } from 'framework7';
+      import { Device, Support } from 'zmp';
 
       if (Device.android) {
         console.log('it is Android');
@@ -82,7 +82,7 @@ block content
     ```
     p In v6 we should use different approach:
     ```js
-      import { getDevice, getSupport } from 'framework7';
+      import { getDevice, getSupport } from 'zmp';
 
       const device = getDevice();
       const support = getSupport();
@@ -100,10 +100,10 @@ block content
     p Utils import has been renamed from `Utils` to `utils`:
     ```js
       // in v5
-      import { Utils } from 'framework7';
+      import { Utils } from 'zmp';
 
       // in v6
-      import { utils } from 'framework7';
+      import { utils } from 'zmp';
     ```
 
     h2 View/Router
@@ -143,18 +143,18 @@ block content
 
     h2 App `data` & `methods`
     p App `data` and `methods` parameters for storing "global" app state are completely removed.
-    p Now Framework7 comes with new Store library for managing app state. Check <a href="store.html">new Store documentation</a> and how to use in Framework7 Vue.
+    p Now ZaUI comes with new Store library for managing app state. Check <a href="store.html">new Store documentation</a> and how to use in ZaUI Vue.
 
     h2 App `root`
     p App `root` parameter (to pass app root element) renamed to `el`:
     ```js
       // in v5
-      const app = new Framework7({
+      const app = new ZMP({
         root: '#app'
       })
 
       // in v6
-      const app = new Framework7({
+      const app = new ZMP({
         el: '#app'
       })
     ```
@@ -171,7 +171,7 @@ block content
     p Skeleton Elements now also integrated as a standalone library. For the full API documentation and more examples check out the official <a href="https://skeleton-elements.dev/core/" target="_blank">Skeleton Elements for HTML & CSS documentation</a>.
 
     h2 New Router Component
-    p Framework7 v6 has completely new syntax and functionality for Router Component. So v5 version which used Template7 is not supported anymore, and you should migrate all components to <a href="router-component.html">new Router Component syntax</a>.
+    p ZaUI v6 has completely new syntax and functionality for Router Component. So v5 version which used Template7 is not supported anymore, and you should migrate all components to <a href="router-component.html">new Router Component syntax</a>.
     p For example in v5:
     ```html
       <template>

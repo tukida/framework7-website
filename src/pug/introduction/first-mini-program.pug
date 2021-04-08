@@ -1,0 +1,44 @@
+extends ../_introduction-template
+
+block vars
+  - var title = 'Mini Program Generation | Introduction';
+
+block content
+  .docs-nav
+    include ../_introduction-menu
+  .docs-content
+    h1 Ứng Dụng Đầu Tiên
+    ul.docs-index
+
+    h2 Tạo Ứng Dụng Mới
+    p Tạo thư mục chứa project
+    :code
+      mkdir mini-app && cd mini-app
+
+    p Chạy lện tạo mini program
+    :code
+      zmp create
+
+    p Bạn sẽ được yêu cầu login với các thông tin sau:
+    img(src="/i/introduction/introduction-registering-i5.png")
+    ul
+      li Zalo App ID: App ID lấy được ở bước <a target="blank" href="registering-mini-program.html">Đăng Ký Mini Program</a>
+      li Zalo Access Token: Truy cập <a target="blank" href="https://developers.zalo.me/">Zalo for Developer</a> và đăng nhập với tài khoản Zalo. Chọn Công cụ -> API Explorer -> Chọn ứng dụng tương ứng với App ID -> Lấy User Access Token -> Lấy mã
+      img(src="/i/introduction/introduction-registering-i6.png")
+
+    p Sau khi login thành công bạn cần điền các thông tin để tiến hành tạo mini program
+    img(src="/i/introduction/introduction-registering-i7.png" width="60%")
+
+    h2 Kiểm thử ứng dụng ở môi trường phát triển
+    p Chạy lệnh sau ở ứng dụng vừa tạo
+    :code
+      zmp start
+
+    h2 Deploy ứng dụng lên hệ thống Zalo Mini Program
+    p Để có thể chạy ứng dụng trên Zalo chúng ta chạy lện sau
+    :code
+      zmp deploy
+    p Sau khi deploy thành công chúng ta dùng Zalo để quét mã QR truy cập ứng dụng.
+
+    p Khám phá <a target="blank" href="/docs">Tài liệu về Zalo Mini Program </a> để biết thêm về cách thiết kế UI và sử dụng các API được cung cấp.
+

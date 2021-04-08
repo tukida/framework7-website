@@ -1,16 +1,16 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Tap Hold Event | Framework7 Documentation';
+  - var title = 'Tap Hold Event | Zalo Mini Program Components';
 
 block content
 
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Tap Hold Event (Long Tap)
-    p Framework7 has so called "tap hold" event. It triggers (if enabled) after a sustained, complete touch event. By default it is disabled and could be enabled and configured using `touch.tapHold...` <a href="app.html#app-parameters">App parameters</a> on app initialization.
+    p ZaUI has so called "tap hold" event. It triggers (if enabled) after a sustained, complete touch event. By default it is disabled and could be enabled and configured using `touch.tapHold...` <a href="app.html#app-parameters">App parameters</a> on app initialization.
 
     p Also note, that you probably will need to disable mobile browser default "long-tap" actions by adding these CSS rules to elements:
     :code(lang="css")
@@ -20,7 +20,7 @@ block content
 
     p For example:
     :code(lang="js")
-          var app = new Framework7({
+          var app = new ZMP({
             touch: {
               tapHold: true //enable tap hold events
             },

@@ -1,0 +1,510 @@
+extends ../_docs-template
+
+block vars
+  - var title = 'Picker | Framework7 Documentation';
+
+block content
+  include ../_docs-demo-device
+
+  .docs-nav
+    include ../_docs-menu
+  .docs-content
+    +improveDocsLink
+    h1 Picker
+    ul.docs-index
+    p Picker is a powerful component that allows you to create custom overlay pickers which looks like iOS native picker.
+    p Picker could be used as inline component or as overlay. Overlay Picker will be automatically converted to Popover on tablets (iPad).
+    h2 Picker App Methods
+    p Let's look at related App methods to work with Picker:
+    .method-wrap
+      p
+        span.method app.picker.create(<span>parameters</span>)
+        | - create Picker instance
+      ul.method-parameters
+        li
+          span.parameter parameters
+          |  - <span class="parameter-type">object</span>. Object with picker parameters
+      p.method-returns Method returns created Picker's instance
+
+    .method-wrap
+      p
+        span.method app.picker.destroy(<span>el</span>)
+        | - destroy Picker instance
+      ul.method-parameters
+        li
+          span.parameter el
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector) or <span class="parameter-type">object</span>. Picker element or Picker instance to destroy.
+    .method-wrap
+      p
+        span.method app.picker.get(<span>el</span>)
+        | - get Picker instance by HTML element
+      ul.method-parameters
+        li
+          span.parameter el
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector). Picker element.
+      p.method-returns Method returns Picker's instance
+    .method-wrap
+      p
+        span.method app.picker.close(<span>el</span>)
+        | - close Picker
+      ul.method-parameters
+        li
+          span.parameter el
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector). Picker element to close.
+      p.method-returns Method returns Picker's instance
+    p For example:
+    :code(lang="js")
+          var picker = app.picker.create({
+            inputEl: '#picker-input',
+            cols: [
+               {
+                 values: ['apple', 'orange', 'banana'],
+                 displayValues: ['Apple', 'Orange', 'Banana'],
+               }
+             ]
+          });
+    h2 Picker Parameters
+    p Let's look on list of all available Picker parameters:
+    table.params-table
+      thead
+        tr
+          th Parameter
+          th Type
+          th Default
+          th Description
+      tbody
+        tr
+          td rotateEffect
+          td boolean
+          td false
+          td Enables 3D rotate effect
+        tr
+          td momentumRatio
+          td number
+          td 7
+          td Larger values produces more momentum when you release picker after fast touch and move
+        tr
+          td mousewheel
+          td boolean
+          td true
+          td Enables ability to scroll through picker values with mousewheel
+        tr
+          td updateValuesOnMomentum
+          td boolean
+          td false
+          td Updates picker and input values during momentum
+        tr
+          td updateValuesOnTouchmove
+          td boolean
+          td true
+          td Updates picker and input values during touch move
+        tr
+          td updateValuesOnMousewheel
+          td boolean
+          td true
+          td Updates picker and input values during mousewheel scrolling
+        tr
+          td freeMode
+          td boolean
+          td false
+          td Disables snapping on values
+        tr
+          td value
+          td array
+          td
+          td Array with initial values. Each array item represents value of related column
+        tr
+          td formatValue
+          td function (values, displayValues)
+          td
+          td Function to format input value, should return new/formatted string value. <b>values</b> and <b>displayValues</b> are arrays where each item represents value/display value of related column
+        tr
+          td cols
+          td array
+          td
+          td Array with columns. Each array item represents object with column parameters
+        tr
+          th(colspan="4") Container/opener-specific parameters
+        tr
+          td containerEl
+          td string<br>HTMLElement
+          td
+          td String with CSS selector or HTMLElement where to place generated Picker HTML. <b>Use only for inline picker</b>
+        tr
+          td openIn
+          td string
+          td auto
+          td Can be `auto`, `popover` (to open picker in popover), `sheet` (to open in sheet modal). In case of `auto` will open in sheet modal on small screens and in popover on large screens.
+        tr
+          td backdrop
+          td boolean
+          td
+          td Enables backdrop for Picker container (Popover or Sheet) (dark semi transparent layer behind). By default it uses default value based on how it is opened (in Sheet or Popover).
+        tr
+          td sheetPush
+          td boolean
+          td false
+          td Enables Picker sheet to push view/s behind on open
+        tr
+          td sheetSwipeToClose
+          td boolean
+          td false
+          td Enables ability to close Picker sheet with swipe
+        tr
+          td inputEl
+          td string or HTMLElement
+          td
+          td String with CSS selector or HTMLElement with related input element
+        tr
+          td scrollToInput
+          td boolean
+          td true
+          td Scroll viewport (page-content) to input when picker opened
+        tr
+          td inputReadOnly
+          td boolean
+          td true
+          td Sets "readonly" attribute on specified input
+        tr
+          td cssClass
+          td string
+          td
+          td Additional CSS class name to be set on picker element
+        tr
+          td closeByOutsideClick
+          td boolean
+          td true
+          td If enabled, picker will be closed by clicking outside of picker or related input element
+        tr
+          td toolbar
+          td boolean
+          td true
+          td Enables picker toolbar
+        tr
+          td toolbarCloseText
+          td string
+          td Done
+          td Text for Done/Close toolbar button
+        tr
+          td routableModals
+          td boolean
+          td false
+          td Will add opened picker to router history which gives ability to close picker by going back in router history and set current route to the picker modal
+        tr
+          td url
+          td string
+          td select/
+          td Picker modal URL that will be set as a current route
+        tr
+          td view
+          td object
+          td
+          td View where to set routing when `routableModals` enabled. Defaults to parent view of `inputEl` or main view if not found parent view
+        tr
+          th(colspan="4") Render Functions
+        tr
+          td renderToolbar
+          td function
+          td
+          td Function to render toolbar. Must return toolbar HTML string
+        tr
+          td render
+          td function
+          td
+          td Function to render whole picker. Must return picker full HTML string
+        tr
+          th(colspan="4") Events
+        tr
+          td on
+          td object
+          td
+          td
+            p Object with events handlers. For example:
+            :code(lang="js")
+                  var picker = app.picker.create({
+                    ...
+                    on: {
+                      opened: function () {
+                        console.log('Picker opened')
+                      }
+                    }
+                  })
+    .important-note
+      p Note that all following parameters can be used in global app parameters under `picker` property to set defaults for all pickers. For example:
+      :code(lang="js")
+            var app = new Framework7({
+              picker: {
+                rotateEffect: true,
+                openIn: 'popover',
+              }
+            });
+    h3 Column Parameters
+    p When we configure Picker we need to pass `cols` parameter. It is an array where each item is an object with column parameters:
+    table.params-table
+      thead
+        tr
+          th Parameter
+          th Type
+          th Default
+          th Description
+      tbody
+        tr
+          td values
+          td array
+          td
+          td Array with string columns values
+        tr
+          td displayValues
+          td array
+          td
+          td Array with string columns values that will be displayed in Picker. If not specified, it will display values from <b>values</b> parameter
+        tr
+          td cssClass
+          td string
+          td
+          td Additional CSS class name to be set on column HTML container
+        tr
+          td textAlign
+          td string
+          td
+          td Text alignment of column values, could be "left", "center" or "right"
+        tr
+          td width
+          td number
+          td
+          td Column width in px. Useful if you need to fix column widths in picker with dependent columns. By default, calculated automatically
+        tr
+          td divider
+          td boolean
+          td false
+          td Defines column that should be used as a visual divider, that doesn't have any values
+        tr
+          td content
+          td string
+          td
+          td Should be specified for divider-column (`divider:true`) with content of the column
+        tr
+          td onChange
+          td function(picker, value, displayValue)
+          td
+          td Callback function that will be executed when picker value changed.
+    h2 Picker Methods & Properties
+    p After we initialize Picker we have its initialized instance in variable (like `picker` variable in examples above) with helpful methods and properties:
+    table.methods-table
+      tbody
+        tr
+          th(colspan="2") Properties
+        tr
+          td picker.app
+          td Link to global app instance
+        tr
+          td picker.containerEl
+          td Picker wrapping container HTML element (when inline picker is in use)
+        tr
+          td picker.$containerEl
+          td Dom7 instance with picker wrapping container HTML element (when inline picker is in use)
+        tr
+          td picker.el
+          td Picker HTML element
+        tr
+          td picker.$el
+          td Dom7 instance with picker HTML element
+        tr
+          td picker.inputEl
+          td Picker input HTML element (passed in `inputEl` parameter)
+        tr
+          td picker.$inputEl
+          td Dom7 instance with picker input HTML element (passed in `inputEl` parameter)
+        tr
+          td picker.value
+          td Array where each item represents current selected value for each column
+        tr
+          td picker.cols
+          td Array with specified Picker columns. Each column also has its own methods and properties (look below)
+        tr
+          td picker.opened
+          td `true` if Picker is currently opened
+        tr
+          td picker.inline
+          td `true` when inline picker is in use
+        tr
+          td picker.url
+          td Picker URL (that was passed in `url` parameter)
+        tr
+          td picker.view
+          td Picker View (that was passed in `view` parameter) or found parent view
+        tr
+          td picker.params
+          td Object with initialization parameters
+        tr
+          th(colspan="2") Methods
+        tr
+          td picker.setValue(<span>values</span>, <span>duration</span>)
+          td Set new picker value. `values` is array where each item represents value for each column. `duration` - transition duration in ms
+        tr
+          td picker.getValue()
+          td Returns current picker value
+        tr
+          td picker.open()
+          td Open Picker
+        tr
+          td picker.close()
+          td Close Picker
+        tr
+          td picker.destroy()
+          td Destroy Picker instance and remove all events
+        tr
+          td picker.on(<span>event</span>, <span>handler</span>)
+          td Add event handler
+        tr
+          td picker.once(<span>event</span>, <span>handler</span>)
+          td Add event handler that will be removed after it was fired
+        tr
+          td picker.off(<span>event</span>, <span>handler</span>)
+          td Remove event handler
+        tr
+          td picker.off(<span>event</span>)
+          td Remove all handlers for specified event
+        tr
+          td picker.emit(<span>event</span>, <span>...args</span>)
+          td Fire event on instance
+    h3 Column Methods & Properties
+    p Each column in `picker.cols` array also has its own useful methods and properties.
+    :code(lang="js")
+      //Get first column
+      var col = picker.cols[0];
+
+    table.methods-table
+      tbody
+        tr
+          th(colspan="2") Properties
+        tr
+          td col.el
+          td Column HTML element
+        tr
+          td col.$el
+          td Dom7 instance with column HTML container
+        tr
+          td col.items
+          td Dom7 instance with column items HTML elements
+        tr
+          td col.value
+          td Currently selected column value
+        tr
+          td col.displayValue
+          td Currently selected column display value
+        tr
+          td col.activeIndex
+          td Index number of currently selected/active item
+        tr
+          th(colspan="2") Methods
+        tr
+          td col.setValue(<span>value</span>, <span>duration</span>)
+          td Set new value for current column. `value` is a new value, `duration` - transition duration in ms
+        tr
+          td col.replaceValues(<span>values</span>, <span>displayValues</span>)
+          td Replace column values and displayValues with new ones
+    h2 Picker Events
+    p Picker will fire the following DOM events on picker element and events on app and picker instance:
+    h3 DOM Events
+    table.events-table
+      thead
+        tr
+          th Event
+          th Target
+          th Description
+      tbody
+        tr
+          td picker:open
+          td Picker Element<span>&lt;div class="picker"&gt;</span>
+          td Event will be triggered when Picker starts its opening animation
+        tr
+          td picker:opened
+          td Picker Element<span>&lt;div class="picker"&gt;</span>
+          td Event will be triggered after Picker completes its opening animation
+        tr
+          td picker:close
+          td Picker Element<span>&lt;div class="picker"&gt;</span>
+          td Event will be triggered when Picker starts its closing animation
+        tr
+          td picker:closed
+          td Picker Element<span>&lt;div class="picker"&gt;</span>
+          td Event will be triggered after Picker completes its closing animation
+    h3 App and Picker Instance Events
+    p Picker instance emits events on both self instance and app instance. App instance events has same names prefixed with `picker`.
+    table.events-table.double-events-table
+      thead
+        tr
+          th Event
+          th Target
+          th Arguments
+          th Description
+      tbody
+
+        tr
+          td change
+          td picker
+          td(rowspan="2")
+            span (picker, value, displayValue)
+          td(rowspan="2") Event will be triggered when picker value changes
+        tr
+          td pickerChange
+          td app
+
+        tr
+          td init
+          td picker
+          td(rowspan="2")
+            span (picker)
+          td(rowspan="2") Event will be triggered when picker initialized
+        tr
+          td pickerInit
+          td app
+
+
+        tr
+          td open
+          td picker
+          td(rowspan="2") <span>(picker)</span>
+          td(rowspan="2") Event will be triggered when Picker starts its opening animation. As an argument event handler receives picker instance
+        tr
+          td pickerOpen
+          td app
+        tr
+          td opened
+          td picker
+          td(rowspan="2") <span>(picker)</span>
+          td(rowspan="2") Event will be triggered after Picker completes its opening animation. As an argument event handler receives picker instance
+        tr
+          td pickerOpened
+          td app
+        tr
+          td close
+          td picker
+          td(rowspan="2") <span>(picker)</span>
+          td(rowspan="2") Event will be triggered when Picker starts its closing animation. As an argument event handler receives picker instance
+        tr
+          td pickerClose
+          td app
+        tr
+          td closed
+          td picker
+          td(rowspan="2") <span>(picker)</span>
+          td(rowspan="2") Event will be triggered after Picker completes its closing animation. As an argument event handler receives picker instance
+        tr
+          td pickerClosed
+          td app
+        tr
+          td beforeDestroy
+          td picker
+          td(rowspan="2") <span>(picker)</span>
+          td(rowspan="2") Event will be triggered right before Picker instance will be destroyed. As an argument event handler receives picker instance
+        tr
+          td pickerBeforeDestroy
+          td app
+
+    +cssVars('picker')
+
+    .with-device
+      h2(data-device-preview="../docs-demos/core/picker.html") Examples
+      include:coreSource ../docs-demos/core/picker.f7.html

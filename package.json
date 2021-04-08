@@ -60,6 +60,7 @@
     "gulp-less": "^4.0.1",
     "gulp-open": "^3.0.1",
     "gulp-pug": "^4.0.1",
+    "gulp-webserver": "^0.9.1",
     "jquery": "^3.5.1",
     "js-yaml": "^3.14.0",
     "jsdom": "^16.4.0",
@@ -85,6 +86,10 @@
     "framework7": "^6.0.12",
     "framework7-react": "^6.0.12",
     "framework7-svelte": "^6.0.12",
-    "framework7-vue": "^6.0.12"
+    "framework7-vue": "^6.0.12",
+    "zmp-core": "^1.4.1",
+    "zmp-react": "^1.4.1",
+    "zmp-svelte": "^1.4.1",
+    "zmp-vue": "^1.4.1"
   }
 }

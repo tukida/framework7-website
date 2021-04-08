@@ -1,0 +1,503 @@
+extends ../_docs-template
+
+block vars
+  - var title = 'Sheet Modal | Framework7 Documentation';
+
+block content
+  include ../_docs-demo-device
+
+  .docs-nav
+    include ../_docs-menu
+  .docs-content
+    +improveDocsLink
+    h1 Sheet Modal
+    ul.docs-index
+    p Sheet Modal is a special overlay type which is similar to Picker/Calendar's overlay. Such modal allows to create custom overlays with custom content
+    h2 Sheet Layout
+    p Sheet layout is pretty simple:
+    :code(lang="html")
+      <body>
+        ...
+        <!-- Sheet Modal Container -->
+        <div class="sheet-modal">
+          <!-- Sheet Modal Toolbar, optional -->
+          <div class="toolbar">
+            <div class="toolbar-inner">
+              <div class="left"></div>
+              <div class="right">
+                <a href="#" class="link sheet-close">Done</a>
+              </div>
+            </div>
+          </div>
+          <!-- Sheet Modal Inner -->
+          <div class="sheet-modal-inner">
+            <!-- Sheet Modal content -->
+            <div class="block">
+              <p>Integer mollis nulla id nibh elementum finibus...</p>
+            </div>
+          </div>
+        </div>
+
+      </body>
+    h2 Sheet Top Layout
+    p By default sheet modal opens from the bottom of the screen. It is also possible to open it from the top of the screen. In this case we need to add `sheet-modal-top` class to sheet element. It is also recommended to use bottom toolbar in this case:
+    :code(lang="html")
+      <!-- Additional "sheet-modal-top" class to open it from top -->
+      <div class="sheet-modal sheet-modal-top">
+        <!-- Bottom toolbar for top sheet -->
+        <div class="toolbar toolbar-bottom">
+          <div class="toolbar-inner">
+            <div class="left"></div>
+            <div class="right">
+              <a href="#" class="link sheet-close">Done</a>
+            </div>
+          </div>
+        </div>
+        <!-- Sheet Modal Inner -->
+        <div class="sheet-modal-inner">
+          <!-- Sheet Modal content -->
+          <div class="block">
+            <p>Integer mollis nulla id nibh elementum finibus...</p>
+          </div>
+        </div>
+      </div>
+    h2 Sheet App Methods
+    p Let's look at related App methods to work with Sheet:
+    .method-wrap
+      p
+        span.method app.sheet.create(<span>parameters</span>)
+        | - create Sheet instance
+      ul.method-parameters
+        li
+          span.parameter parameters
+          |  - <span class="parameter-type">object</span>. Object with sheet parameters
+      p.method-returns Method returns created Sheet's instance
+
+    .method-wrap
+      p
+        span.method app.sheet.destroy(<span>el</span>)
+        | - destroy Sheet instance
+      ul.method-parameters
+        li
+          span.parameter el
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector) or <span class="parameter-type">object</span>. Sheet element or Sheet instance to destroy.
+    .method-wrap
+      p
+        span.method app.sheet.get(<span>el</span>)
+        | - get Sheet instance by HTML element
+      ul.method-parameters
+        li
+          span.parameter el
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector). Sheet element.
+      p.method-returns Method returns Sheet's instance
+    .method-wrap
+      p
+        span.method app.sheet.open(<span>el</span>, <span>animate</span>)
+        | - opens Sheet
+      ul.method-parameters
+        li
+          span.parameter el
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector). Sheet element to open.
+        li
+          span.parameter animate
+          |  - <span class="parameter-type">boolean</span>. Open Sheet with animation.
+      p.method-returns Method returns Sheet's instance
+    .method-wrap
+      p
+        span.method app.sheet.close(<span>el</span>, <span>animate</span>)
+        | - closes Sheet
+      ul.method-parameters
+        li
+          span.parameter el
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector). Sheet element to close.
+        li
+          span.parameter animate
+          |  - <span class="parameter-type">boolean</span>. Close Sheet with animation.
+      p.method-returns Method returns Sheet's instance
+    .method-wrap
+      p
+        span.method app.sheet.stepOpen(<span>el</span>)
+        | - open/expand Sheet swipe step
+      ul.method-parameters
+        li
+          span.parameter el
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector). Sheet element to open swipe step.
+      p.method-returns Method returns Sheet's instance
+    .method-wrap
+      p
+        span.method app.sheet.stepClose(<span>el</span>)
+        | - close/collapse Sheet swipe step
+      ul.method-parameters
+        li
+          span.parameter el
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector). Sheet element to close swipe step.
+      p.method-returns Method returns Sheet's instance
+    .method-wrap
+      p
+        span.method app.sheet.stepToggle(<span>el</span>)
+        | - toggle (open or close) Sheet swipe step
+      ul.method-parameters
+        li
+          span.parameter el
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector). Sheet element to toggle swipe step.
+      p.method-returns Method returns Sheet's instance
+
+    h2 Sheet Parameters
+    p Now let's look at list of available parameters we need to create Sheet:
+    table.params-table
+      thead
+        tr
+          th Parameter
+          th Type
+          th Default
+          th Description
+      tbody
+        tr
+          td el
+          td HTMLElement
+          td
+          td Sheet element. Can be useful if you already have Sheet element in your HTML and want to create new instance using this element
+        tr
+          td content
+          td string
+          td
+          td Full Sheet HTML layout string. Can be useful if you want to create Sheet element dynamically
+        tr
+          td backdrop
+          td boolean
+          td
+          td Enables Sheet backdrop (dark semi transparent layer behind). By default it is `true` for MD and Aurora themes and `false` for iOS theme
+        tr
+          td backdropEl
+          td HTMLElement<br>string
+          td
+          td HTML element or string CSS selector of custom backdrop element
+        tr
+          td scrollToEl
+          td HTMLElement<br>string
+          td
+          td HTML element or string (with CSS selector) of element. If specified, then sheet will try to scroll page content to this element on open
+        tr
+          td closeByBackdropClick
+          td boolean
+          td true
+          td When enabled will be closed on backdrop click
+        tr
+          td closeByOutsideClick
+          td boolean
+          td false
+          td When enabled will be closed on when click outside of it
+        tr
+          td closeOnEscape
+          td boolean
+          td false
+          td When enabled will be closed on ESC keyboard key press
+        tr
+          td animate
+          td boolean
+          td true
+          td Whether the Sheet should be opened/closed with animation or not. Can be overwritten in `.open()` and `.close()` methods
+        tr
+          td swipeToClose
+          td boolean
+          td false
+          td Whether the Sheet can be closed with swipe gesture
+        tr
+          td swipeToStep
+          td boolean
+          td false
+          td When enabled it will be possible to split opened sheet into two states: partially opened and fully opened that can be controlled with swipe
+        tr
+          td swipeHandler
+          td HTMLElement<br>string
+          td
+          td If not passed, then whole Sheet can be swiped to close. You can pass here HTML element or string CSS selector of custom element that will be used as a swipe target. (`swipeToClose` or `swipeToStep` must be also enabled)
+        tr
+          td push
+          td boolean
+          td false
+          td When enabled it will push view behind on open. Works only when top safe area is in place. It can also be enabled by adding `sheet-modal-push` class to Sheet element.
+        tr
+          td on
+          td object
+          td
+          td
+            p Object with events handlers. For example:
+            :code(lang="js")
+              var sheet = app.sheet.create({
+                content: '<div class="sheet-modal">...</div>',
+                on: {
+                  opened: function () {
+                    console.log('Sheet opened')
+                  }
+                }
+              })
+    .important-note
+      p Note that all following parameters can be used in global app parameters under `sheet` property to set defaults for all sheets. For example:
+      :code(lang="js")
+            var app = new Framework7({
+              sheet: {
+                closeByBackdropClick: false,
+              }
+            });
+    p If you use auto-initialized sheet modals (e.g. you don't create them via `app.sheet.create`), it is possible to pass all available sheet parameters via `data-` attributes. For example:
+    ```html
+      <!-- Pass parameters as kebab-case data attributes -->
+      <div class="sheet-modal" data-close-on-escape="true" data-swipe-to-close="true">
+        ...
+      </div>
+    ```
+    h2 Sheet Methods & Properties
+    p So to create Sheet we have to call:
+    :code(lang="js")
+          var sheet = app.sheet.create({ /* parameters */ })
+    p After that we have its initialized instance (like `sheet` variable in example above) with useful methods and properties:
+    table.methods-table
+      tbody
+        tr
+          th(colspan="2") Properties
+        tr
+          td sheet.app
+          td Link to global app instance
+        tr
+          td sheet.el
+          td Sheet HTML element
+        tr
+          td sheet.$el
+          td Dom7 instance with sheet HTML element
+        tr
+          td sheet.backdropEl
+          td Backdrop HTML element
+        tr
+          td sheet.$backdropEl
+          td Dom7 instance with backdrop HTML element
+        tr
+          td sheet.params
+          td Sheet parameters
+        tr
+          td sheet.opened
+          td Boolean prop indicating whether sheet is opened or not
+        tr
+          th(colspan="2") Methods
+        tr
+          td sheet.open(<span>animate</span>)
+          td Open sheet. Where
+            ul.method-parameters
+              li
+                span.parameter animate
+                |  - <span class="parameter-type">boolean</span> (by default `true`) - defines whether it should be opened with animation
+        tr
+          td sheet.close(<span>animate</span>)
+          td Close sheet. Where
+            ul.method-parameters
+              li
+                span.parameter animate
+                |  - <span class="parameter-type">boolean</span> (by default `true`) - defines whether it should be closed with animation
+        tr
+          td sheet.stepOpen()
+          td Open/expand sheet swipe step
+        tr
+          td sheet.stepClose()
+          td Close/collapse sheet swipe step
+        tr
+          td sheet.stepToggle()
+          td Toggle (open or close) sheet swipe step
+        tr
+          td sheet.setSwipeSet()
+          td Update step position. Required to call after content of sheet modal has been modified manually when it is opened
+        tr
+          td sheet.destroy()
+          td Destroy sheet
+        tr
+          td sheet.on(<span>event</span>, <span>handler</span>)
+          td Add event handler
+        tr
+          td sheet.once(<span>event</span>, <span>handler</span>)
+          td Add event handler that will be removed after it was fired
+        tr
+          td sheet.off(<span>event</span>, <span>handler</span>)
+          td Remove event handler
+        tr
+          td sheet.off(<span>event</span>)
+          td Remove all handlers for specified event
+        tr
+          td sheet.emit(<span>event</span>, <span>...args</span>)
+          td Fire event on instance
+    h2 Control Sheet With Links
+    p It is possible to open and close required sheet (if you have them in DOM) using special classes and data attributes on links:
+    .important-note
+      ul
+        li
+          p To open sheet we need to add "<b>sheet-open</b>" class to any HTML element (prefered to link)
+        li
+          p To close sheet we need to add "<b>sheet-close</b>" class to any HTML element (prefered to link)
+        li
+          p If you have more than one sheet in DOM, you need to specify appropriate sheet via additional <b>data-sheet=".my-sheet"</b> attribute on this HTML element
+    p According to above note:
+    :code(lang="html")
+      <!-- In data-sheet attribute we specify CSS selector of sheet we need to open -->
+      <p><a href="#" data-sheet=".my-sheet" class="sheet-open">Open Sheet</a></p>
+
+      <!-- And somewhere in DOM -->
+      <div class="sheet-modal my-sheet">
+        <div class="sheet-modal-inner">
+          <!-- Link to close sheet -->
+          <a class="link sheet-close">Close</a>
+        </div>
+      </div>
+
+    h2 Swipe Step
+    p If you pass `swipeToStep` parameter, then sheet will be opened partially, and with swipe it can be further expanded. To make it work, we also need to define that first/initial step in sheet HTML, so Framework7 can know on how much Sheet should be opened.
+    p To make it work, we need to wrap initial Sheet content with `<div class="sheet-modal-swipe-step">` element, and set `height:auto` on that Sheet modal:
+    :code(lang="html")
+      <div class="sheet-modal" style="height: auto">
+        <div class="sheet-modal-inner">
+          <!-- initial sheet modal content -->
+          <div class="sheet-modal-swipe-step">
+            ...
+          </div>
+          <!-- rest of the content that will be opened with extra swipe -->
+          ...
+        </div>
+      </div>
+    p For top-positioned Sheet modal, this swipe step should be at the bottom:
+    :code(lang="html")
+      <div class="sheet-modal sheet-modal-top" style="height: auto">
+        <div class="sheet-modal-inner">
+          <!-- rest of the content that will be opened with extra swipe -->
+          ...
+          <!-- initial sheet modal content -->
+          <div class="sheet-modal-swipe-step">
+            ...
+          </div>
+        </div>
+      </div>
+
+
+    h2 Sheet Events
+    p Sheet will fire the following DOM events on sheet element and events on app and sheet instance:
+    h3 DOM Events
+    table.events-table
+      thead
+        tr
+          th Event
+          th Target
+          th Description
+      tbody
+        tr
+          td sheet:open
+          td Sheet Element<span>&lt;div class="sheet"&gt;</span>
+          td Event will be triggered when Sheet starts its opening animation
+        tr
+          td sheet:opened
+          td Sheet Element<span>&lt;div class="sheet"&gt;</span>
+          td Event will be triggered after Sheet completes its opening animation
+        tr
+          td sheet:close
+          td Sheet Element<span>&lt;div class="sheet"&gt;</span>
+          td Event will be triggered when Sheet starts its closing animation
+        tr
+          td sheet:closed
+          td Sheet Element<span>&lt;div class="sheet"&gt;</span>
+          td Event will be triggered after Sheet completes its closing animation
+        tr
+          td sheet:stepopen
+          td Sheet Element<span>&lt;div class="sheet"&gt;</span>
+          td Event will be triggered on Sheet swipe step open/expand
+        tr
+          td sheet:stepclose
+          td Sheet Element<span>&lt;div class="sheet"&gt;</span>
+          td Event will be triggered on Sheet swipe step close/collapse
+        tr
+          td sheet:stepprogress
+          td Sheet Element<span>&lt;div class="sheet"&gt;</span>
+          td Event will be triggered on Sheet swipe step between step opened and closed state. As `event.detail` it receives step open progress number (from `0` to `1`)
+    h3 App and Sheet Instance Events
+    p Sheet instance emits events on both self instance and app instance. App instance events has same names prefixed with `popup`.
+    table.events-table.double-events-table
+      thead
+        tr
+          th Event
+          th Arguments
+          th Target
+          th Description
+      tbody
+        tr
+          td open
+          td <span>sheet</span>
+          td sheet
+          td(rowspan="2") Event will be triggered when Sheet starts its opening animation. As an argument event handler receives sheet instance
+        tr
+          td sheetOpen
+          td <span>sheet</span>
+          td app
+        tr
+          td opened
+          td <span>sheet</span>
+          td sheet
+          td(rowspan="2") Event will be triggered after Sheet completes its opening animation. As an argument event handler receives sheet instance
+        tr
+          td sheetOpened
+          td <span>sheet</span>
+          td app
+        tr
+          td close
+          td <span>sheet</span>
+          td sheet
+          td(rowspan="2") Event will be triggered when Sheet starts its closing animation. As an argument event handler receives sheet instance
+        tr
+          td sheetClose
+          td <span>sheet</span>
+          td app
+        tr
+          td closed
+          td <span>sheet</span>
+          td sheet
+          td(rowspan="2") Event will be triggered after Sheet completes its closing animation. As an argument event handler receives sheet instance
+        tr
+          td sheetClosed
+          td <span>sheet</span>
+          td app
+        tr
+          td beforeDestroy
+          td <span>sheet</span>
+          td sheet
+          td(rowspan="2") Event will be triggered right before Sheet instance will be destroyed. As an argument event handler receives sheet instance
+        tr
+          td sheetBeforeDestroy
+          td <span>sheet</span>
+          td app
+
+        tr
+          td stepOpen
+          td <span>sheet</span>
+          td sheet
+          td(rowspan="2") Event will be triggered on Sheet swipe step open/expand
+        tr
+          td sheetStepOpen
+          td <span>sheet</span>
+          td app
+        tr
+          td stepClose
+          td <span>sheet</span>
+          td sheet
+          td(rowspan="2") Event will be triggered on Sheet swipe step close/collapse
+        tr
+          td sheetStepClose
+          td <span>sheet</span>
+          td app
+        tr
+          td stepProgress
+          td <span>sheet,progress</span>
+          td sheet
+          td(rowspan="2") Event will be triggered on Sheet swipe step between step opened and closed state. As `progress` it receives step open progress number (from `0` to `1`)
+        tr
+          td sheetStepProgress
+          td <span>sheet,progress</span>
+          td app
+
+    +cssVars('sheet')
+
+    .with-device
+      h2(data-device-preview="../docs-demos/core/sheet-modal.html") Examples
+      include:coreSource ../docs-demos/core/sheet-modal.f7.html

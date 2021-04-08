@@ -1,0 +1,133 @@
+extends ../_docs-template
+
+block vars
+  - var title = 'Swiper Slider | Framework7 Documentation';
+
+block content
+  include ../_docs-demo-device
+
+  .docs-nav
+    include ../_docs-menu
+  .docs-content
+    +improveDocsLink
+    h1 Swiper Slider
+    ul.docs-index
+    p Framework7 comes with powerful and most modern touch slider ever - <a href="https://swiperjs.com/">Swiper Slider</a> with super flexible configuration and lot, lot of features.
+    h2 Swiper Slider HTML Layout
+    p Swiper HTML layout is pretty simple:
+    :code(lang="html")
+          <!-- Slider container -->
+          <div class="swiper-container">
+              <!-- Slides wrapper -->
+              <div class="swiper-wrapper">
+                  <!-- Slides -->
+                  <div class="swiper-slide">Slide 1</div>
+                  <div class="swiper-slide">Slide 2</div>
+                  <div class="swiper-slide">Slide 3</div>
+                  ... other slides ...
+              </div>
+              <!-- Pagination, if required -->
+              <div class="swiper-pagination"></div>
+          </div>
+    p Where:
+    ul
+      li
+        p `swiper-container` - main slider container with slides and paginations. Required element
+        ul
+          li
+            p `swiper-wrapper` - additional wrapper for slides. Required element
+            ul
+              li
+                p `swiper-slide` - single slide element. Could contain any HTML inside
+          li
+            p `swiper-pagination` - container with pagination bullets. Note, that pagination bullets will be created automatically. Optional element
+
+    h2 Swiper App Methods
+    p Now, when we have Swiper' HTML, we need to initialize it. We need to use related App's method:
+    .method-wrap
+      p
+        span.method app.swiper.create(<span>swiperEl</span>, <span>parameters</span>)
+        span - initialize slider with options
+      ul.method-parameters
+        li
+          span.parameter swiperEl
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector) of swiper container HTML element. Required.
+        li
+          span.parameter parameters
+          |  - <span class="parameter-type">object</span> - object with Swiper parameters. Optional.
+
+        li.method-returns Method returns initialized Swiper instance
+    .method-wrap
+      p
+        span.method app.swiper.destroy(<span>swiperEl</span>)
+        span - destroy Swiper instance
+      ul.method-parameters
+        li
+          span.parameter swiperEl
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector) of swiper container HTML element. Required.
+    .method-wrap
+      p
+        span.method app.swiper.get(<span>swiperEl</span>)
+        span - get Swiper instance by HTML element
+      ul.method-parameters
+        li
+          span.parameter swiperEl
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector) of swiper container HTML element. Required.
+
+    p For example:
+    :code(lang="js")
+          var swiper = app.swiper.create('.swiper-container', {
+              speed: 400,
+              spaceBetween: 100
+          });
+    h2 Swiper API (Parameters, Methods And Properties)
+    p Сheck out <a href="https://swiperjs.com/api/#parameters" target="_blank">Swiper API Website</a> for the most relevant API parameters and methods.
+    .important-note
+      p Framework7's version of Swiper doesn't contain <b>History</b> and <b>Hash Navigation</b> modules
+    h2 Swiper Auto Initialization
+    p If you don't need to use Swiper API and your Swiper is inside of the page and <b>presented in DOM on moment of page initialization</b> then it can be auto initialized with just adding additional `swiper-init` class:
+    :code(lang="html")
+          <!-- swiper-init to initialize swiper automatically -->
+          <div class="swiper-container swiper-init">
+              <div class="swiper-wrapper">
+                  <div class="swiper-slide">Slide 1</div>
+                  <div class="swiper-slide">Slide 2</div>
+                  <div class="swiper-slide">Slide 3</div>
+                  ... other slides ...
+              </div>
+          </div>
+    p In this case if you need to access created Swiper instance you can use the `app.swiper.get` app method:
+    :code(lang="js")
+          var swiper = app.swiper.get('.swiper-container');
+
+          swiper.slideNext();
+    p But what about Swiper parameters. In this case we need to pass them in `data-` attributes.
+    .important-note
+      p Parameters that used in camelCase, for example `slidesPerView`, in data- attributes should be used as kebab-case as <b>data-slides-per-view</b>
+    :code(lang="html")
+          <!-- swiper properties in data- attributes -->
+          <div class="swiper-container swiper-init" data-speed="400" data-space-between="40">
+              <div class="swiper-wrapper">
+                  <div class="swiper-slide">Slide 1</div>
+                  <div class="swiper-slide">Slide 2</div>
+                  <div class="swiper-slide">Slide 3</div>
+                  ... other slides ...
+              </div>
+          </div>
+    p Or we can pass all Swiper parameters in <strong>valid JSON format</strong> in `data-swiper` attribute:
+    :code(lang="html")
+          <!-- swiper properties in JSON format in data-swiper attribute -->
+          <div class="swiper-container swiper-init" data-swiper='{"speed":"400", "spaceBetween":"40"}'>
+              <div class="swiper-wrapper">
+                  <div class="swiper-slide">Slide 1</div>
+                  <div class="swiper-slide">Slide 2</div>
+                  <div class="swiper-slide">Slide 3</div>
+                  ... other slides ...
+              </div>
+          </div>
+
+    +cssVars('swiper')
+
+    .with-device
+      h2(data-device-preview="../docs-demos/core/swiper.html") Examples
+      include:coreSource ../docs-demos/core/swiper.f7.html

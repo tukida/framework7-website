@@ -1,7 +1,7 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Toolbar / Tabbar | Framework7 Documentation';
+  - var title = 'Toolbar / Tabbar | Zalo Mini Program Components';
 
 block content
   include ../_docs-demo-device
@@ -9,7 +9,7 @@ block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Toolbar / Tabbar
     ul.docs-index
     p Toolbar is a fixed area at the top or bottom of the screen that contains navigation elements.
@@ -160,7 +160,7 @@ block content
           td Set to `false` and hidden Toolbar/Tabbar will not become visible when you scroll page to top everytime. They will become visible only at the most top scroll position, in the beginning of the page
     p For example:
     :code(lang="js")
-      var app = new Framework7({
+      var app = new ZMP({
         toolbar: {
           hideOnPageScroll: true,
         },
@@ -223,7 +223,7 @@ block content
       </div>
 
     h2 Control Toolbar/Tabbar With Page Classes
-    p Framework7 allows you to hide/show Toolbar/Tabbar on specific page or on specific page scroll by using additional classes.
+    p ZaUI allows you to hide/show Toolbar/Tabbar on specific page or on specific page scroll by using additional classes.
 
     p If you want to hide toolbar/tabbar on page scroll on some specific page use additional classes on this page's `<div class="page-content">` element:
     ul

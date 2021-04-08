@@ -1,0 +1,112 @@
+extends ../_docs-template
+
+block vars
+  - var title = 'Statusbar | Framework7 Documentation';
+
+block content
+  .docs-nav
+    include ../_docs-menu
+  .docs-content
+    +improveDocsLink
+    h1 Statusbar
+    ul.docs-index
+    p Framework7 comes with statusbar component (wrapper around <a href="https://github.com/apache/cordova-plugin-statusbar" target="_blank">cordova-plugin-statusbar</a>) that may help to customize app statusbar and its behavior.
+    p.important-note This functionality is only available when app is running under cordova/phonegap environment with installed <a href="https://github.com/apache/cordova-plugin-statusbar" target="_blank">cordova-plugin-statusbar</a>
+
+    h2 Statusbar App Parameters
+    p It is possible to control some default statusbar behavior by passing statusbar related parameters on app init under `statusbar` property:
+    :code(lang="js")
+          var app = new Framework7({
+            statusbar: {
+              iosOverlaysWebView: true,
+            },
+          });
+    p Now let's look at list of all available parameters
+    table.params-table
+      thead
+        tr
+          th Parameter
+          th Type
+          th Default
+          th Description
+      tbody
+        tr
+          td enabled
+          td boolean
+          td true
+          td Enables statusbar handling by Framework7. Disable it if you don't want Framework7 to handle statusbar behavior
+        tr
+          td iosBackgroundColor
+          td string
+          td
+          td Hex string (`#RRGGBB`) with background color when app running on iOS device. If passed then it will override CSS value
+        tr
+          td androidBackgroundColor
+          td string
+          td
+          td Hex string (`#RRGGBB`) with background color when app running on Android device. If passed then it will override CSS value
+        tr
+          td scrollTopOnClick
+          td boolean
+          td true
+          td If enabled, then click on statusbar overlay will scroll top page content to the top.
+        tr
+          td iosOverlaysWebView
+          td boolean
+          td true
+          td
+            p Makes the statusbar overlay or not overlay the WebView when app is running on iOS device.
+        tr
+          td androidOverlaysWebView
+          td boolean
+          td true
+          td
+            p Makes the statusbar overlay or not overlay the WebView when app is running on Android device.
+        tr
+          td iosTextColor
+          td string
+          td black
+          td
+            p Statusbar text color when app is running on iOS device. Can be `white` or `black`
+        tr
+          td androidTextColor
+          td string
+          td black
+          td
+            p Statusbar text color when app is running on Android device. Can be `white` or `black`
+    h2 Statusbar App Methods
+    p After app initialization we can control statusbar by using statusbar related app methods:
+    table.methods-table
+      tr
+        td app.statusbar.hide()
+        td Hide statusbar
+      tr
+        td app.statusbar.show()
+        td Show statusbar
+      tr
+        td app.statusbar.overlaysWebView(<span>overlays</span>)
+        td Makes the statusbar overlay or not overlay the WebView
+          ul.method-parameters
+            li
+              span.parameter overlays
+              |  - <span class="parameter-type">boolean</span> - does it overlay or not
+
+      tr
+        td app.statusbar.setTextColor(<span>color</span>)
+        td Set/change statusbar text color.
+          ul.method-parameters
+            li
+              span.parameter color
+              |  - <span class="parameter-type">string</span> - text color, can be `white` or `black`
+      tr
+        td app.statusbar.setBackgroundColor(<span>hex</span>)
+        td Set/change statusbar background color
+          ul.method-parameters
+            li
+              span.parameter hex
+              |  - <span class="parameter-type">string</span> - Hex string (`#RRGGBB`) with background color
+      tr
+        td app.statusbar.isVisible()
+        td Returns `true` if system statusbar is visible and `false` when it is not visible
+
+    +cssVars('statusbar')

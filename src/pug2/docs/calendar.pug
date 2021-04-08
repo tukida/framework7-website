@@ -1,0 +1,800 @@
+extends ../_docs-template
+
+block vars
+  - var title = 'Calendar / Datepicker | Framework7 Documentation';
+
+block content
+  include ../_docs-demo-device
+
+  .docs-nav
+    include ../_docs-menu
+  .docs-content
+    +improveDocsLink
+    h1 Calendar / Datepicker
+    ul.docs-index
+    p Calendar is a touch optimized component that provides an easy way to handle dates.
+    p Calendar could be used as inline component or as overlay. Overlay Calendar will be automatically converted to Popover on tablets (iPad).
+    h2 Calendar App Methods
+    p Let's look at related App methods to work with Calendar:
+    .method-wrap
+      p
+        span.method app.calendar.create(<span>parameters</span>)
+        | - create Calendar instance
+      ul.method-parameters
+        li
+          span.parameter parameters
+          |  - <span class="parameter-type">object</span>. Object with calendar parameters
+      p.method-returns Method returns created Calendar's instance
+
+    .method-wrap
+      p
+        span.method app.calendar.destroy(<span>el</span>)
+        | - destroy Calendar instance
+      ul.method-parameters
+        li
+          span.parameter el
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector) or <span class="parameter-type">object</span>. Calendar element or Calendar instance to destroy.
+    .method-wrap
+      p
+        span.method app.calendar.get(<span>el</span>)
+        | - get Calendar instance by HTML element
+      ul.method-parameters
+        li
+          span.parameter el
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector). Calendar element.
+      p.method-returns Method returns Calendar's instance
+    .method-wrap
+      p
+        span.method app.calendar.close(<span>el</span>)
+        | - close Calendar
+      ul.method-parameters
+        li
+          span.parameter el
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector). Calendar element to close.
+      p.method-returns Method returns Calendar's instance
+    p For example:
+    :code(lang="js")
+          var calendar = app.calendar.create({
+              inputEl: '#calendar-input'
+          });
+    h2 Calendar Parameters
+    p Let's look on list of all available Calendar parameters:
+    table.params-table
+      thead
+        tr
+          th Parameter
+          th Type
+          th Default
+          th Description
+      tbody
+        tr
+          td locale
+          td string
+          td
+          td
+            p Calendar locale. Should be a correct locale accepted by <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat#Parameters">`Intl.DateTimeFormat`</a>. If not specified (by default), it will use browser locale.
+            p For example `en-US`, `ru`, `en`, `en-US-u-ca-buddhist`, etc.
+        tr
+          td value
+          td array
+          td
+          td Array with initial selected dates. Each array item represents selected date
+        tr
+          td disabled
+          td Date Range
+          td
+          td Additonal disabled dates. Parameter accepts so called <b>Date Range</b> (look below for details)
+        tr
+          td events
+          td Date Range
+          td
+          td
+            p Dates with events. Will be marked with additonal "dot" on calendar day. Parameter accepts so called <b>Date Range</b> (look below for details).
+            p If you want to indicate that day has few different events, it is possible to indicate this with multiple different color dots. In this case, you need to pass date range as array where each object will have `date` and `color` properties, e.g.
+            :code(lang="js")
+                  [
+                    {
+                      date: new Date(2018, 4, 11),
+                      color: '#2196f3',
+                    },
+                    // same date but different color, one more dot will be added to this day
+                    {
+                      date: new Date(2018, 4, 11),
+                      color: '#4caf50',
+                    },
+                  ]
+        tr
+          td rangesClasses
+          td array
+          td
+          td Date ranges you want to add custom CSS class for additional styling. Look below for accepted format
+
+        tr
+          td formatValue
+          td function (values)
+          td
+          td Function to format input value, should return new/formatted string value. <b>values</b> is an array where each item represents selected date. Can be used instead of `dateFormat` parameter to specify custom formatting
+        tr
+          td monthNames
+          td array
+          td `auto`
+          td Array with full month names. If `auto` then it will display month names based on specified `locale` (or browser locale)
+        tr
+          td monthNamesShort
+          td array
+          td `auto`
+          td Array with short month names. If `auto` then it will display month names based on specified `locale` (or browser locale)
+        tr
+          td dayNames
+          td array
+          td `auto`
+          td Array with week day names.  If `auto` then it will display day names based on specified `locale` (or browser locale)
+        tr
+          td dayNamesShort
+          td array
+          td `auto`
+          td Array with week day short names.  If `auto` then it will day names based on specified `locale` (or browser locale)
+        tr
+          td firstDay
+          td number
+          td 1
+          td First day of the week. By default 1 - Monday
+        tr
+          td weekendDays
+          td array
+          td [0, 6]
+          td Array with index numeber of weekend days, by default it is Saturday and Sunday
+        tr
+          td dateFormat
+          td string<br>object
+          td undefined
+          td
+            p If undefined, it will use format based on `locale` (or browser locale).
+            p It can accept <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat#Parameters">`Intl.DateTimeFormat`.`options`</a>.
+            p For example `{ month: 'long', day: 'numeric' }`.
+            p Or you can pass string with special tokens, available expressions:
+            ul
+              li `yyyy` - 4 digits year
+              li `yy` - 2 digits year
+              li `mm` - 2 digits month number, from 01 to 12
+              li `m` - month number, from 1 to 12
+              li `MM` - full month name
+              li `M` - short month name
+              li `dd` - 2 digits day number, from 01 to 31
+              li `d` - day number, from 1 to 31
+              li `DD` - full week day name
+              li `D` - short week day name
+            p The following additional time expressions available when `timePicker` enabled:
+            ul
+              li `HH` - 24-hours format 2 digits hours (00 - 23)
+              li `H` - 24-hours format hours (0 - 23)
+              li `hh` - 12-hours format 2 digits hours (00 - 12)
+              li `h` - 12-hours format hours (0 - 12)
+              li `:mm` - 2 digits minutes (00 - 59)
+              li `:m` - minutes (0 - 59)
+              li `ss` - 2 digits seconds (00 - 59)
+              li `s` - seconds (0 - 59)
+              li `A` - uppercased post or ante meridiem (PM or AM)
+              li `a` - lowercased post or ante meridiem (pm or am)
+        tr
+          td multiple
+          td boolean
+          td false
+          td Enable to allows select multiple dates/values
+        tr
+          td rangePicker
+          td boolean
+          td false
+          td Enable to enable range picker. Not compatible with `multiple`
+        tr
+          td rangePickerMinDays
+          td number
+          td 1
+          td Minimum days that need to be selected when `rangePicker` enabled
+        tr
+          td rangePickerMaxDays
+          td number
+          td 0
+          td Maximum days allowed to be selected when `rangePicker` enabled. `0` means no maximum
+        tr
+          td direction
+          td string
+          td 'horizontal'
+          td Months layout direction, could be 'horizontal' or 'vertical'
+        tr
+          td minDate
+          td Date
+          td null
+          td Minimum allowed date
+        tr
+          td maxDate
+          td Date
+          td null
+          td Maximum allowed date
+        tr
+          td touchMove
+          td boolean
+          td true
+          td If enabled then calendar months slides follow finger during touch move
+        tr
+          td animate
+          td boolean
+          td true
+          td Enables transition between months
+        tr
+          td closeOnSelect
+          td boolean
+          td false
+          td Enable and calendar will be closed when user pick a date
+        tr
+          td weekHeader
+          td boolean
+          td true
+          td Enable week header with short name week days
+        tr
+          td monthSelector
+          td boolean
+          td true
+          td Enable month selector in toolbar
+        tr
+          td monthPicker
+          td boolean
+          td true
+          td Enables month picker to select a month when clicked on a month selector in toolbar
+        tr
+          td yearSelector
+          td boolean
+          td true
+          td Enable year picker in toolbar
+        tr
+          td yearPicker
+          td boolean
+          td true
+          td Enables year picker to select a year when clicked on a year selector in toolbar
+        tr
+          td yearPickerMin
+          td number
+          td
+          td Minimum available year for year picker, by default is today minus 100 years
+        tr
+          td yearPickerMax
+          td number
+          td
+          td Maximum available year for year picker, by default is today plus 100 years
+        tr
+          td timePicker
+          td boolean
+          td false
+          td Enables time picker.
+        tr
+          td timePickerFormat
+          td object
+          td {hour: 'numeric', minute: 'numeric'}
+          td
+            p Time format displayed in time selector. It accepts <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat#Parameters">`Intl.DateTimeFormat`.`options`</a>
+            p `AM/PM` format depends on selected specified `locale`, or on browser locale if not specified
+        tr
+          td timePickerPlaceholder
+          td string
+          td Select time
+          td Text to display in time selector placeholder.
+        tr
+          th(colspan="4") Container/opener-specific parameters
+        tr
+          td containerEl
+          td string<br>HTMLElement
+          td
+          td String with CSS selector or HTMLElement where to place generated Calendar HTML. <b>Use only for inline calendar</b>
+        tr
+          td openIn
+          td string
+          td auto
+          td Can be `auto`, `popover` (to open calendar in popover), `sheet` (to open in sheet modal) or `customModal` (to open in custom Calendar modal overlay). In case of `auto` will open in sheet modal on small screens and in popover on large screens.
+        tr
+          td sheetPush
+          td boolean
+          td false
+          td Enables Calendar sheet to push view/s behind on open
+        tr
+          td sheetSwipeToClose
+          td boolean
+          td undefined
+          td Enables ability to close Calendar sheet with swipe. When not specified it inherits app's Sheet `swipeToClose` parameter
+        tr
+          td inputEl
+          td string or HTMLElement
+          td
+          td String with CSS selector or HTMLElement with related input element
+        tr
+          td scrollToInput
+          td boolean
+          td true
+          td Scroll viewport (page-content) to input when calendar opened
+        tr
+          td inputReadOnly
+          td boolean
+          td true
+          td Sets "readonly" attribute on specified input
+        tr
+          td cssClass
+          td string
+          td
+          td Additional CSS class name to be set on calendar element
+        tr
+          td closeByOutsideClick
+          td boolean
+          td true
+          td If enabled, picker will be closed by clicking outside of picker or related input element
+        tr
+          td toolbar
+          td boolean
+          td true
+          td Enables calendar toolbar
+        tr
+          td toolbarCloseText
+          td string
+          td Done
+          td Text for Done/Close toolbar button
+        tr
+          td header
+          td boolean
+          td false
+          td Enables calendar header
+        tr
+          td headerPlaceholder
+          td string
+          td Select date
+          td Default calendar header placeholder text
+        tr
+          td routableModals
+          td boolean
+          td false
+          td Will add opened calendar to router history which gives ability to close calendar by going back in router history and set current route to the calendar modal
+        tr
+          td url
+          td string
+          td date/
+          td Calendar modal URL that will be set as a current route
+        tr
+          td view
+          td object
+          td
+          td View where to set routing when `routableModals` enabled. Defaults to parent view of `inputEl` or main view if not found parent view
+        tr
+          td backdrop
+          td boolean
+          td
+          td Enables Calendar backdrop (dark semi transparent layer behind). By default only it is enabled when Calendar opened in Popover.
+        tr
+          td closeByBackdropClick
+          td boolean
+          td true
+          td When enabled, Calendar will be closed on backdrop click
+        tr
+          th(colspan="4") Render Functions
+        tr
+          td renderWeekHeader
+          td function
+          td
+          td Function to render week header. Must return week header HTML string
+        tr
+          td renderMonths
+          td function(date)
+          td
+          td Function to render months wrapper. Must return months container full HTML string
+        tr
+          td renderMonth
+          td function(date, offset)
+          td
+          td Function to render single month. Must return single month HTML string
+        tr
+          td renderMonthSelector
+          td function
+          td
+          td Function to render month selector. Must return month selector HTML string
+        tr
+          td renderYearSelector
+          td function
+          td
+          td Function to render year selector. Must return year selector HTML string
+        tr
+          td renderHeader
+          td function
+          td
+          td Function to render calendar header. Must return calendar header HTML string
+        tr
+          td renderToolbar
+          td function
+          td
+          td Function to render toolbar. Must return toolbar HTML string
+        tr
+          td render
+          td function
+          td
+          td Function to render whole calendar. Must return calendar full HTML string
+        tr
+          th(colspan="4") Events
+        tr
+          td on
+          td object
+          td
+          td
+            p Object with events handlers. For example:
+            :code(lang="js")
+                  var calendar = app.calendar.create({
+                    ...
+                    on: {
+                      opened: function () {
+                        console.log('Calendar opened')
+                      }
+                    }
+                  })
+    .important-note
+      p Note that all following parameters can be used in global app parameters under `calendar` property to set defaults for all calendars. For example:
+      :code(lang="js")
+            var app = new Framework7({
+              calendar: {
+                url: 'calendar/',
+                dateFormat: 'dd.mm.yyyy',
+              }
+            });
+    h3 Date Range
+    p Some of Calendar parameters (<b>disabled</b>, <b>events</b> and <b>rangesClasses</b>) accept so called <b>Date Range</b>. It is a simple way to specify and cover all possible dates combination.
+    p It can be array with dates, for example:
+    :code(lang="js")
+          var calendar = app.calendar.create({
+              ...
+              // Disabled 10th November 2015 and 11th November 2015:
+              disabled: [new Date(2015, 10, 10), new Date(2015, 10, 11)],
+              ...
+          });
+    p It can be custom function where you need to return <b>true</b> or <b>false</b>
+    :code(lang="js")
+          var calendar = app.calendar.create({
+              ...
+              //Disabled all dates in November 2015
+              disabled: function (date) {
+                  if (date.getFullYear() === 2015 && date.getMonth() === 10) {
+                      return true;
+                  }
+                  else {
+                      return false;
+                  }
+              },
+              ...
+          });
+    p Or object with <b>from</b> and <b>to</b> properties
+    :code(lang="js")
+          var calendar = app.calendar.create({
+              ...
+              //Disable all dates between 1st October 2015 and 31 December 2015
+              disabled: {
+                  from: new Date(2015, 9, 1),
+                  to: new Date(2015, 11, 31)
+              },
+              ...
+          });
+    p Or object with just <b>from</b> or <b>to</b> properties
+    :code(lang="js")
+          var calendar = app.calendar.create({
+              ...
+              //Disable everyting since December 2015
+              disabled: {
+                  from: new Date(2015, 11, 1)
+              },
+              ...
+          });
+    p Or object with `date` property:
+    :code(lang="js")
+          var calendar = app.calendar.create({
+              ...
+              // Disabled 1th December 2015
+              disabled: {
+                  date: new Date(2015, 11, 1)
+              },
+              ...
+          });
+    p Or array with mixed dates and objects:
+    :code(lang="js")
+          var calendar = app.calendar.create({
+              ...
+              events: [
+                  new Date(2015, 9, 1),
+                  new Date(2015, 9, 5),
+                  {
+                      from: new Date(2015, 9, 10),
+                      to: new Date(2015, 9, 15)
+                  },
+                  {
+                      from: new Date(2015, 9, 20),
+                      to: new Date(2015, 9, 31)
+                  },
+                  {
+                      date: new Date(2015, 11, 1),
+                      color: '#ff0000'
+                  },
+                  // same date but one more color dot will be added
+                  {
+                      date: new Date(2015, 11, 1),
+                      color: '#00ff00'
+                  },
+              ],
+              ...
+          });
+    h3 rangesClasses
+    p <b>rangesClasses</b> parameter accepts array of objects with Date Range and class names for this range:
+    :code(lang="js")
+          var calendar = app.calendar.create({
+              ...
+              //Add classes for november and october
+              rangesClasses: [
+                  //Add "day-october' class for all october dates
+                  {
+                      // string CSS class name for this range in "cssClass" property
+                      cssClass: 'day-october', //string CSS class
+                      // Date Range in "range" property
+                      range: function (date) {
+                          return date.getMonth() === 9
+                      }
+                  },
+                  //Add "day-holiday" class for 1-10th January 2016
+                  {
+                      cssClass: 'day-holiday',
+                      range: {
+                          from: new Date(2016, 0, 1),
+                          to: new Date(2016, 0, 10)
+                      }
+                  }
+              ],
+              ...
+          });
+    h2 Calendar Methods & Properties
+    p After we initialize Calendar we have its initialized instance in variable (like `calendar` variable in examples above) with helpful methods and properties:
+    table.methods-table
+      tbody
+        tr
+          th(colspan="2") Properties
+        tr
+          td calendar.app
+          td Link to global app instance
+        tr
+          td calendar.containerEl
+          td Calendar wrapping container HTML element (when inline calendar is in use)
+        tr
+          td calendar.$containerEl
+          td Dom7 instance with calendar wrapping container HTML element (when inline calendar is in use)
+        tr
+          td calendar.el
+          td Calendar HTML element
+        tr
+          td calendar.$el
+          td Dom7 instance with calendar HTML element
+        tr
+          td calendar.inputEl
+          td Calendar input HTML element (passed in `inputEl` parameter)
+        tr
+          td calendar.$inputEl
+          td Dom7 instance with calendar input HTML element (passed in `inputEl` parameter)
+        tr
+          td calendar.value
+          td Array where each item represents selected date
+        tr
+          td calendar.currentMonth
+          td Calendar view current month. Number, from `0` to `11`
+        tr
+          td calendar.currentYear
+          td Calendar view current year. Number, for example `2020`
+        tr
+          td calendar.opened
+          td `true` if Calendar is currently opened
+        tr
+          td calendar.inline
+          td `true` when inline calendar is in use
+        tr
+          td calendar.cols
+          td Array with specified Calendar columns. Each column also has its own methods and properties (look below)
+        tr
+          td calendar.url
+          td Calendar URL (that was passed in `url` parameter)
+        tr
+          td calendar.view
+          td Calendar View (that was passed in `view` parameter) or found parent view
+        tr
+          td calendar.params
+          td Object with initialization parameters
+        tr
+          td calendar.allowTouchMove
+          td Set this flag to `false` to prevent touch move interactions after initialization
+        tr
+          th(colspan="2") Methods
+        tr
+          td calendar.setValue(<span>values</span>)
+          td Set new selected dates. `values` is array where each item represents selected date
+        tr
+          td calendar.getValue()
+          td Returns current calendar value
+        tr
+          td calendar.addValue()
+          td Adds value to the values array. Useful in case if multiple selection is enabled (with `multiple: true` parameter)
+        tr
+          td calendar.update()
+          td Rerenders calendar. Useful in case you added/changed values dynamically and need to update calendar layout
+        tr
+          td calendar.nextMonth(<span>duration</span>)
+          td Calendar transition to next month for specified `duration` in ms
+        tr
+          td calendar.prevMonth(<span>duration</span>)
+          td Calendar transition to previous month for specified `duration` in ms
+        tr
+          td calendar.nextYear()
+          td Calendar transition to next year
+        tr
+          td calendar.prevYear()
+          td Calendar transition to previous year
+        tr
+          td calendar.setYearMonth(<span>year</span>, <span>month</span>, <span>duration</span>)
+          td Calendar transition to specified `year`, `month` for specified `duration` in ms
+        tr
+          td calendar.open()
+          td Open Calendar
+        tr
+          td calendar.close()
+          td Close Calendar
+        tr
+          td calendar.destroy()
+          td Destroy Calendar instance and remove all events
+        tr
+          td calendar.on(<span>event</span>, <span>handler</span>)
+          td Add event handler
+        tr
+          td calendar.once(<span>event</span>, <span>handler</span>)
+          td Add event handler that will be removed after it was fired
+        tr
+          td calendar.off(<span>event</span>, <span>handler</span>)
+          td Remove event handler
+        tr
+          td calendar.off(<span>event</span>)
+          td Remove all handlers for specified event
+        tr
+          td calendar.emit(<span>event</span>, <span>...args</span>)
+          td Fire event on instance
+    h2 Calendar Events
+    p Calendar will fire the following DOM events on calendar element and events on app and calendar instance:
+    h3 DOM Events
+    table.events-table
+      thead
+        tr
+          th Event
+          th Target
+          th Description
+      tbody
+        tr
+          td calendar:open
+          td Calendar Element<span>&lt;div class="calendar"&gt;</span>
+          td Event will be triggered when Calendar starts its opening animation
+        tr
+          td calendar:opened
+          td Calendar Element<span>&lt;div class="calendar"&gt;</span>
+          td Event will be triggered after Calendar completes its opening animation
+        tr
+          td calendar:close
+          td Calendar Element<span>&lt;div class="calendar"&gt;</span>
+          td Event will be triggered when Calendar starts its closing animation
+        tr
+          td calendar:closed
+          td Calendar Element<span>&lt;div class="calendar"&gt;</span>
+          td Event will be triggered after Calendar completes its closing animation
+    h3 App and Calendar Instance Events
+    p Calendar instance emits events on both self instance and app instance. App instance events has same names prefixed with `calendar`.
+    table.events-table.double-events-table
+      thead
+        tr
+          th Event
+          th Target
+          th Arguments
+          th Description
+      tbody
+        tr
+          td dayClick
+          td calendar
+          td(rowspan="2")
+            span (calendar, dayEl, year, month, day)
+          td(rowspan="2") Event will be triggered after click on calendar day element
+        tr
+          td calendarDayClick
+          td app
+
+        tr
+          td change
+          td calendar
+          td(rowspan="2")
+            span (calendar, value)
+          td(rowspan="2") Event will be triggered when calendar value changes
+        tr
+          td calendarChange
+          td app
+
+        tr
+          td monthAdd
+          td calendar
+          td(rowspan="2")
+            span (calendar, monthEl)
+          td(rowspan="2") Event will be triggered when new month HTML layout has been added. Useful if you need to postprocess added html elements
+        tr
+          td calendarMonthAdd
+          td app
+
+        tr
+          td monthYearChangeStart
+          td calendar
+          td(rowspan="2")
+            span (calendar, year, month)
+          td(rowspan="2") Event will be triggered in the begining of transition to next month
+        tr
+          td calendarMonthYearChangeStart
+          td app
+
+        tr
+          td monthYearChangeEnd
+          td calendar
+          td(rowspan="2")
+            span (calendar, year, month)
+          td(rowspan="2") Event will be triggered after transition to next month
+        tr
+          td calendarMonthYearChangeEnd
+          td app
+        tr
+          td init
+          td calendar
+          td(rowspan="2")
+            span (calendar)
+          td(rowspan="2") Event will be triggered when calendar initialized
+        tr
+          td calendarInit
+          td app
+        tr
+          td open
+          td calendar
+          td(rowspan="2") <span>(calendar)</span>
+          td(rowspan="2") Event will be triggered when Calendar starts its opening animation. As an argument event handler receives calendar instance
+        tr
+          td calendarOpen
+          td app
+        tr
+          td opened
+          td calendar
+          td(rowspan="2") <span>(calendar)</span>
+          td(rowspan="2") Event will be triggered after Calendar completes its opening animation. As an argument event handler receives calendar instance
+        tr
+          td calendarOpened
+          td app
+        tr
+          td close
+          td calendar
+          td(rowspan="2") <span>(calendar)</span>
+          td(rowspan="2") Event will be triggered when Calendar starts its closing animation. As an argument event handler receives calendar instance
+        tr
+          td calendarClose
+          td app
+        tr
+          td closed
+          td calendar
+          td(rowspan="2") <span>(calendar)</span>
+          td(rowspan="2") Event will be triggered after Calendar completes its closing animation. As an argument event handler receives calendar instance
+        tr
+          td calendarClosed
+          td app
+        tr
+          td beforeDestroy
+          td calendar
+          td(rowspan="2") <span>(calendar)</span>
+          td(rowspan="2") Event will be triggered right before Calendar instance will be destroyed. As an argument event handler receives calendar instance
+        tr
+          td calendarBeforeDestroy
+          td app
+
+    +cssVars('calendar')
+
+    .with-device
+      h2(data-device-preview="../docs-demos/core/calendar.html") Examples
+      include:coreSource ../docs-demos/core/calendar.f7.html

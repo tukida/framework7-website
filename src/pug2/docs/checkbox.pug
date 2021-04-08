@@ -1,0 +1,82 @@
+extends ../_docs-template
+
+block vars
+  - var title = 'Checkbox | Framework7 Documentation';
+
+block content
+  include ../_docs-demo-device
+
+  .docs-nav
+    include ../_docs-menu
+  .docs-content
+    +improveDocsLink
+    h1 Checkbox
+    ul.docs-index
+    h2 Checkbox Layout
+    p Checkbox layout is pretty simple:
+    :code(lang="html")
+          <!-- checkbox element -->
+          <label class="checkbox">
+            <!-- checkbox input -->
+            <input type="checkbox">
+            <!-- checkbox icon -->
+            <i class="icon-checkbox"></i>
+          </label>
+    h2 Checkbox Group/List
+    p To create Checkbox group/list we need to use <a href="list-view.html">List View</a> with few additions:
+    :code(lang="html")
+          <div class="list">
+            <ul>
+              <!-- Single checkbox item -->
+              <li>
+                <label class="item-checkbox item-content">
+                  <!-- Checkbox input -->
+                  <input type="checkbox"/>
+                  <!-- Checkbox icon -->
+                  <i class="icon icon-checkbox"></i>
+                  <div class="item-inner">
+                    <!-- Checkbox Title -->
+                    <div class="item-title">Books</div>
+                  </div>
+                </label>
+              </li>
+              <!-- Another checkbox item -->
+              <li>
+                <label class="item-checkbox item-content">
+                  <!-- Checked by default -->
+                  <input type="checkbox" checked/>
+                  <i class="icon icon-checkbox"></i>
+                  <div class="item-inner">
+                    <div class="item-title">Music</div>
+                  </div>
+                </label>
+              </li>
+              ...
+            </ul>
+          </div>
+    .important-note
+      ul
+        li `item-content` must be a `<label>` element with additional `item-checkbox` class
+        li Checkbox input (`<input type="checkbox">`) must be a first child of `item-content`
+        li Checkbox icon must be <b>after</b> checkbox input
+    h2 Indeterminate State
+    p Framework7 comes with visual support for indeterminate checkbox state.
+    p In HTML it is not possible to set this state with attribute, it can be set only via JavaScript:
+    :code(lang="html")
+      <input type="checkbox" id="my-checkbox">
+    :code(lang="js")
+      var checkboxEl = document.querySelector('#my-checkbox');
+      checkboxEl.indeterminate = true;
+    p Or with Dom7
+    :code(lang="js")
+      var $checkboxEl = $('#my-checkbox');
+      $checkboxEl.prop('indeterminate', true);
+    p But if you use it with <a href="./router-component.html">Router Component</a> then it will automatically detect this attribute and set it as element property, so it can be used in templates:
+    :code(lang="html")
+      <input type="checkbox" {{#if something}}indeterminate{{/if}} id="my-checkbox" />
+
+    +cssVars('checkbox')
+
+    .with-device
+      h2(data-device-preview="../docs-demos/core/checkbox.html") Examples
+      include:coreSource ../docs-demos/core/checkbox.f7.html

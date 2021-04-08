@@ -1,19 +1,19 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Routes | Framework7 Documentation';
+  - var title = 'Routes | Zalo Mini Program Components';
 
 block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Routes
     ul.docs-index
     h2 Define Routes
-    p First of all, when we init the Framework7 app we should pass default routes using `routes` array parameter:
+    p First of all, when we init the Zalo Mini Program we should pass default routes using `routes` array parameter:
     ```js
-      var app = new Framework7({
+      var app = new ZMP({
         routes: [
           {
             name: 'about',
@@ -169,7 +169,7 @@ block content
         tr
           td component
           td object
-          td Load page from passed Framework7 <a href="router-component.html">Router Component</a>
+          td Load page from passed ZaUI <a href="router-component.html">Router Component</a>
         tr
           td componentUrl
           td string
@@ -334,7 +334,7 @@ block content
     h2 Route Path
     p As stated above, the route's `path` property means the path/url that will be displayed in browser window address bar (if `browserHistory` enabled) when the following route will be loaded either by api or clicking on a link with same path.
     p There is also support for dynamic paths. So if you have the following path in your route `/blog/users/:userId/posts/:postId/` and click the link with the with the `/blog/users/12/posts/25` href then on loaded page we access `route.params` object containing `{ userId: 12, postId: 25 }`
-    p Route path matching is handled by <a href="https://github.com/pillarjs/path-to-regexp" target="_blank">Path To Regexp</a> library, so everything what is supported there is supported in Framework7 as well. For example, if you want to add default route which match all paths, we can use regular expression like:
+    p Route path matching is handled by <a href="https://github.com/pillarjs/path-to-regexp" target="_blank">Path To Regexp</a> library, so everything what is supported there is supported in ZaUI as well. For example, if you want to add default route which match all paths, we can use regular expression like:
     :code(lang="js")
           // Default route, match to all pages (e.g. 404 page)
           {
@@ -464,7 +464,7 @@ block content
     h2 Route Events
     p It is possible to add all page events inside of route for this page using `on` route property. For example:
     :code(lang="js")
-      var app = new Framework7({
+      var app = new ZMP({
         routes: [
           // ...
           {
@@ -726,7 +726,7 @@ block content
     h2 Routable Panels
     .important-note
       p
-       b Routable Panels available from Framework7 version 3.2.0.
+       b Routable Panels available from ZaUI version 3.2.0.
     p Panels (Side Panels) can also be routable with same features as for routable modals and pages:
     ul
       li it provides opportunity to open Panel by usual links instead of so called special links or API,
@@ -927,7 +927,7 @@ block content
     h2 Keep Alive
     .important-note
       p
-       b keepAlive routes available from Framework7 version 3.6.0.
+       b keepAlive routes available from ZaUI version 3.6.0.
     p When `keepAlive` enabled, then once router loads such page, the page and, if applicable, its component (Vue, React or Router component) will be never destroyed. Instead, it will be detached from DOM and reused again when required.
     p It can be useful to enable for "heavy" pages which are not too often updated. For example, page with map, or with heavy canvas or other computation. With usual logic, all those heavy computations will happen each time this page is visited. But with keepAlive it will be done once, and with all next visits, router will reuse already rendered page DOM element.
     p It also can be useful if you really need to preserve page state. With enabled keepAlive, the next time page will be loaded, all DOM modifications and form elements state will be preserved.

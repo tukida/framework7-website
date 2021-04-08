@@ -1,16 +1,16 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Framework7 Plugins API | Framework7 Documentation';
+  - var title = 'ZaUI Plugins API | Zalo Mini Program Components';
 
 block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
-    h1 Framework7 Plugins API
-    p Framework7 comes with simple plugins/extensions API that allows you to create your own Framework7 plugins and extensions.
-    p It is based on expandable Classes. Every JavaScript class (component) that is used in Framework7 is expandable.
+
+    h1 ZaUI Plugins API
+    p ZaUI comes with simple plugins/extensions API that allows you to create your own ZaUI plugins and extensions.
+    p It is based on expandable Classes. Every JavaScript class (component) that is used in ZaUI is expandable.
     h2 Plugin Structure
     p First of all let's look at the basic plugin's JS structure. It is basically an object:
     :code(lang="js")
@@ -79,15 +79,15 @@ block content
           };
 
     h2 Install Plugin
-    p After we have our plugin, we need to install it on required Class. To install plugin we must call `.use()` method on class. For example, if this is an common Framework7 plugin:
+    p After we have our plugin, we need to install it on required Class. To install plugin we must call `.use()` method on class. For example, if this is an common ZaUI plugin:
     :code(lang="js")
-          Framework7.use(myPlugin);
+          ZaUI.use(myPlugin);
     .important-note
-      p Plugin must be installed before class initialization (before calling `new Framework7()`)
+      p Plugin must be installed before class initialization (before calling `new ZMP()`)
     h2 Demo Plugin
     p Let's create simple Debug demo plugin. It will do nothing, just log some events:
     :code(lang="js")
-          /* framework7.debug.js */
+          /* zmp.debug.js */
 
           var debugEnabled = false;
 
@@ -139,18 +139,18 @@ block content
     :code(lang="html")
           <body>
               ...
-              <script src="path/to/framework7.js"></script>
-              <script src="path/to/framework7.debug.js"></script>
+              <script src="path/to/zmp.js"></script>
+              <script src="path/to/zmp.debug.js"></script>
               <script src="path/to/myapp.js"></script>
           </body>
     :code(lang="js")
           /* myapp.js */
 
           // install plugin first
-          Framework7.use(debugPlugin);
+          ZaUI.use(debugPlugin);
 
           // init app
-          var app = new Framework7({
+          var app = new ZMP({
             //enable debugger
             debugger: true,
           });

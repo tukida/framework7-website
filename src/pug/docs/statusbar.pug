@@ -1,22 +1,22 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Statusbar | Framework7 Documentation';
+  - var title = 'Statusbar | Zalo Mini Program Components';
 
 block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Statusbar
     ul.docs-index
-    p Framework7 comes with statusbar component (wrapper around <a href="https://github.com/apache/cordova-plugin-statusbar" target="_blank">cordova-plugin-statusbar</a>) that may help to customize app statusbar and its behavior.
+    p ZaUI comes with statusbar component (wrapper around <a href="https://github.com/apache/cordova-plugin-statusbar" target="_blank">cordova-plugin-statusbar</a>) that may help to customize app statusbar and its behavior.
     p.important-note This functionality is only available when app is running under cordova/phonegap environment with installed <a href="https://github.com/apache/cordova-plugin-statusbar" target="_blank">cordova-plugin-statusbar</a>
 
     h2 Statusbar App Parameters
     p It is possible to control some default statusbar behavior by passing statusbar related parameters on app init under `statusbar` property:
     :code(lang="js")
-          var app = new Framework7({
+          var app = new ZMP({
             statusbar: {
               iosOverlaysWebView: true,
             },
@@ -34,7 +34,7 @@ block content
           td enabled
           td boolean
           td true
-          td Enables statusbar handling by Framework7. Disable it if you don't want Framework7 to handle statusbar behavior
+          td Enables statusbar handling by ZaUI. Disable it if you don't want ZaUI to handle statusbar behavior
         tr
           td iosBackgroundColor
           td string

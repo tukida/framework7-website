@@ -1,7 +1,7 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Text Editor | Framework7 Documentation';
+  - var title = 'Text Editor | Zalo Mini Program Components';
 
 block content
   include ../_docs-demo-device
@@ -9,10 +9,10 @@ block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Text Editor
     ul.docs-index
-    p Framework7 comes with a touch-friendly Rich Text Editor component. It is based on modern "contenteditable" API so it should work everywhere as is.
+    p ZaUI comes with a touch-friendly Rich Text Editor component. It is based on modern "contenteditable" API so it should work everywhere as is.
     p It comes with the basic set of formatting features. But its functionality can be easily extended and customized to fit any requirements.
     h2 Text Editor Layout
     ```html
@@ -189,7 +189,7 @@ block content
     .important-note
       p Note that all following parameters can be used in global app parameters under `textEditor` property to set defaults for all text editors. For example:
       :code(lang="js")
-        var app = new Framework7({
+        var app = new ZMP({
           textEditor: {
             buttons: ['bold', 'italic'],
           }

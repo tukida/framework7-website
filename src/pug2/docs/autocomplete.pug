@@ -1,0 +1,475 @@
+extends ../_docs-template
+
+block vars
+  - var title = 'Autocomplete | Framework7 Documentation';
+
+block content
+  include ../_docs-demo-device
+
+  .docs-nav
+    include ../_docs-menu
+  .docs-content
+    +improveDocsLink
+    h1 Autocomplete
+    ul.docs-index
+    p Framework7 comes with mobile-friendly and touch optimized Autocomplete component.
+    p Autocomplete could be used in standalone mode or as a dropdown.
+    h2 Autocomplete App Methods
+    p Autocomplete can be created and initialized only using JavaScript. We need to use related App's method:
+    .method-wrap
+      p
+        span.method app.autocomplete.create(<span>parameters</span>)
+        | - create Autocomplete instance
+      ul.method-parameters
+        li
+          span.parameter parameters
+          |  - <span class="parameter-type">object</span>. Object with autocomplete parameters
+      p.method-returns Method returns created Autocomplete's instance
+
+    .method-wrap
+      p
+        span.method app.autocomplete.destroy(<span>el</span>)
+        | - destroy Autocomplete instance
+      ul.method-parameters
+        li
+          span.parameter el
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector) or <span class="parameter-type">object</span>. Autocomplete instance to destroy.
+    .method-wrap
+      p
+        span.method app.autocomplete.get(<span>el</span>)
+        | - get Autocomplete instance by HTML element
+      ul.method-parameters
+        li
+          span.parameter el
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector). Autocomplete element.
+      p.method-returns Method returns Autocomplete's instance
+    .method-wrap
+      p
+        span.method app.autocomplete.open(<span>el</span>)
+        | - open Autocomplete
+      ul.method-parameters
+        li
+          span.parameter el
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector). Autocomplete element to open.
+      p.method-returns Method returns Autocomplete's instance
+    .method-wrap
+      p
+        span.method app.autocomplete.close(<span>el</span>)
+        | - closes Autocomplete
+      ul.method-parameters
+        li
+          span.parameter el
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector). Autocomplete element to close.
+      p.method-returns Method returns Autocomplete's instance
+    p For example:
+    :code(lang="js")
+          var autocomplete = app.autocomplete.create({
+            inputEl: '#autocomplete-dropdown',
+            openIn: 'dropdown',
+            source: function (query, render) {
+              ...
+            }
+          });
+    h2 Autocomplete Parameters
+    p Let's look on list of all available parameters:
+    table.params-table
+      thead
+        tr
+          th Parameter
+          th Type
+          th Default
+          th Description
+      tbody
+        tr
+          td openIn
+          td string
+          td `page`
+          td Defines how to open Autocomplete, can be `page` or `popup` (for Standalone) or `dropdown`
+        tr
+          td source
+          td function (query, render)
+          td
+          td Function which accepts search `query` and `render` function where you need to pass array with matched items
+        tr
+          td limit
+          td number
+          td
+          td Limit number of maximum displayed items in autocomplete per query
+        tr
+          td preloader
+          td boolean
+          td false
+          td Set to `true` to include Preloader to autocomplete layout
+        tr
+          td preloaderColor
+          td string
+          td
+          td Preloader color, one of the <a href="color-themes.html">default colors</a>
+        tr
+          td value
+          td array
+          td
+          td Array with default selected values
+        tr
+          td valueProperty
+          td string
+          td id
+          td Name of matched item object's key that represents item value
+        tr
+          td textProperty
+          td string
+          td text
+          td Name of matched item object's key that represents item display value which is used as title of displayed options
+        tr
+          th(colspan="4") Standalone Autocomplete Parameters
+        tr
+          td requestSourceOnOpen
+          td boolean
+          td false
+          td If enabled, then it will request passed to `source` function on autocomplete open
+        tr
+          td openerEl
+          td string<br>HTMLElement
+          td
+          td String with CSS selector or HTMLElement of link which will open standalone autocomplete page or popup on click
+        tr
+          td popupCloseLinkText
+          td string
+          td Close
+          td Default text for "Close" button when opened as Popup
+        tr
+          td pageBackLinkText
+          td string
+          td Back
+          td Default text for "Back" link when opened as Page
+        tr
+          td pageTitle
+          td string
+          td
+          td Autocomplete page title. If nothing is specified and passed `openerEl` is an item of List View, then text value of `item-title` element will be used
+        tr
+          td popupPush
+          td boolean
+          td false
+          td Enables Autocomplete popup to push view/s behind on open
+        tr
+          td popupSwipeToClose
+          td boolean
+          td undefined
+          td Enables ability to close Autocomplete popup with swipe. When not specified it inherits app's Popup `swipeToClose` parameter
+        tr
+          td sheetPush
+          td boolean
+          td false
+          td Enables Autocomplete sheet to push view/s behind on open
+        tr
+          td sheetSwipeToClose
+          td boolean
+          td undefined
+          td Enables ability to close Autocomplete sheet with swipe. When not specified it inherits app's Sheet `swipeToClose` parameter
+        tr
+          td searchbarPlaceholder
+          td string
+          td Search...
+          td Searchbar placeholder text
+        tr
+          td searchbarDisableText
+          td string
+          td Cancel
+          td Searchbar "Cancel" button text
+        tr
+          td searchbarSpellcheck
+          td boolean
+          td false
+          td Sets value of `spellcheck` attribute on Searchbar's input element
+        tr
+          td notFoundText
+          td string
+          td Nothing found
+          td Text which is displayed when no matches found
+        tr
+          td multiple
+          td boolean
+          td false
+          td Set to `true` to allow multiple selections
+        tr
+          td closeOnSelect
+          td boolean
+          td false
+          td Set to `true` and autocomplete will be closed when user picks value. Not available if `multiple` is enabled
+        tr
+          td autoFocus
+          td boolean
+          td false
+          td Set to `true` to auto focus search field on autocomplete open
+        tr
+          td animate
+          td boolean
+          td true
+          td Set to `false` to open standalone autocomplete without animation
+        tr
+          td navbarColorTheme
+          td string
+          td
+          td Navbar color theme. One of the default <a href="color-themes.html">color themes</a>
+        tr
+          td formColorTheme
+          td string
+          td
+          td Form (checkboxes or radios) color theme. One of the default <a href="color-themes.html">color themes</a>
+        tr
+          td routableModals
+          td boolean
+          td false
+          td Will add opened autocomplete modal (when `openIn: 'popup'`) to router history which gives ability to close autocomplete by going back in router history and set current route to the autocomplete modal
+        tr
+          td url
+          td string
+          td select/
+          td Standalone autocomplete URL that will be set as a current route
+        tr
+          td view
+          td object
+          td
+          td Link to initialized View instance if you want use standalone Autocomplete. By default, if not specified, it will be opened in Main View.
+        tr
+          th(colspan="4") Dropdown Autocomplete Parameters
+        tr
+          td inputEl
+          td string<br>HTMLElement
+          td
+          td String with CSS selector or HTMLElement of related text input
+        tr
+          td inputEvents
+          td string
+          td input
+          td Allows to configure input events used to handle Autocomplete actions and source request. Can be changed for example to `change keyup compositionend` if you use keyboard with composition of Chinese characters
+        tr
+          td highlightMatches
+          td boolean
+          td true
+          td Highlight matches in autocomplete results
+        tr
+          td typeahead
+          td boolean
+          td false
+          td Enables type ahead, will prefill input value with first item in match
+        tr
+          td dropdownPlaceholderText
+          td string
+          td
+          td Specify dropdown placeholder text
+        tr
+          td updateInputValueOnSelect
+          td boolean
+          td true
+          td If `true` then value of related input will be update as well
+        tr
+          td expandInput
+          td boolean
+          td false
+          td If `true` then input which is used as <b>item-input</b> in List View will be expanded to full screen wide during dropdown visible.
+        tr
+          td dropdownContainerEl
+          td string<br>HTMLElement
+          td
+          td By default dropdown will be added to parent page-content element. You can specify here different element where to add dropdown element
+        tr
+          th(colspan="4") Render functions
+        tr
+          td renderDropdown
+          td function(items)
+          td
+          td Function to render autocomplete dropdown, must return dropdown HTML string
+        tr
+          td renderPage
+          td function(items)
+          td
+          td Function to render autocomplete page, must return page HTML string
+        tr
+          td renderPopup
+          td function(items)
+          td
+          td Function to render autocomplete popup, must return popup HTML string
+        tr
+          td renderItem
+          td function(item, index)
+          td
+          td Function to render single autocomplete, must return item HTML string
+        tr
+          td renderSearchbar
+          td function
+          td
+          td Function to render searchbar, must return searchbar HTML string
+        tr
+          td renderNavbar
+          td function
+          td
+          td Function to render navbar, must return navbar HTML string
+        tr
+          th(colspan="4") Events
+        tr
+          td on
+          td object
+          td
+          td
+            p Object with events handlers. For example:
+            :code(lang="js")
+                  var autocomplete = app.autocomplete.create({
+                    ...
+                    on: {
+                      opened: function () {
+                        console.log('Autocomplete opened')
+                      }
+                    }
+                  })
+    .important-note
+      p Note that all following parameters can be used in global app parameters under `autocomplete` property to set defaults for all autocompletes. For example:
+      :code(lang="js")
+            var app = new Framework7({
+              autocomplete: {
+                openIn: 'popup',
+                animate: false,
+              }
+            });
+    h2 Autocomplete Methods & Properties
+    p After we initialize Autocomplete we have its initialized instance in variable (like `autocomplete` variable in example above) with helpful methods and properties:
+    table.methods-table
+      tbody
+        tr
+          th(colspan="2") Properties
+        tr
+          td autocomplete.params
+          td Object with passed initialization parameters
+        tr
+          td autocomplete.value
+          td Array with selected items
+        tr
+          td autocomplete.opened
+          td <b>true</b> if Autocomplete is currently opened
+        tr
+          td autocomplete.openerEl
+          td HTML element of Autocomplete opener element (if passed on init)
+        tr
+          td autocomplete.$openerEl
+          td Dom7 instance of of Autocomplete opener element (if passed on init)
+        tr
+          td autocomplete.inputEl
+          td HTML element of Autocomplete input (if passed on init)
+        tr
+          td autocomplete.$inputEl
+          td Dom7 instance of of Autocomplete input (if passed on init)
+        tr
+          td autocomplete.$dropdownEl
+          td Dom7 instance of Autocomplete dropdown
+        tr
+          td autocomplete.url
+          td Autocomplete URL (that was passed in `url` parameter)
+        tr
+          td autocomplete.view
+          td Autocomplete View (that was passed in `view` parameter) or found parent view
+        tr
+          td autocomplete.el
+          td HTML element of Autocomplete container: dropdown element, or popup element, or page element. Available when Autocomplete opened
+        tr
+          td autocomplete.$el
+          td Dom7 instance of Autocomplete container: dropdown element, or popup element, or page element. Available when Autocomplete opened
+        tr
+          td autocomplete.searchbar
+          td Autocomplete page Searchbar instance
+        tr
+          th(colspan="2") Methods
+        tr
+          td autocomplete.open()
+          td Open Autocomplete (Dropdown, Page or Popup)
+        tr
+          td autocomplete.close()
+          td Close Autocomplete
+        tr
+          td autocomplete.preloaderShow()
+          td Show autocomplete preloader
+        tr
+          td autocomplete.preloaderHide()
+          td Hide autocomplete preloader
+        tr
+          td autocomplete.destroy()
+          td Destroy Autocomplete instance and remove all events
+        tr
+          td autocomplete.on(<span>event</span>, <span>handler</span>)
+          td Add event handler
+        tr
+          td autocomplete.once(<span>event</span>, <span>handler</span>)
+          td Add event handler that will be removed after it was fired
+        tr
+          td autocomplete.off(<span>event</span>, <span>handler</span>)
+          td Remove event handler
+        tr
+          td autocomplete.off(<span>event</span>)
+          td Remove all handlers for specified event
+        tr
+          td autocomplete.emit(<span>event</span>, <span>...args</span>)
+          td Fire event on instance
+    h2 Autocomplete Events
+    p Autocomplete instance emits events on both self instance and app instance. App instance events has same names prefixed with `autocomplete`.
+    table.events-table.double-events-table
+      thead
+        tr
+          th Event
+          th Target
+          th Arguments
+          th Description
+      tbody
+        tr
+          td change
+          td autocomplete
+          td(rowspan="2") <span>autocomplete, value</span>
+          td(rowspan="2") Event will be triggered when Autocomplete value changed. Returned `value` is an array with selected items
+        tr
+          td autocompleteChange
+          td app
+        tr
+          td open
+          td autocomplete
+          td(rowspan="2") <span>autocomplete</span>
+          td(rowspan="2") Event will be triggered when Autocomplete starts its opening animation. As an argument event handler receives autocomplete instance
+        tr
+          td autocompleteOpen
+          td app
+        tr
+          td opened
+          td autocomplete
+          td(rowspan="2") <span>autocomplete</span>
+          td(rowspan="2") Event will be triggered after Autocomplete completes its opening animation. As an argument event handler receives autocomplete instance
+        tr
+          td autocompleteOpened
+          td app
+        tr
+          td close
+          td autocomplete
+          td(rowspan="2") <span>autocomplete</span>
+          td(rowspan="2") Event will be triggered when Autocomplete starts its closing animation. As an argument event handler receives autocomplete instance
+        tr
+          td autocompleteClose
+          td app
+        tr
+          td closed
+          td autocomplete
+          td(rowspan="2") <span>autocomplete</span>
+          td(rowspan="2") Event will be triggered after Autocomplete completes its closing animation. As an argument event handler receives autocomplete instance
+        tr
+          td autocompleteClosed
+          td app
+        tr
+          td beforeDestroy
+          td autocomplete
+          td(rowspan="2") <span>autocomplete</span>
+          td(rowspan="2") Event will be triggered right before Autocomplete instance will be destroyed. As an argument event handler receives autocomplete instance
+        tr
+          td autocompleteBeforeDestroy
+          td app
+
+    +cssVars('autocomplete')
+
+    .with-device
+      h2(data-device-preview="../docs-demos/core/autocomplete.html") Examples
+      include:coreSource ../docs-demos/core/autocomplete.f7.html

@@ -1,7 +1,7 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Inputs / Form Inputs | Framework7 Documentation';
+  - var title = 'Inputs / Form Inputs | Zalo Mini Program Components';
 
 block content
   include ../_docs-demo-device
@@ -9,7 +9,7 @@ block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Inputs / Form Inputs
     ul.docs-index
     p Form inputs allow you to create flexible and beautiful Form layouts.
@@ -240,7 +240,7 @@ block content
     :code(lang="html")
           <textarea class="resizable"></textarea>
     h2 Validation
-    p Framework7 supports <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation" target="_blank">HTML5 validation</a> based on `validity` input property. With enabled validation, there will appear validation error messages in case of input has invalid value.
+    p ZaUI supports <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation" target="_blank">HTML5 validation</a> based on `validity` input property. With enabled validation, there will appear validation error messages in case of input has invalid value.
     p To enable validation we must add: `required` and `validate` attributes to the input element.
     p If we need input validation #[b only] on `blur` event, then we need to add `data-validate-on-blur="true"` attribute.
     p Value validation depends on input `type`. For example `input type="email"` will be validated to match email pattern, etc. It is default browser behavior. In case you want to add custom rule to validate input value, then it must be done using `pattern` input attribute:
@@ -307,7 +307,7 @@ block content
           td When enabled will scroll input into view no matter is it outside of view or not
     p For example:
     :code(lang="js")
-      var app = new Framework7({
+      var app = new ZMP({
         input: {
           scrollIntoViewOnFocus: true,
           scrollIntoViewCentered: true,

@@ -1,4 +1,5 @@
-@primaryColor: #EE350F;
+@primaryColor: #000000;
+@blackColor: #000000;
 @redColor: #EE350F;
 @pinkColor: #EE0F58;
 @brownColor: #80030C;
@@ -38,16 +39,16 @@
   color: #333;
   text-decoration: none;
   &:hover {
-    background: @redColor;
+    background: @blackColor;
     color: #fff;
   }
   &:active {
-    background: @redColor;
+    background: @blackColor;
     color: #fff;
   }
 }
 .solid-button() {
-  background: @redColor;
+  background: @blackColor;
   color: #fff;
   text-align: center;
   box-sizing: border-box;
@@ -61,12 +62,12 @@
   transition: 200ms;
   font-weight: bold;
   padding: 0 30px;
-  box-shadow: 0px 10px 20px rgba(red(@redColor), green(@redColor), blue(@redColor), 0.3);
+  box-shadow: 0px 10px 20px rgba(red(@blackColor), green(@blackColor), blue(@blackColor), 0.3);
   &:hover {
-    box-shadow: 0px 10px 20px rgba(red(@redColor), green(@redColor), blue(@redColor), 0.5);
+    box-shadow: 0px 10px 20px rgba(red(@blackColor), green(@blackColor), blue(@blackColor), 0.5);
   }
   &:active {
-    box-shadow: 0px 5px 10px rgba(red(@redColor), green(@redColor), blue(@redColor), 0.2);
+    box-shadow: 0px 5px 10px rgba(red(@blackColor), green(@blackColor), blue(@blackColor), 0.2);
   }
 }
 .clearfix() {

@@ -1,0 +1,206 @@
+extends ../_docs-template
+
+block vars
+  - var title = 'Button | Framework7 Documentation';
+
+block content
+  include ../_docs-demo-device
+
+  .docs-nav
+    include ../_docs-menu
+  .docs-content
+    +improveDocsLink
+    h1 Button
+    ul.docs-index
+    p Framework7 comes with a bunch of ready to use buttons. All you need to do is add the appropriate classes to your links or submit/button inputs:
+    h2 Button Layout
+    p Button layout is pretty simple. Just add `button` class to links or submit/button inputs:
+    :code(lang="html")
+          <!-- link as button -->
+          <a class="button">Button</a>
+
+          <!-- <button> as button -->
+          <button class="button">Button</button>
+
+          <!-- <input type="submit"> as button -->
+          <input type="submit" class="button" value="Button">
+    h2 Button Modifier Classes
+    p There is a variety of different buttons in Framework7. Different button styles achieved by additional modifier classes and their combinations:
+    table.props-table
+      tbody
+        tr
+          td button-fill
+          td Filled-style button
+        tr
+          td button-fill-ios
+          td Button will have filled-style only in iOS theme
+        tr
+          td button-fill-md
+          td Button will have filled-style only in MD theme
+        tr
+          td button-fill-aurora
+          td Button will have filled-style only in Aurora theme
+        tr
+          td button-round
+          td Rounded button
+        tr
+          td button-round-ios
+          td Button will be rounded only in iOS theme
+        tr
+          td button-round-md
+          td Button will be rounded only in MD theme
+        tr
+          td button-round-aurora
+          td Button will be rounded only in Aurora theme
+        tr
+          td button-small
+          td Small button
+        tr
+          td button-small-ios
+          td Button will be small only in iOS theme
+        tr
+          td button-small-md
+          td Button will be small only in MD theme
+        tr
+          td button-small-aurora
+          td Button will be small only in Aurora theme
+        tr
+          td button-large
+          td Large button
+        tr
+          td button-large-ios
+          td Button will be large only in iOS theme
+        tr
+          td button-large-md
+          td Button will be large only in MD theme
+        tr
+          td button-large-aurora
+          td Button will be large only in Aurora theme
+        tr
+          td button-raised
+          td Raised button
+        tr
+          td button-raised-ios
+          td Raised button in iOS theme only
+        tr
+          td button-raised-md
+          td Raised button in MD theme only
+        tr
+          td button-raised-aurora
+          td Raised button in Aurora theme only
+        tr
+          td button-outline
+          td Outline button
+        tr
+          td button-outline-ios
+          td Outline button in iOS theme only
+        tr
+          td button-outline-md
+          td Outline button in MD theme only
+        tr
+          td button-outline-aurora
+          td Outline button in Aurora theme only
+        tr
+          td button-active
+          td Active/selected button state. For use inside of Segmented
+        tr
+          td button-preloader
+          td Should be added to button with preloader to make loading buttons
+        tr
+          td button-loading
+          td Controls button state to show/hide preloader and hide/show button text (switch button to loading state). `button-preloader` should be also added to button
+        tr
+          td color-[color]
+          td Color button, where <b>[color]</b> is one of the <a href="color-themes.html">default colors</a>
+    p And of course we can mix these classes:
+    :code(lang="html")
+          <!-- rounded button -->
+          <a class="button button-round">Button</a>
+
+          <!-- rounded and filled button -->
+          <a class="button button-round button-fill">Button</a>
+
+          <!-- raised, round, fill, large button -->
+          <a class="button button-raised button-round button-fill button-large">Button</a>
+
+          <!-- small red button -->
+          <a class="button button-small color-red">Button</a>
+    h2 Preloader Button
+    p It is possible to create dynamic preloader button. Such button must have Preloader inside and button text wrapped with `<span>` tag, and additional `button-preloader` class:
+    ```html
+      <button class="button button-preloader">
+        <span class="preloader"></span>
+        <span>Load</span>
+      </button>
+    ```
+    p And to show preloader we need to add extra `button-loading` class (it will show inner preloader and hide button text):
+    ```html
+      <button class="button button-preloader button-loading">
+        <span class="preloader"></span>
+        <span>Load</span>
+      </button>
+    ```
+
+    h2 Segmented Control
+    p A segmented control is a linear set of two or more segments (buttons), each of which functions as a mutually exclusive button. Within the control, all buttons are equal in width. Segmented controls are often used to display different views (switch tabs).
+    h3 Segmented Layout
+    p Segmented control layout is pretty simple, just a `<div>` with a `segmented` class around buttons:
+    :code
+      <div class="segmented">
+        <a class="button button-active">Tab 1</a>
+        <a class="button">Tab 2</a>
+      </div>
+    p Segmented "strong" requires additional element to correctly indicate active state:
+    :code
+      <div class="segmented segmented-strong">
+        <a class="button button-active">Tab 1</a>
+        <a class="button">Tab 2</a>
+        <!-- addition element required in segmented strong -->
+        <span class="segmented-highlight"></span>
+      </div>
+    h3 Segmented Modifier Classes
+    p As well as buttons, segmented also supports few additional classes for styling:
+    table.props-table
+      tbody
+        tr
+          td segmented-round
+          td Rounded segmented
+        tr
+          td segmented-round-ios
+          td Rounded segmented in iOS theme
+        tr
+          td segmented-round-md
+          td Rounded segmented in MD theme
+        tr
+          td segmented-round-aurora
+          td Rounded segmented in Aurora theme
+        tr
+          td segmented-raised
+          td Raised segmented
+        tr
+          td segmented-raised-ios
+          td Raised segmented in iOS theme
+        tr
+          td segmented-raised-md
+          td Raised segmented in MD theme
+        tr
+          td segmented-raised-aurora
+          td Raised segmented in Aurora theme
+        tr
+          td segmented-strong
+          td Strong segmented
+        tr
+          td segmented-strong-ios
+          td Strong segmented in iOS theme
+        tr
+          td segmented-strong-md
+          td Strong segmented in MD theme
+        tr
+          td segmented-strong-aurora
+          td Strong segmented in Aurora theme
+
+    +cssVars('button')
+
+    .with-device
+      h2(data-device-preview="../docs-demos/core/button.html") Examples
+      include:coreSource ../docs-demos/core/button.f7.html

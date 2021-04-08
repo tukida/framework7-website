@@ -1,7 +1,7 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Photo Browser | Framework7 Documentation';
+  - var title = 'Photo Browser | Zalo Mini Program Components';
 
 block content
   include ../_docs-demo-device
@@ -9,7 +9,7 @@ block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Photo Browser
     ul.docs-index
     p Photo Browser is a photo browser component to display collection of photos / images. Photos can be zoomed and panned (optional).
@@ -245,7 +245,7 @@ block content
     .important-note
       p Note that all following parameters can be used in global app parameters under `photoBrowser` property to set defaults for all photo browsers. For example:
       :code(lang="js")
-            var app = new Framework7({
+            var app = new ZMP({
               photoBrowser: {
                 type: 'popup',
               }

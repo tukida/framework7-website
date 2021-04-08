@@ -1,24 +1,24 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'RTL Layout | Framework7 Documentation';
+  - var title = 'RTL Layout | Zalo Mini Program Components';
 
 block content
 
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 RTL Layout
-    p Framework7 has full support for RTL (right to left) languages like Arabic and Hebrew. To enable RTL mode you simply need to include CSS file with RTL styles instead of usual one and add `dir="rtl"` attribute on `html` element:
+    p ZaUI has full support for RTL (right to left) languages like Arabic and Hebrew. To enable RTL mode you simply need to include CSS file with RTL styles instead of usual one and add `dir="rtl"` attribute on `html` element:
     :code(lang="html")
       <!DOCTYPE html>
         <html dir="rtl">
           <head>
             ...
             <title>My App</title>
-            <!-- Path to Framework7 RTL stylesheet -->
-            <link rel="stylesheet" href="path/to/framework7-bundle-rtl.min.css">
+            <!-- Path to ZaUI RTL stylesheet -->
+            <link rel="stylesheet" href="path/to/zmp-bundle-rtl.min.css">
 
             <!-- Path to your custom app styles-->
             <link rel="stylesheet" href="path/to/my-app.css">

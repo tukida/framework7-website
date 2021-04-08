@@ -1,0 +1,386 @@
+extends ../_docs-template
+
+block vars
+  - var title = 'Messagebar | Framework7 Documentation';
+
+block content
+  include ../_docs-demo-device
+  .docs-nav
+    include ../_docs-menu
+  .docs-content
+    +improveDocsLink
+    h1 Messagebar
+    ul.docs-index
+    p Framework7 comes with special resizable toolbar for usage with <a href="messages.html">Messages</a>
+    h2 Messagebar Layout
+    p Messagebar layout is pretty simple:
+    :code(lang="html")
+          <div class="toolbar messagebar">
+            <div class="toolbar-inner">
+              <div class="messagebar-area">
+                <!-- messagebar attachments -->
+                <div class="messagebar-attachments">...</div>
+                <!-- messagebar resizable textarea -->
+                <textarea class="resizable" placeholder="Message"></textarea>
+              </div>
+              <a href="#" class="link">Send</a>
+            </div>
+            <!-- messagebar sheet -->
+            <div class="messagebar-sheet">...</div>
+          </div>
+    p Where
+    ul
+      li `messagebar-attachments` - block with messagebar attachments. Optional
+      li `messagebar-sheet` - block with messagebar sheet. Optional
+    p Messagebar place is very important, it should be inside of `page` and right before `page-content`:
+    :code(lang="html")
+          <div class="page">
+            <!-- navbar -->
+            <div class="navbar">...</div>
+
+            <!-- messagebar -->
+            <div class="toolbar messagebar">...</div>
+
+            <!-- page-content/messages-content -->
+            <div class="page-content messages-content">
+              ... messages
+            </div>
+          </div>
+    h3 Messagebar Sheet Layout
+    p If need additional sheet with, for example, images that we can attach to message then we use extra block designed for this:
+    :code(lang="html")
+          <div class="messagebar-sheet">
+            <!-- selectable sheet image -->
+            <label class="checkbox messagebar-sheet-image" style="background-image:url(path/to/image1.png)">
+              <input type="checkbox">
+              <i class="icon icon-checkbox"></i>
+            </label>
+
+            <!-- another selectable sheet image -->
+            <label class="checkbox messagebar-sheet-image" style="background-image:url(path/to/image2.png)">
+              <input type="checkbox">
+              <i class="icon icon-checkbox"></i>
+            </label>
+
+            <!-- some custom sheet item -->
+            <div class="messagebar-sheet-item">
+              <!-- any custom content here -->
+            </div>
+          </div>
+    h3 Messagebar Attachments Layout
+    p Messages attachments block is designed to display currently attached message items/images:
+    :code(lang="html")
+          <div class="messagebar-attachments">
+            <!-- image attachment -->
+            <div class="messagebar-attachment">
+              <img src="path/to/image1.png">
+            </div>
+
+            <!-- deletable image attachment -->
+            <div class="messagebar-attachment">
+              <img src="path/to/image2.png">
+              <!-- attachment delete button -->
+              <span class="messagebar-attachment-delete"></span>
+            </div>
+          </div>
+
+    h2 Messagebar App Methods
+    p Now, when we have Messagebar' HTML, we need to initialize it. We need to use related App's method:
+    table.methods-table
+      tbody
+        tr
+          td app.messagebar.create(<span>parameters</span>)
+          td Initialize Messagebar with parameters
+            ul.method-parameters
+              li
+                span.parameter parameters
+                |  - <span class="parameter-type">object</span> - object with Messagebar parameters
+
+              li.method-returns Method returns initialized Messagebar instance
+        tr
+          td app.messagebar.destroy(<span>el</span>)
+          td Destroy Messagebar instance
+            ul.method-parameters
+              li
+                span.parameter el
+                |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector) or <span class="parameter-type">object</span>. Messagebar element or Messagebar instance to destroy.
+        tr
+          td app.messagebar.get(<span>el</span>)
+          td Get Messagebar instance by HTML element
+            ul.method-parameters
+              li
+                span.parameter el
+                |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector). Messagebar element.
+              li.method-returns Method returns Messagebar's instance
+    h2 Messagebar Parameters
+    p Let's look on list of all available parameters:
+    table.params-table
+      thead
+        tr
+          th Parameter
+          th Type
+          th Default
+          th Description
+      tbody
+        tr
+          td el
+          td string<br>HTMLElement
+          td
+          td CSS selector or HTML element of messagebar element (`div class="messagebar"`)
+        tr
+          td textareaEl
+          td string<br>HTMLElement
+          td
+          td CSS selector or HTML element of messagebar textarea element. By default (if not passed) will try to look for `textarea` inside of messagebar
+        tr
+          td maxHeight
+          td number
+          td null
+          td Max height of textarea when it resized depending on amount of its text
+        tr
+          td attachments
+          td array
+          td []
+          td Array with attachments. For example `['path/to/image1.png', 'path/to/image2.png']`
+        tr
+          td resizePage
+          td boolean
+          td true
+          td Disable if you don't want to resize messages page when messagebar textarea size changed
+        tr
+          td on
+          td object
+          td
+          td
+            p Object with events handlers. For example:
+            :code(lang="js")
+                  var messagebar = app.messagebar.create({
+                    el: '.messagebar',
+                    on: {
+                      change: function () {
+                        console.log('Textarea value changed')
+                      }
+                    }
+                  })
+        tr
+          th(colspan="4") Render functions
+        tr
+          td renderAttachments
+          td function(attachments)
+          td
+          td Function to render attachments block. Must return full attachments HTML string
+        tr
+          td renderAttachment
+          td function(attachment)
+          td
+          td Function to render single attachment. Must return full attachment HTML string
+
+    h2 Messagebar Methods & Properties
+    p So to create Messagebar we have to call:
+    :code(lang="js")
+          var messagebar = app.messagebar.create({ /* parameters */ })
+    p After we initialize Messagebar we have its initialized instance in variable (like `messagebar` variable in example above) with helpful methods and properties:
+    table.methods-table
+      tbody
+        tr
+          th(colspan="2") Properties
+        tr
+          td messagebar.el
+          td Messagebar HTML element.
+        tr
+          td messagebar.$el
+          td Dom7 element with messagebar HTML element.
+        tr
+          td messagebar.textareaEl
+          td Messagebar textarea HTML element
+        tr
+          td messagebar.$textareaEl
+          td Dom7 element with messagebar textarea HTML element
+        tr
+          td messagebar.params
+          td Object with passed initialization parameters
+        tr
+          td messagebar.attachments
+          td Array with messagebar attachments
+        tr
+          th(colspan="2") Methods
+        tr
+          td messagebar.getValue();
+          td Get messagebar textarea value
+        tr
+          td messagebar.setValue(<span>value</span>);
+          td Set messagebar textarea value/text
+        tr
+          td messagebar.clear();
+          td Clear textarea and update/reset its size
+        tr
+          td messagebar.focus();
+          td Focus messagebar textarea
+        tr
+          td messagebar.blur();
+          td Remove focus from messagebar textarea
+        tr
+          td messagebar.setPlaceholder(<span>placeholder</span>)
+          td Set/change messagebar placeholder text
+        tr
+          td messagebar.resizePage()
+          td Force Messagebar to resize messages page depending on messagebar height/size
+        tr
+          td messagebar.attachmentsCreate()
+          td Dynamically create attachments block HTML element
+        tr
+          td messagebar.attachmentsShow()
+          td Show attachments block
+        tr
+          td messagebar.attachmentsHide()
+          td Hide attachments block
+        tr
+          td messagebar.attachmentsToggle()
+          td Toggle attachments block
+        tr
+          td messagebar.renderAttachments()
+          td Render attachments block based on attachments data
+        tr
+          td messagebar.sheetCreate()
+          td Dynamically create messagebar sheet block HTML element
+        tr
+          td messagebar.sheetShow()
+          td Show messagebar sheet
+        tr
+          td messagebar.sheetHide()
+          td Hide messagebar sheet
+        tr
+          td messagebar.sheetToggle()
+          td Toggle messagebar sheet
+        tr
+          td messagebar.destroy();
+          td Destroy messagebar instance
+    h2 Messagebar Events
+    p Messagebar will fire the following DOM events on messagebar element and events on app and messagebar instance:
+    h3 DOM Events
+    table.events-table
+      thead
+        tr
+          th Event
+          th Target
+          th Description
+      tbody
+        tr
+          td messagebar:change
+          td Messagebar Element<span>&lt;div class="messagebar"&gt;</span>
+          td Event will be triggered after messagebar textarea value changed
+        tr
+          td messagebar:focus
+          td Messagebar Element<span>&lt;div class="messagebar"&gt;</span>
+          td Event will be triggered when messagebar textarea gets focus
+        tr
+          td messagebar:blur
+          td Messagebar Element<span>&lt;div class="messagebar"&gt;</span>
+          td Event will be triggered when messagebar textarea loses focus
+        tr
+          td messagebar:resizepage
+          td Messagebar Element<span>&lt;div class="messagebar"&gt;</span>
+          td Event will be triggered when messagebar resizes messages page
+        tr
+          td messagebar:attachmentdelete
+          td Messagebar attachment element<span>&lt;div class="messagebar-attachment"&gt;</span>
+          td Event will be triggered after click on messagebar attachment delete button
+        tr
+          td messagebar:attachmentclick
+          td Messagebar attachment element<span>&lt;div class="messagebar-attachment"&gt;</span>
+          td Event will be triggered on messagebar attachment click
+        tr
+          td messagebar:beforedestroy
+          td Messagebar Element<span>&lt;div class="messagebar"&gt;</span>
+          td Event will be triggered right before Messagebar instance will be destroyed
+    h3 App and Messagebar Instance Events
+    p Messagebar instance emits events on both self instance and app instance. App instance events has same names prefixed with `messagebar`.
+    table.events-table.double-events-table
+      thead
+        tr
+          th Event
+          th Target
+          th Arguments
+          th Description
+      tbody
+        tr
+          td change
+          td messagebar
+          td(rowspan="2") <span>(messagebar)</span>
+          td(rowspan="2") Event will be triggered after messagebar textarea value changed. As an argument event handler receives messagebar instance
+        tr
+          td messagebarChange
+          td app
+
+        tr
+          td focus
+          td messagebar
+          td(rowspan="2") <span>(messagebar)</span>
+          td(rowspan="2") Event will be triggered when messagebar textarea gets focus. As an argument event handler receives messagebar instance
+        tr
+          td messagebarFocus
+          td app
+
+        tr
+          td blur
+          td messagebar
+          td(rowspan="2") <span>(messagebar)</span>
+          td(rowspan="2") Event will be triggered when messagebar textarea loses focus. As an argument event handler receives messagebar instance
+        tr
+          td messagebarBlur
+          td app
+
+        tr
+          td resizePage
+          td messagebar
+          td(rowspan="2") <span>(messagebar)</span>
+          td(rowspan="2") Event will be triggered when messagebar resizes messages page. As an argument event handler receives messagebar instance
+        tr
+          td messagebarResizePage
+          td app
+
+        tr
+          td attachmentDelete
+          td messagebar
+          td(rowspan="2") <span>(messagebar, attachmentEl, attachmentIndex)</span>
+          td(rowspan="2") Event will be triggered after click on messagebar attachment delete button. As an argument event handler receives messagebar instance, clicked attachment HTML element and attachment index number
+        tr
+          td messagebarAttachmentDelete
+          td app
+
+        tr
+          td attachmentClick
+          td messagebar
+          td(rowspan="2") <span>(messagebar, attachmentEl, attachmentIndex)</span>
+          td(rowspan="2") Event will be triggered on messagebar attachment click. As an argument event handler receives messagebar instance, clicked attachment HTML element and attachment index number
+        tr
+          td messagebarAttachmentClick
+          td app
+
+        tr
+          td beforeDestroy
+          td messagebar
+          td(rowspan="2") <span>(messagebar)</span>
+          td(rowspan="2") Event will be triggered right before Messagebar instance will be destroyed
+        tr
+          td messagebarBeforeDestroy
+          td app
+    h2 Messagebar Auto Initialization
+    p If you don't need to use Messagebar API and your Messagebar is inside of the page and presented in DOM on moment of page initialization then it can be auto initialized with just adding additional `messagebar-init` class to messagebar element, and all required parameters can be passed using `data-` attributes:
+    :code(lang="html")
+          <div class="toolbar messagebar messagebar-init" data-max-height="200">
+            <div class="toolbar-inner">
+              <div class="messagebar-area">
+                <textarea placeholder="Message"></textarea>
+              </div>
+              <a href="#" class="link">Send</a>
+            </div>
+          </div>
+    .important-note
+      p Parameters that used in camelCase, for example <b>maxHeight</b>, in data- attributes should be used in kebab-case as <b>data-max-height</b>
+
+    +cssVars('messagebar')
+
+    .with-device
+      h2(data-device-preview="../docs-demos/core/messagebar.html") Examples
+      include:coreSource ../docs-demos/core/messagebar.f7.html

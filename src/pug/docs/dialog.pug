@@ -1,7 +1,7 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Dialog | Framework7 Documentation';
+  - var title = 'Dialog | Zalo Mini Program Components';
 
 block content
   include ../_docs-demo-device
@@ -9,7 +9,7 @@ block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Dialog
     ul.docs-index
     p Dialog is a small content pane that pops up over App's main content. Dialogs are usualy used to ask something from a user, or to notify or warn a user. Dialog, as all other modals, is part of so called "Temporary Views".
@@ -380,7 +380,7 @@ block content
     h3 Dialog Shortcuts Parameters
     p The following global dialog shortcut parameters can be passed on <a href="init-app.html">app initialization</a> under `dialog` property:
     :code(lang="js")
-          var app = new Framework7({
+          var app = new ZMP({
             dialog: {
               // set default title for all dialog shortcuts
               title: 'My App',

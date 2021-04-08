@@ -1,0 +1,45 @@
+extends ../_docs-template
+
+block vars
+  - var title = 'Touch Ripple | Framework7 Documentation';
+
+block content
+
+  .docs-nav
+    include ../_docs-menu
+  .docs-content
+    +improveDocsLink
+    h1 Touch Ripple
+    ul.docs-index
+    p Framework7 Material Theme comes with great an dynamic implementation of Material Touch Ripple effect.
+    p It is enabled by default for MD theme.
+    p However, you may disable it by passing `touch.mdTouchRipple:false` <a href="app.html#app-parameters">app parameter</a>.
+    h2 Ripple Elements
+    p By default it is enabled for the elements that match to the following CSS selector:
+    :code(lang="css")
+      .ripple, .link, .item-link, .list-button, .links-list a, .button, button, .input-clear-button, .dialog-button, .tab-link, .item-radio, .item-checkbox, .actions-button, .searchbar-disable-button, .fab a, .checkbox, .radio, .data-table .sortable-cell:not(.input-cell), .notification-close-button, .stepper-button, .stepper-button-minus, .stepper-button-plus, .menu-item-content, .list.accordion-list .accordion-item-toggle
+    p which are defined in `touch.touchRippleElements` <a href="app.html#app-parameters">app parameter</a>.
+    p So when you <em>touch</em> such elements you will see so called "ripple" effect.
+    p If you need to add "ripple" effect for any custom element you may add this element's selector to `touch.touchRippleElements` parameter or just add `ripple` class.
+    :code(lang="html")
+      <a href="#" class="my-link ripple">Link With Ripple Effect</a>
+    h2 Ripple Wave Color
+    p If you want to change color of "ripple" wave on some element, then you may add `ripple-[color]` class to required element, where `[color]` class is the one of default <a href="color-themes.html">Theme Colors</a>, for example:
+    :code(lang="html")
+      <a href="#" class="button ripple-color-red">Button With Red Ripple</a>
+    p or you may specify it using CSS by referencing `.ripple-wave` element:
+    :code(lang="css")
+      .button .ripple-wave {
+        background-color: #ff0000;
+      }
+    p or with CSS variable:
+    :code(lang="css")
+      .button .ripple-wave {
+        --f7-touch-ripple-color: #ff0000;
+      }
+    h2 Disable Ripple For Specific Elements
+    p If you want to disable ripple element for specific elements, then you may add `no-ripple` class to such elements:
+    :code(lang="html")
+          <a href="#" class="button no-ripple">Button Without Ripple Effect</a>
+
+    +cssVars('touch-ripple')

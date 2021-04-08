@@ -1,34 +1,34 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Request | Framework7 Documentation';
+  - var title = 'Request | Zalo Mini Program Components';
 
 block content
 
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Request / Ajax
     ul.docs-index
-    p Framework7 comes with handy Request library to work with XHR requests (Ajax) right from the box.
-    p It is available as a `request` property of Framework7 class (`Framework7.request`) and same property on initialized app instance (`app.request`):
+    p ZaUI comes with handy Request library to work with XHR requests (Ajax) right from the box.
+    p It is available as a `request` property of ZaUI class (`ZaUI.request`) and same property on initialized app instance (`app.request`):
     :code(lang="js")
       // If we need it in place where we don't have access to app instance or before we init the app
-      Framework7.request.get('somepage.html').then((res) => {
+      ZaUI.request.get('somepage.html').then((res) => {
         console.log(res.data);
       });
 
 
       // After we init the app we can access it as app instance property
-      var app = new Framework7({ /*...*/ });
+      var app = new ZMP({ /*...*/ });
 
       app.request.get('somepage.html').then((res) => {
         console.log(res.data);
       });
     p It is also possible to import it when using ES modules:
     ```js
-      import { request } from 'framework7';
+      import { request } from 'zmp';
 
       request.get('somepage.html')
     ```
@@ -43,7 +43,7 @@ block content
       p.method-returns Returns promise that will be resolved with the `{ data, xhr, status, options }` object and rejected in case of error with `{ xhr, status, message, options }` object.
     .method-wrap
       p
-        span.method Framework7.request(<span>options</span>)
+        span.method ZaUI.request(<span>options</span>)
       ul.method-parameters
         li
           span.parameter options
@@ -210,12 +210,12 @@ block content
           |  - <span class="parameter-type">string</span> - The type of data that you're expecting back from the server. Could be `text` or `json`. <em>Optional</em>
     .method-wrap
       p
-        span.method Framework7.request.get(<span>url</span>, <span>data</span>, <span>success</span>, <span>error</span>, <span>dataType</span>)
+        span.method ZaUI.request.get(<span>url</span>, <span>data</span>, <span>success</span>, <span>error</span>, <span>dataType</span>)
         span - Load data from the server using a HTTP GET request
 
     p For example:
     :code(lang="js")
-      var app = new Framework7();
+      var app = new ZMP();
 
       var $$ = Dom7;
 
@@ -252,12 +252,12 @@ block content
           |  - <span class="parameter-type">string</span> - The type of data that you're expecting back from the server. Could be `text` or `json`. <em>Optional</em>
     .method-wrap
       p
-        span.method Framework7.request.post(<span>url</span>, <span>data</span>, <span>success</span>, <span>error</span>, <span>dataType</span>)
+        span.method ZaUI.request.post(<span>url</span>, <span>data</span>, <span>success</span>, <span>error</span>, <span>dataType</span>)
         span - Load data from the server using a HTTP POST request
 
     p For example:
     :code(lang="js")
-      var app = new Framework7();
+      var app = new ZMP();
 
       var $$ = Dom7;
 
@@ -286,11 +286,11 @@ block content
           |  - <span class="parameter-type">function (xhr, status, message)</span> - A callback function that is executed if the request fails. <em>Optional</em>
     .method-wrap
       p
-        span.method Framework7.request.json(<span>url</span>, <span>data</span>, <span>success</span>, <span>error</span>)
+        span.method ZaUI.request.json(<span>url</span>, <span>data</span>, <span>success</span>, <span>error</span>)
         span - Load JSON-encoded data from the server using a GET HTTP request
     p For example:
     :code(lang="js")
-      var app = new Framework7();
+      var app = new ZMP();
 
       app.request.json('users.json')
         .then(function (res) {
@@ -320,12 +320,12 @@ block content
           |  - <span class="parameter-type">string</span> - The type of data that you're expecting back from the server. Could be `text` or `json`. By default is `json`. <em>Optional</em>
     .method-wrap
       p
-        span.method Framework7.request.postJSON(<span>url</span>, <span>data</span>, <span>success</span>, <span>error</span>, <span>dataType</span>)
+        span.method ZaUI.request.postJSON(<span>url</span>, <span>data</span>, <span>success</span>, <span>error</span>, <span>dataType</span>)
         span - Send JSON data using a HTTP POST request
 
     p For example:
     :code(lang="js")
-      var app = new Framework7();
+      var app = new ZMP();
 
       var $$ = Dom7;
 
@@ -344,12 +344,12 @@ block content
           |  - <span class="parameter-type">object</span> - Default requests parameters
     .method-wrap
       p
-        span.method Framework7.request.setup(<span>options</span>)
+        span.method ZaUI.request.setup(<span>options</span>)
         span - Set default values for future Ajax requests. <b>Its use is not recommended</b>
     p For example:
     :code(lang="js")
       // After the following setup all XHR requests will have additional 'Autorization' header
-      Framework7.request.setup({
+      ZaUI.request.setup({
         headers: {
           'Authorization': 'sometokenvalue'
         }
@@ -368,7 +368,7 @@ block content
     p Because `.request()` returns Promise, we don't have access to XHR object before Promise will be resolved or rejected.
     p For this case we need to create special Abort Controller, pass it to the request and we will be able to abort it in future:
     ```js
-      var app = new Framework7(...);
+      var app = new ZMP(...);
 
       // create Abort Controller
       var abortController = app.request.abortController();

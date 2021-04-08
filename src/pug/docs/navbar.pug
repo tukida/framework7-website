@@ -1,7 +1,7 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Navbar | Framework7 Documentation';
+  - var title = 'Navbar | Zalo Mini Program Components';
 
 block content
   include ../_docs-demo-device
@@ -9,7 +9,7 @@ block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Navbar
     ul.docs-index
     p Navbar is a fixed area at the top of a screen that contains Page title and navigation elements.
@@ -109,7 +109,7 @@ block content
           </div>
 
     h3 Transparent Navbar
-    p This feature available since Framework7 version 5.5.0.
+    p This feature available since ZaUI version 5.5.0.
     p Transparent navbar appears with transparent background and transparent title and on page scroll it becomes opaque. To enable transparent navbar we need to add `navbar-transparent` class to `navbar`:
     ```html
       <!-- additional "navbar-transparent" class -->
@@ -224,7 +224,7 @@ block content
     p If you want to disable it you need to pass `iosDynamicNavbar: false` for required View on its initialisation or in global <a href="app.html#app-parameters">app parameters</a> for all views. For example:
     :code(lang="js")
       // Disable globally
-      var app = new Framework7({
+      var app = new ZMP({
         view: {
           iosDynamicNavbar: false,
         },
@@ -404,14 +404,14 @@ block content
 
     p For example:
     :code(lang="js")
-          var app = new Framework7({
+          var app = new ZMP({
             navbar: {
               hideOnPageScroll: true,
               iosCenterTitle: false,
             },
           });
     h2 Control Navbar With Page Classes
-    p Framework7 allows you to hide/show Navbar on specific page or on specific page scroll by using additional classes.
+    p ZaUI allows you to hide/show Navbar on specific page or on specific page scroll by using additional classes.
 
     p If you want to hide navbar on page scroll on some specific page use additional classes on this page's `<div class="page-content">` element:
     ul

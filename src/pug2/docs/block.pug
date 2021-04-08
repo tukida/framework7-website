@@ -1,0 +1,96 @@
+extends ../_docs-template
+
+block vars
+  - var title = 'Content Block | Framework7 Documentation';
+
+block content
+  include ../_docs-demo-device
+
+  .docs-nav
+    include ../_docs-menu
+  .docs-content
+    +improveDocsLink
+    h1 Block / Content Block
+    ul.docs-index
+    p Content blocks designed (mostly) to add extra formatting and required spacing for text content:
+    h2 Block
+    p To add content block element just add `<div>` with <b>`block`</b> class:
+    :code(lang="html")
+          <div class="block">
+            <!-- block content -->
+          </div>
+    p To add extra highlighting to block element we need additional <b>`block-strong`</b> class
+    :code(lang="html")
+          <div class="block block-strong">
+            <!-- block content -->
+          </div>
+    p To remove hairlines around strong block we need additional <b>`no-hairlines`</b> class
+    :code(lang="html")
+          <div class="block block-strong no-hairlines">
+            <!-- block content -->
+          </div>
+    p To make block inset we need additional <b>`inset`</b> class
+    :code(lang="html")
+          <div class="block block-strong inset">
+            <!-- inset block content -->
+          </div>
+    p To make block inset only on large screens we need to use <b>`medium-inset`</b> (>= 768px) class instead:
+    :code(lang="html")
+          <div class="block block-strong medium-inset">
+            <!-- inset block content -->
+          </div>
+    p For full set of such responsive classes check #[a(href="grid.html#column-sizes") Grid docs]. They are `xsmall-inset`, `small-inset`, `medium-inset`, `large-inset`, `xlarge-inset`.
+    h2 Block Title
+    p To add block title before Block or <a href="list-view.html">List View</a> we need element with <b>`block-title`</b> class:
+    :code(lang="html")
+          <div class="block-title">Here comes block title</div>
+          <div class="block">
+            <!-- block content -->
+          </div>
+
+          <div class="block-title">Here comes the list</div>
+          <div class="list">
+            <!-- list content -->
+          </div>
+
+          <!-- Medium size Block Title -->
+          <div class="block-title block-title-medium">Medium Title</div>
+          <div class="block">
+            <!-- block content -->
+          </div>
+
+          <!-- Large size Block Title -->
+          <div class="block-title block-title-large">Large Title</div>
+          <div class="block">
+            <!-- block content -->
+          </div>
+    h2 Block Header / Footer
+    p If we need and extra heading and footer texts we can use Block Header element. It can be used both inside and outside of block elements (Block, List View)
+    :code(lang="html")
+          <!-- Inside of block -->
+          <div class="block">
+            <!-- Block header -->
+            <div class="block-header">Block Header</div>
+            ...
+            <!-- Block footer -->
+            <div class="block-footer">Block Footer</div>
+          </div>
+
+          <!-- Outside of block -->
+          <div class="block-header">Block Header</div>
+          <div class="block">
+            ...
+          </div>
+          <div class="block-footer">Block Footer</div>
+
+          <!-- After Block Title -->
+          <div class="block-title">Block Title Here</div>
+          <div class="block-header">Block Header</div>
+          <div class="block">
+            ...
+          </div>
+          <div class="block-footer">Block Footer</div>
+    +cssVars('block')
+    .with-device
+      h2(data-device-preview="../docs-demos/core/block.html") Examples
+      include:coreSource ../docs-demos/core/block.f7.html

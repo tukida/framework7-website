@@ -1,21 +1,21 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Events | Framework7 Documentation';
+  - var title = 'Events | Zalo Mini Program Components';
 
 block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Events
     ul.docs-index
-    p Most of Framework7 components that is built with classes/constructors (including Framework7 class itself) have event emitter API.
+    p Most of ZaUI components that is built with classes/constructors (including ZaUI class itself) have event emitter API.
     p It allows us easily to emit and handle all kind of events, including events between components.
     h2 Events Handlers in Parameters
     p When you create app instance or any other component using API, you can pass event handler on app/component initialization in `on` parameter:
     :code(lang="js")
-          var app = new Framework7({
+          var app = new ZMP({
             ...
             on: {
               // each object key means same name event handler
@@ -57,7 +57,7 @@ block content
           td Fire event on instance
     h4 Add Event Handlers
     :code(lang="js")
-          var app = new Framework7({/*...*/});
+          var app = new ZMP({/*...*/});
 
           var popup = app.popup.create({/*...*/});
 
@@ -138,12 +138,12 @@ block content
           });
 
     h2 Events Bus
-    p Current events emitter API on Framework7 classes is also very useful to create custom events for communication between app components and modules.
+    p Current events emitter API on ZaUI classes is also very useful to create custom events for communication between app components and modules.
     p And there is an additional helper class that is designed to be used like event bus only and not to flood main app or some components instances.
-    p To create new events bus we need to call `new Framework7.Events()`:
+    p To create new events bus we need to call `new ZaUI.Events()`:
     :code(lang="js")
       // Create custom events bus
-      var myEvents = new Framework7.Events();
+      var myEvents = new ZaUI.Events();
 
       // handle event
       myEvents.on('some-event', function () {
@@ -154,7 +154,7 @@ block content
       myEvents.emit('some-event');
 
       // Create another event bus
-      const notificationEvents = new Framework7.Events();
+      const notificationEvents = new ZaUI.Events();
 
       notificationEvents.on('notificationReceived', function (notification) {
         // do something with notification

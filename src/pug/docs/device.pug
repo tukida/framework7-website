@@ -1,33 +1,33 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Device | Framework7 Documentation';
+  - var title = 'Device | Zalo Mini Program Components';
 
 block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Device
     ul.docs-index
-    p Framework7 comes with Device detection library with which contains useful information about device and platform.
-    p It is available as a `device` property of Framework7 class (`Framework7.device`) and same property on initialized app instance (`app.device`):
+    p ZaUI comes with Device detection library with which contains useful information about device and platform.
+    p It is available as a `device` property of ZaUI class (`ZaUI.device`) and same property on initialized app instance (`app.device`):
     :code(lang="js")
       // If we need it in place where we don't have access to app instance or before we init the app
-      if (Framework7.device.ios) {
+      if (ZaUI.device.ios) {
         console.log('It is iOS device');
       }
 
 
       // After we init the app we can access it as app instance property
-      var app = new Framework7({ /*...*/ });
+      var app = new ZMP({ /*...*/ });
       if (app.device.android) {
         console.log('It is android device');
       }
     h2 `getDevice`
-    p When we use Framework7 on server-side environments or with ES modules, we need to use `getDevice` util instead:
+    p When we use ZaUI on server-side environments or with ES modules, we need to use `getDevice` util instead:
     ```js
-      import { getDevice } from 'framework7';
+      import { getDevice } from 'zmp';
 
       const device = getDevice();
 
@@ -37,7 +37,7 @@ block content
     ```
     p If we use it on server-side, we can also pass `userAgent` for the case if we know it based on the request:
     ```js
-      import { getDevice } from 'framework7';
+      import { getDevice } from 'zmp';
 
       const device = getDevice({ userAgent: 'SOME_USER_AGENT' });
 

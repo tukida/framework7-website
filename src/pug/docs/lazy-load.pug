@@ -1,7 +1,7 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Lazy Load Images | Framework7 Documentation';
+  - var title = 'Lazy Load Images | Zalo Mini Program Components';
 
 block content
   include ../_docs-demo-device
@@ -9,7 +9,7 @@ block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Lazy Load
     ul.docs-index
     p Lazy Load delays loading of images on page while they are outside of viewport until user scrolls to them.
@@ -87,7 +87,7 @@ block content
           td If enabled, it will use #[a(href="https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API" target="_blank") Intersection Observer] if it is supported by browser.
     p For example:
     :code(lang="js")
-          var app = new Framework7({
+          var app = new ZMP({
             lazy: {
               threshold: 50,
               sequential: false,

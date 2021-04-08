@@ -1,7 +1,7 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Store | Framework7 Documentation';
+  - var title = 'Store | Zalo Mini Program Components';
 
 block content
   include ../_docs-demo-device
@@ -9,17 +9,17 @@ block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Store
-    p Framework7 comes with a built-in lightweight application state management library - Store. It serves as a centralized Store for all the components in an application.
-    p You can use library-specific state management libraries like Vuex for Vue, Redux for React, and use built-in Svelte store functionality. But in case if something simple is required then Framework7 Store can be a good fit.
+    p ZaUI comes with a built-in lightweight application state management library - Store. It serves as a centralized Store for all the components in an application.
+    p You can use library-specific state management libraries like Vuex for Vue, Redux for React, and use built-in Svelte store functionality. But in case if something simple is required then ZaUI Store can be a good fit.
     ul.docs-index
 
     h2 Create Store
     p First of all we need to create the store. Let's create separate `store.js` file for that:
     ```js
-      // First import createStore function from Framework7 core
-      import { createStore } from 'framework7';
+      // First import createStore function from ZaUI core
+      import { createStore } from 'zmp';
 
       // create store
       const store = createStore({
@@ -60,7 +60,7 @@ block content
     p If you are not using modules, then `store.js` file will look like:
     ```js
       // save store as global object
-      window.store = Framework7.createStore({
+      window.store = ZaUI.createStore({
         state: { /* ... */ },
         actions: { /* ... */ },
         getters: { /* ... */ },
@@ -117,7 +117,7 @@ block content
       // import our store
       import store from 'path/to/store.js';
 
-      const app = new Framework7({
+      const app = new ZMP({
         // pass store to the app's "store" parameter
         store,
         ...
@@ -131,11 +131,11 @@ block content
 
       console.log(store.state.users);
     ```
-    p Or by accessing Framework7 instance' `store` property:
+    p Or by accessing ZaUI instance' `store` property:
     ```js
       import store from 'path/to/store.js';
 
-      const app = new Framework7({
+      const app = new ZMP({
         store,
         ...
       })

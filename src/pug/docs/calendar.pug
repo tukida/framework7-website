@@ -1,7 +1,7 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Calendar / Datepicker | Framework7 Documentation';
+  - var title = 'Calendar / Datepicker | Zalo Mini Program Components';
 
 block content
   include ../_docs-demo-device
@@ -9,7 +9,7 @@ block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Calendar / Datepicker
     ul.docs-index
     p Calendar is a touch optimized component that provides an easy way to handle dates.
@@ -432,7 +432,7 @@ block content
     .important-note
       p Note that all following parameters can be used in global app parameters under `calendar` property to set defaults for all calendars. For example:
       :code(lang="js")
-            var app = new Framework7({
+            var app = new ZMP({
               calendar: {
                 url: 'calendar/',
                 dateFormat: 'dd.mm.yyyy',

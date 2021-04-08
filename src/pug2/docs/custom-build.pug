@@ -1,0 +1,439 @@
+extends ../_docs-template
+
+block vars
+  - var title = 'Framework7 Custom Build | Framework7 Documentation';
+
+block content
+
+  .docs-nav
+    include ../_docs-menu
+  .docs-content
+    +improveDocsLink
+    h1 Framework7 Custom Build
+    ul.docs-index
+    h2 Custom Build
+    p Framework7 comes with Gulp builder that allows to build custom library version where you may include only required components/modules. We need the following:
+    ol
+      li
+        p Download and unzip <a href="https://github.com/framework7io/framework7" target="_blank">Framework7 GitHub repository</a> to local folder
+      li
+        p Install <a href="http://nodejs.org/" target="_blank">Node.js</a> (if not installed)
+      li
+        p Install Gulp (if not installed) by executing the following command in terminal:
+        :code
+          $ npm install --global gulp
+      li
+        p Now, we need to install required dependencies. Go to the folder with downloaded and unzipped Framework7 repository and execute in terminal:
+        :code
+          $ npm install
+      li Copy `scripts/build-config.js` file to some place in the downloaded folder and rename it let's say to `scripts/my-config.js`
+      li Open this file and remove components that you don't need or modify color theme and included colors:
+        :code(lang="js")
+              /* my-config.js */
+              const config = {
+                rtl: false, // change to true to generate RTL styles
+
+                // remove any components you don't need
+                components: [
+                  // Appbar
+                  'appbar',
+
+                  // Modals
+                  'dialog',
+                  'popup',
+                  'login-screen',
+                  'popover',
+                  'actions',
+                  'sheet',
+                  'toast',
+
+                  // Loaders
+                  'preloader',
+                  'progressbar',
+
+                  // List Components
+                  'sortable',
+                  'swipeout',
+                  'accordion',
+                  'contacts-list',
+                  'virtual-list',
+                  'list-index',
+
+                  // Timeline
+                  'timeline',
+
+                  // Tabs
+                  'tabs',
+
+                  // Panel
+                  'panel',
+
+                  // Card
+                  'card',
+
+                  // Chip
+                  'chip',
+
+                  // Form Components
+                  'form',
+                  'input',
+                  'checkbox',
+                  'radio',
+                  'toggle',
+                  'range',
+                  'stepper',
+                  'smart-select',
+
+                  // Grid
+                  'grid',
+
+                  // Pickers
+                  'calendar',
+                  'picker',
+
+                  // Page Components
+                  'infinite-scroll',
+                  'pull-to-refresh',
+                  'lazy',
+
+                  // Data table
+                  'data-table',
+
+                  // FAB
+                  'fab',
+
+                  // Searchbar
+                  'searchbar',
+
+                  // Messages
+                  'messages',
+                  'messagebar',
+
+                  // Swiper
+                  'swiper',
+
+                  // Photo Browser
+                  'photo-browser',
+
+                  // Notifications
+                  'notification',
+
+                  // Autocomplete
+                  'autocomplete',
+
+                  // Tooltip
+                  'tooltip',
+
+                  // Gauge
+                  'gauge',
+
+                  // Skeleton
+                  'skeleton',
+
+                  // Menu
+                  'menu',
+
+                  // Color Picker
+                  'color-picker',
+
+                  // Tree View
+                  'treeview',
+
+                  // WYSIWYG Editor
+                  'text-editor',
+
+                  // Pie Chart
+                  'pie-chart',
+
+                  // Area Chart
+                  'area-chart',
+
+                  // Elevation
+                  'elevation',
+
+                  // Typography
+                  'typography',
+                ],
+                // include/exclude dark theme styles
+                darkTheme: true,
+                // include/exclude light theme styles
+                lightTheme: true,
+                // include/exclude themes
+                themes: [
+                  'ios',
+                  'md',
+                  'aurora',
+                ],
+                // modify colors
+                themeColor: '#007aff',
+                colors: {
+                  red: '#ff3b30',
+                  green: '#4cd964',
+                  blue: '#2196f3',
+                  pink: '#ff2d55',
+                  yellow: '#ffcc00',
+                  orange: '#ff9500',
+                  purple: '#9c27b0',
+                  deeppurple: '#673ab7',
+                  lightblue: '#5ac8fa',
+                  teal: '#009688',
+                  lime: '#cddc39',
+                  deeporange: '#ff6b22',
+                  gray: '#8e8e93',
+                  white: '#ffffff',
+                  black: '#000000',
+                },
+              };
+
+              module.exports = config;
+
+      li
+        p Now, we are ready to build custom version of Framework7. We need to execute:
+        :code
+          $ npm run build-core:prod -- --config scripts/my-config.js --output path/to/output/folder
+      li
+        p That is all. Now you should see newly generated js and css files in specified output folder
+
+    h2 ES Modules
+    p If you use bundler like Webpack or Rollup you can use only required Framework7 JS components without that build process and by importing only required components:
+    :code(lang="js")
+          // Import core framework
+          import Framework7 from 'framework7';
+
+          // Import additional components
+          import Searchbar from 'framework7/components/searchbar';
+          import Calendar from 'framework7/components/calendar';
+          import Popup from 'framework7/components/popup';
+
+          // Install F7 Components using .use() method on Framework7 class:
+          Framework7.use([Searchbar, Calendar, Popup]);
+
+          // Init app
+          var app = new Framework7({/*...*/});
+    p The following components are available for importing (all other components are part of the core):
+    table
+      thead
+        tr
+          th Component
+          th Path
+          th
+      tbody
+        tr
+          td Appbar
+          td `framework7/components/appbar`
+        tr
+          td Dialog
+          td `framework7/components/dialog`
+        tr
+          td Popup
+          td `framework7/components/popup`
+        tr
+          td LoginScreen
+          td `framework7/components/login-screen`
+        tr
+          td Popover
+          td `framework7/components/popover`
+        tr
+          td Actions
+          td `framework7/components/actions`
+        tr
+          td Sheet
+          td `framework7/components/sheet`
+        tr
+          td Toast
+          td `framework7/components/toast`
+        tr
+          td Preloader
+          td `framework7/components/preloader`
+        tr
+          td Progressbar
+          td `framework7/components/progressbar`
+        tr
+          td Sortable
+          td `framework7/components/sortable`
+        tr
+          td Swipeout
+          td `framework7/components/swipeout`
+        tr
+          td Accordion
+          td `framework7/components/accordion`
+        tr
+          td ContactsList
+          td `framework7/components/contacts-list`
+        tr
+          td VirtualList
+          td `framework7/components/virtual-list`
+        tr
+          td ListIndex
+          td `framework7/components/list-index`
+        tr
+          td Timeline
+          td `framework7/components/timeline`
+        tr
+          td Tabs
+          td `framework7/components/tabs`
+        tr
+          td Panel
+          td `framework7/components/panel`
+        tr
+          td Card
+          td `framework7/components/card`
+        tr
+          td Chip
+          td `framework7/components/chip`
+        tr
+          td Form
+          td `framework7/components/form`
+        tr
+          td Input
+          td `framework7/components/input`
+        tr
+          td Checkbox
+          td `framework7/components/checkbox`
+        tr
+          td Radio
+          td `framework7/components/radio`
+        tr
+          td Toggle
+          td `framework7/components/toggle`
+        tr
+          td Range
+          td `framework7/components/range`
+        tr
+          td Stepper
+          td `framework7/components/stepper`
+        tr
+          td SmartSelect
+          td `framework7/components/smart-select`
+        tr
+          td Grid
+          td `framework7/components/grid`
+        tr
+          td Calendar
+          td `framework7/components/calendar`
+        tr
+          td Picker
+          td `framework7/components/picker`
+        tr
+          td InfiniteScroll
+          td `framework7/components/infinite-scroll`
+        tr
+          td PullToRefresh
+          td `framework7/components/pull-to-refresh`
+        tr
+          td Lazy
+          td `framework7/components/lazy`
+        tr
+          td DataTable
+          td `framework7/components/data-table`
+        tr
+          td Fab
+          td `framework7/components/fab`
+        tr
+          td Searchbar
+          td `framework7/components/searchbar`
+        tr
+          td Messages
+          td `framework7/components/messages`
+        tr
+          td Messagebar
+          td `framework7/components/messagebar`
+        tr
+          td Swiper
+          td `framework7/components/swiper`
+        tr
+          td PhotoBrowser
+          td `framework7/components/photo-browser`
+        tr
+          td Notification
+          td `framework7/components/notification`
+        tr
+          td Autocomplete
+          td `framework7/components/autocomplete`
+        tr
+          td Tooltip
+          td `framework7/components/tooltip`
+        tr
+          td Gauge
+          td `framework7/components/gauge`
+        tr
+          td Skeleton
+          td `framework7/components/skeleton`
+        tr
+          td Menu
+          td `framework7/components/menu`
+        tr
+          td ColorPicker
+          td `framework7/components/color-picker`
+        tr
+          td Treeview
+          td `framework7/components/treeview`
+        tr
+          td Text Editor
+          td `framework7/components/text-editor`
+        tr
+          td Pie Chart
+          td `framework7/components/pie-chart`
+        tr
+          td Area Chart
+          td `framework7/components/area-chart`
+        tr
+          td Typography
+          td `framework7/components/typography`
+    h2 Less.js
+    p Framework7 styles are built with <a href="http://lesscss.org/" target="_blank">Less.js</a>. If you use Less and NPM in your app/project then you can easily create custom Framework7 stylesheet with only components you need.
+    p Create your own `framework7.less` file:
+    :code(lang="less")
+      // core
+      @import url('path/to/node_modules/framework7/framework7.less');
+
+      // import only components you need
+      @import url('path/to/node_modules/framework7/components/searchbar/searchbar.less');
+      @import url('path/to/node_modules/framework7/components/calendar/calendar.less');
+      @import url('path/to/node_modules/framework7/components/popup/popup.less');
+    p We can go even further and specify Framework7's main color theme and required colors in custom `framework7.less` file:
+    :code(lang="less")
+      // core
+      @import url('path/to/node_modules/framework7/framework7.less');
+
+      // import only components you need
+      @import url('path/to/node_modules/framework7/components/searchbar/searchbar.less');
+      @import url('path/to/node_modules/framework7/components/calendar/calendar.less');
+      @import url('path/to/node_modules/framework7/components/popup/popup.less');
+
+      // include/exclude themes
+      @includeIosTheme: true;
+      @includeMdTheme: true;
+      @includeAuroraTheme: true;
+
+      // include/exclude dark theme
+      @includeDarkTheme: true;
+      // include/exclude light theme
+      @includeLightTheme: true;
+
+      // Theme color
+      @themeColor: #007aff;
+
+      // Extra colors
+      @colors: {
+        red: #ff3b30;
+        green: #4cd964;
+        blue: #2196f3;
+        pink: #ff2d55;
+        yellow: #ffcc00;
+        orange: #ff9500;
+        purple: #9c27b0;
+        deeppurple: #673ab7;
+        lightblue: #5ac8fa;
+        teal: #009688;
+        lime: #cddc39;
+        deeporange: #ff6b22;
+        gray: #8e8e93;
+        white: #ffffff;
+        black: #000000;
+      };
+
+      // change to true to generate RTL styles
+      @rtl: false;
+
+

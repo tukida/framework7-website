@@ -1,0 +1,24 @@
+extends ../_introduction-template
+
+block vars
+  - var title = 'Mini Program Registration | Introduction';
+
+block content
+  .docs-nav
+    include ../_introduction-menu
+  .docs-content
+    h1 Đăng Ký Mini Program
+    ul.docs-index
+    h2 Tạo Ứng Dụng Zalo Mới
+
+    p Bước 1: Truy cập <a target="blank" href="https://developers.zalo.me/">Zalo for Developer</a> và đăng nhập với tài khoản Zalo. Chọn vào ảnh đại diện -> Tạo ứng dụng mới.
+    img(src="/i/introduction/introduction-registering-i1.png")
+
+    p Bước 2: Nhập các thông tin bắt buộc.
+    img(src="/i/introduction/introduction-registering-i2.png")
+
+    p Bước 3: Kích hoạt để ứng dụng của bạn có thể sử dụng bởi người dùng bên ngoài.
+    img(src="/i/introduction/introduction-registering-i3.png")
+
+    p Bước 4: Vào mục "Đăng nhập", đăng kí "Home URL" và "Callback URL" là đường dẫn tới mini program của bạn như sau https://h5.zdn.vn/zapps/<strong>your_app_id</strong>.
+    img(src="/i/introduction/introduction-registering-i4.png")

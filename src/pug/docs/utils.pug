@@ -1,29 +1,29 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Utils | Framework7 Documentation';
+  - var title = 'Utils | Zalo Mini Program Components';
 
 block content
 
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Utils
     ul.docs-index
-    p Framework7 utils is a set of helper methods that used internally and can be handy during development as well.
-    p It is available as a `utils` property of Framework7 class (`Framework7.utils`) and same property on initialized app instance (`app.utils`):
+    p ZaUI utils is a set of helper methods that used internally and can be handy during development as well.
+    p It is available as a `utils` property of ZaUI class (`ZaUI.utils`) and same property on initialized app instance (`app.utils`):
     :code(lang="js")
       // If we need it in place where we don't have access to app instance or before we init the app
-      var now = Framework7.utils.now();
+      var now = ZaUI.utils.now();
 
 
       // After we init the app we can access it as app instance property
-      var app = new Framework7({ /*...*/ });
+      var app = new ZMP({ /*...*/ });
       var now = app.utils.now();
     p It can also be imported using ES modules:
     ```js
-      import { utils } from 'framework7';
+      import { utils } from 'zmp';
     ```
 
     h2 Utils Methods

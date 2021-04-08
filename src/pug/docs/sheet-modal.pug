@@ -1,7 +1,7 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Sheet Modal | Framework7 Documentation';
+  - var title = 'Sheet Modal | Zalo Mini Program Components';
 
 block content
   include ../_docs-demo-device
@@ -9,7 +9,7 @@ block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Sheet Modal
     ul.docs-index
     p Sheet Modal is a special overlay type which is similar to Picker/Calendar's overlay. Such modal allows to create custom overlays with custom content
@@ -235,7 +235,7 @@ block content
     .important-note
       p Note that all following parameters can be used in global app parameters under `sheet` property to set defaults for all sheets. For example:
       :code(lang="js")
-            var app = new Framework7({
+            var app = new ZMP({
               sheet: {
                 closeByBackdropClick: false,
               }
@@ -347,7 +347,7 @@ block content
       </div>
 
     h2 Swipe Step
-    p If you pass `swipeToStep` parameter, then sheet will be opened partially, and with swipe it can be further expanded. To make it work, we also need to define that first/initial step in sheet HTML, so Framework7 can know on how much Sheet should be opened.
+    p If you pass `swipeToStep` parameter, then sheet will be opened partially, and with swipe it can be further expanded. To make it work, we also need to define that first/initial step in sheet HTML, so ZaUI can know on how much Sheet should be opened.
     p To make it work, we need to wrap initial Sheet content with `<div class="sheet-modal-swipe-step">` element, and set `height:auto` on that Sheet modal:
     :code(lang="html")
       <div class="sheet-modal" style="height: auto">

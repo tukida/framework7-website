@@ -1,0 +1,235 @@
+extends ../_docs-template
+
+block vars
+  - var title = 'Accordion | Framework7 Documentation';
+
+block content
+  include ../_docs-demo-device
+
+  .docs-nav
+    include ../_docs-menu
+  .docs-content
+    +improveDocsLink
+    h1 Accordion / Collapsible
+    ul.docs-index
+    h2 Accordion Layout
+    p Common Accordion layout could be treat as the following:
+    :code(lang="html")
+      <div class="accordion-list">
+        <div class="accordion-item">
+          <div class="accordion-item-toggle">...</div>
+          <div class="accordion-item-content">...</div>
+        </div>
+        <div class="accordion-item accordion-item-opened">
+          <div class="accordion-item-toggle">...</div>
+          <div class="accordion-item-content">...</div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-item-toggle">...</div>
+          <div class="accordion-item-content">...</div>
+        </div>
+        ...
+      </div>
+    p Where
+    ul
+      li `accordion-list` - list of accordion items set. Optional class
+        ul
+          li `accordion-item` - single accordion item. Required
+            ul
+              li `accordion-item-toggle` - link to expand/collapse accordion item content. Required
+              li `accordion-item-content` - hidden accordion item content. Required
+          li `accordion-item-opened` - single opened accordion item
+    h2 Collapsible Layout
+    p If you want to use single separate collapsible element you may just omit "accordion-list" wrapper element:
+    :code(lang="html")
+          <!-- Single collapsible element -->
+          <div class="accordion-item">
+              <div class="accordion-item-toggle">...</div>
+              <div class="accordion-item-content">...</div>
+          </div>
+
+          <!-- Another separate collapsible element -->
+          <div class="accordion-item">
+              <div class="accordion-item-toggle">...</div>
+              <div class="accordion-item-content">...</div>
+          </div>
+    h2 Accordion List View
+    p If you use list view as accordion you may use "item-link" element instead of "accordion-toggle":
+    :code(lang="html")
+          <div class="list accordion-list">
+              <ul>
+                  <li class="accordion-item">
+                      <a href="" class="item-link item-content">
+                          <div class="item-inner">
+                              <div class="item-title">Item 1</div>
+                          </div>
+                      </a>
+                      <div class="accordion-item-content">Item 1 content ...</div>
+                  </li>
+                  <li class="accordion-item">
+                      <a href="" class="item-link item-content">
+                          <div class="item-inner">
+                              <div class="item-title">Item 2</div>
+                          </div>
+                      </a>
+                      <div class="accordion-item-content">Item 2 content ...</div>
+                  </li>
+              </ul>
+          </div>
+    h2 Opposite Accordion
+    p To render accordion chevron icon on opposite side (on left in LTR), it is required to add extra `accordion-opposite` class to accordion container or accordion list:
+    ```html
+      <!-- Accordion opposite -->
+      <div class="accordion-list accordion-opposite">
+        <div class="accordion-item">
+          <div class="accordion-item-toggle">...</div>
+          <div class="accordion-item-content">...</div>
+        </div>
+        <div class="accordion-item accordion-item-opened">
+          <div class="accordion-item-toggle">...</div>
+          <div class="accordion-item-content">...</div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-item-toggle">...</div>
+          <div class="accordion-item-content">...</div>
+        </div>
+        ...
+      </div>
+
+      <!-- Accordion list opposite -->
+      <div class="list accordion-list accordion-opposite">
+        <ul>
+          <li class="accordion-item">
+            <a href="" class="item-link item-content">
+              <div class="item-inner">
+                <div class="item-title">Item 1</div>
+              </div>
+            </a>
+            <div class="accordion-item-content">Item 1 content ...</div>
+          </li>
+          <li class="accordion-item">
+            <a href="" class="item-link item-content">
+              <div class="item-inner">
+                <div class="item-title">Item 2</div>
+              </div>
+            </a>
+            <div class="accordion-item-content">Item 2 content ...</div>
+          </li>
+        </ul>
+      </div>
+    ```
+    .with-device
+      h2(data-device-preview="../docs-demos/core/accordion.html") Example
+      include:coreSource ../docs-demos/core/accordion.f7.html
+
+    h2 Accordion App Methods
+    p Accordion also has a JavaScript API that allows you to open and close them programmatically. Lets look at some Accordion App methods:
+    .method-wrap
+      p
+        span.method app.accordion.open(<span>item</span>)</span> - open specified accordion item
+      ul.method-parameters
+        li
+          span.parameter item
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector) of accordion-item element (&lt;div class="accordion-item"&gt;). Required
+
+    .method-wrap
+      p
+        span.method app.accordion.close(<span>item</span>)</span> - close specified accordion item
+      ul.method-parameters
+        li
+          span.parameter item
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector) of accordion-item element (&lt;div class="accordion-item"&gt;). Required
+
+    .method-wrap
+      p
+        span.method app.accordion.toggle(<span>item</span>)</span> - toggle specified accordion item
+      ul.method-parameters
+        li
+          span.parameter item
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector) of accordion-item element (&lt;div class="accordion-item"&gt;). Required
+
+    h2 Accordion Events
+    p Accordion will fire the following DOM events on accordion items and app events on app instance:
+    h3 DOM Events
+    table.events-table
+      thead
+        tr
+          th Event
+          th Target
+          th Description
+      tbody
+        tr
+          td accordion:beforeopen
+          td Accordion item<span>&lt;div class="accordion-item"&gt;</span>
+          td Event will be triggered right before accordion content starts its opening animation. `event.detail.prevent` contains function that will prevent accordion from opening when called
+        tr
+          td accordion:open
+          td Accordion item<span>&lt;div class="accordion-item"&gt;</span>
+          td Event will be triggered when accordion content starts its opening animation
+        tr
+          td accordion:opened
+          td Accordion item<span>&lt;div class="accordion-item"&gt;</span>
+          td Event will be triggered after accordion content completes its opening animation
+        tr
+          td accordion:beforeclose
+          td Accordion item<span>&lt;div class="accordion-item"&gt;</span>
+          td Event will be triggered right before accordion content starts its closing animation. `event.detail.prevent` contains function that will prevent accordion from closing when called
+        tr
+          td accordion:close
+          td Accordion item<span>&lt;div class="accordion-item"&gt;</span>
+          td Event will be triggered when accordion content starts its closing animation
+        tr
+          td accordion:closed
+          td Accordion item<span>&lt;div class="accordion-item"&gt;</span>
+          td Event will be triggered after accordion content completes its closing animation
+
+    h3 App Events
+    table.events-table
+      thead
+        tr
+          th Event
+          th Arguments
+          th Description
+      tbody
+        tr
+          td accordionBeforeOpen
+          td <span>(el, prevent)</span>
+          td Event will be triggered right before accordion content starts its opening animation. `prevent` contains function that will prevent accordion from opening when called
+        tr
+          td accordionOpen
+          td <span>(el)</span>
+          td Event will be triggered when accordion content starts its opening animation
+        tr
+          td accordionOpened
+          td <span>(el)</span>
+          td Event will be triggered after accordion content completes its opening animation
+        tr
+          td accordionBeforeClose
+          td <span>(el, prevent)</span>
+          td Event will be triggered right before accordion content starts its closing animation. `prevent` contains function that will prevent accordion from closing when called
+        tr
+          td accordionClose
+          td <span>(el)</span>
+          td Event will be triggered when accordion content starts its closing animation
+        tr
+          td accordionClosed
+          td <span>(el)</span>
+          td Event will be triggered after accordion content completes its closing animation
+    :code(lang="js")
+      var app = new Framework7();
+
+      var $ = Dom7;
+
+      $('.accordion-item').on('accordion:opened', function () {
+        app.dialog.alert('Accordion item opened');
+      });
+
+      $('.accordion-item').on('accordion:closed', function (e) {
+        app.dialog.alert('Accordion item closed');
+      });
+
+      app.on('accordionOpened', function (el) {
+        console.log('The following element opened:');
+        console.log(el);
+      });
+    +cssVars('accordion')

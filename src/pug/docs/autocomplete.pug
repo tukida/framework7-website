@@ -1,7 +1,7 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Autocomplete | Framework7 Documentation';
+  - var title = 'Autocomplete | Zalo Mini Program Components';
 
 block content
   include ../_docs-demo-device
@@ -9,10 +9,10 @@ block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Autocomplete
     ul.docs-index
-    p Framework7 comes with mobile-friendly and touch optimized Autocomplete component.
+    p ZaUI comes with mobile-friendly and touch optimized Autocomplete component.
     p Autocomplete could be used in standalone mode or as a dropdown.
     h2 Autocomplete App Methods
     p Autocomplete can be created and initialized only using JavaScript. We need to use related App's method:
@@ -326,7 +326,7 @@ block content
     .important-note
       p Note that all following parameters can be used in global app parameters under `autocomplete` property to set defaults for all autocompletes. For example:
       :code(lang="js")
-            var app = new Framework7({
+            var app = new ZMP({
               autocomplete: {
                 openIn: 'popup',
                 animate: false,

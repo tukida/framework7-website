@@ -1,0 +1,20 @@
+extends ../_sdk-template
+
+block vars
+  - var title = 'Installation | Zalo Mini Program API';
+
+block content
+  .docs-nav
+    include ../_sdk-menu
+  .docs-content
+    h1 Cài Đặt
+    h2 NPM
+    p Chúng ta có thể cài đặt Zalo Mini Program SDK từ NPM:
+    :code
+      npm install zmp-sdk
+
+    h2 Sử Dụng
+    :code
+      import api from 'zmp-sdk';
+
+      api.getVersion()

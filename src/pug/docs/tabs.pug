@@ -1,7 +1,7 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Tabs | Framework7 Documentation';
+  - var title = 'Tabs | Zalo Mini Program Components';
 
 block content
   include ../_docs-demo-device
@@ -9,7 +9,7 @@ block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Tabs
     ul.docs-index
     p Tabs allow to simply switch between different content.
@@ -214,7 +214,7 @@ block content
           |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector) of Tab to show. Required
         li
           span.parameter tabLinkEl
-          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector) of Tab link/button to be activated with this tab. Useful to pass in case you have a complex layout to tell Framework7 which tab link/button must be activated
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector) of Tab link/button to be activated with this tab. Useful to pass in case you have a complex layout to tell ZaUI which tab link/button must be activated
         li
           span.parameter animate
           |  - <span class="parameter-type">boolean</span> - Should it become visible with animation or not (in case of animated or swipeable tabs). <em>Optional</em>
@@ -416,7 +416,7 @@ block content
 
       h3 Routable Tabs
       :code(lang="js")
-        var app = new Framework7({
+        var app = new ZMP({
           routes: [
             {
               path: '/',

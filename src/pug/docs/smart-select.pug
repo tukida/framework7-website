@@ -1,7 +1,7 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Smart select | Framework7 Documentation';
+  - var title = 'Smart select | Zalo Mini Program Components';
 
 block content
   include ../_docs-demo-device
@@ -9,7 +9,7 @@ block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Smart Select
     ul.docs-index
     p Smart select allows you to easily convert your usual form selects to dynamic pages with grouped radio or checkbox inputs. You can see such feature in many native iOS apps
@@ -68,9 +68,9 @@ block content
       <li>
         <a href="#" class="item-link smart-select">
           <select name="fruits">
-            <option value="apple" selected data-option-image="https://cdn.framework7.io/placeholder/abstract-29x29-1.jpg">Apple</option>
-            <option value="pineapple" data-option-image="https://cdn.framework7.io/placeholder/abstract-29x29-2.jpg">Pineapple</option>
-            <option value="pear" data-option-color="orange" data-option-image="https://cdn.framework7.io/placeholder/abstract-29x29-3.jpg">Pear</option>
+            <option value="apple" selected data-option-image="https://cdn.zmp.io/placeholder/abstract-29x29-1.jpg">Apple</option>
+            <option value="pineapple" data-option-image="https://cdn.zmp.io/placeholder/abstract-29x29-2.jpg">Pineapple</option>
+            <option value="pear" data-option-color="orange" data-option-image="https://cdn.zmp.io/placeholder/abstract-29x29-3.jpg">Pear</option>
             ...
           </select>
           <div class="item-content">
@@ -432,7 +432,7 @@ block content
     .important-note
       p Note that all following parameters can be used in global app parameters under `smartSelect` property to set defaults for all smart selects. For example:
       :code(lang="js")
-        var app = new Framework7({
+        var app = new ZMP({
           smartSelect: {
             pageTitle: 'Select Option',
             openIn: 'popup',

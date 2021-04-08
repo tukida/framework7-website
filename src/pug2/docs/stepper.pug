@@ -1,0 +1,438 @@
+extends ../_docs-template
+
+block vars
+  - var title = 'Stepper | Framework7 Documentation';
+
+block content
+  include ../_docs-demo-device
+
+  .docs-nav
+    include ../_docs-menu
+  .docs-content
+    +improveDocsLink
+    h1 Stepper
+    ul.docs-index
+    h2 Stepper Layout
+    p Single stepper layout is pretty simple:
+    :code(lang="html")
+          <!-- Stepper element -->
+          <div class="stepper">
+            <!-- Stepper minus/decrement button -->
+            <div class="stepper-button-minus"></div>
+            <!-- Stepper input -->
+            <div class="stepper-input-wrap">
+              <!-- recommended to make input not editable (readonly) -->
+              <input type="text" readonly value="10">
+            </div>
+            <!-- Stepper plus/increment button -->
+            <div class="stepper-button-plus"></div>
+          </div>
+    p If you don't need an input element but still need to keep the value:
+    :code(lang="html")
+          <!-- Stepper element -->
+          <div class="stepper">
+            <div class="stepper-button-minus"></div>
+            <!-- Stepper value element -->
+            <div class="stepper-value">10</div>
+            <div class="stepper-button-plus"></div>
+          </div>
+    p And if you don't need to display value between stepper buttons:
+    :code(lang="html")
+          <!-- Stepper element -->
+          <div class="stepper">
+            <div class="stepper-button-minus"></div>
+            <div class="stepper-button-plus"></div>
+          </div>
+    h2 Stepper Modifier Classes
+    p Similar to <a href="./button.html">Button</a> it is possible to change Stepper styles (shape, size and color) by using additional modifier classes:
+    table.props-table
+      tbody
+        tr
+          td stepper-fill
+          td Filled-style stepper buttons
+        tr
+          td stepper-fill-ios
+          td Stepper buttons will have filled-style only in iOS theme
+        tr
+          td stepper-fill-md
+          td Stepper buttons will have filled-style only in MD theme
+        tr
+          td stepper-fill-aurora
+          td Stepper buttons will have filled-style only in Aurora theme
+        tr
+          td stepper-round
+          td Rounded stepper buttons
+        tr
+          td stepper-round-ios
+          td Stepper buttons will be rounded only in iOS theme
+        tr
+          td stepper-round-md
+          td Stepper buttons will be rounded only in MD theme
+        tr
+          td stepper-round-aurora
+          td Stepper buttons will be rounded only in Aurora theme
+        tr
+          td stepper-small
+          td Small stepper
+        tr
+          td stepper-small-ios
+          td Stepper will be small only in iOS theme
+        tr
+          td stepper-small-md
+          td Stepper will be small only in MD theme
+        tr
+          td stepper-small-aurora
+          td Stepper will be small only in Aurora theme
+        tr
+          td stepper-large
+          td Large stepper
+        tr
+          td stepper-large-ios
+          td Stepper will be large only in iOS theme
+        tr
+          td stepper-large-md
+          td Stepper will be large only in MD theme
+        tr
+          td stepper-large-aurora
+          td Stepper will be large only in Aurora theme
+        tr
+          td stepper-raised
+          td Raised stepper
+        tr
+          td stepper-raised-ios
+          td Raised stepper only in iOS theme
+        tr
+          td stepper-raised-md
+          td Raised stepper only in MD theme
+        tr
+          td stepper-raised-aurora
+          td Raised stepper only in Aurora theme
+        tr
+          td color-[color]
+          td Color button, where <b>[color]</b> is one of the <a href="color-themes.html">default colors</a>
+
+    h2 Stepper App Methods
+    p Let's look at related App methods to work with Stepper:
+    .method-wrap
+      p
+        span.method app.stepper.create(<span>parameters</span>)
+        | - create Stepper instance
+      ul.method-parameters
+        li
+          span.parameter parameters
+          |  - <span class="parameter-type">object</span>. Object with stepper parameters
+      p.method-returns Method returns created Stepper's instance
+
+    .method-wrap
+      p
+        span.method app.stepper.destroy(<span>el</span>)
+        | - destroy Stepper instance
+      ul.method-parameters
+        li
+          span.parameter el
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector) or <span class="parameter-type">object</span>. Stepper element or Stepper instance to destroy.
+    .method-wrap
+      p
+        span.method app.stepper.get(<span>el</span>)
+        | - get Stepper instance by HTML element
+      ul.method-parameters
+        li
+          span.parameter el
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector). Stepper element.
+      p.method-returns Method returns Stepper's instance
+    .method-wrap
+      p
+        span.method app.stepper.getValue(<span>el</span>)
+        | - get Stepper value
+      ul.method-parameters
+        li
+          span.parameter el
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector). Stepper element.
+      p.method-returns Method returns stepper value
+    .method-wrap
+      p
+        span.method app.stepper.setValue(<span>el</span>, <span>value</span>)
+        | - set new Stepper value
+      ul.method-parameters
+        li
+          span.parameter el
+          |  - <span class="parameter-type">HTMLElement</span> or <span class="parameter-type">string</span> (with CSS Selector). Stepper element.
+        li
+          span.parameter value
+          |  - <span class="parameter-type">number</span>
+      p.method-returns Method returns Stepper's instance
+    h2 Stepper Parameters
+    p Now let's look at list of available parameters we need to create Stepper:
+    table.params-table
+      thead
+        tr
+          th Parameter
+          th Type
+          th Default
+          th Description
+      tbody
+        tr
+          td el
+          td HTMLElement<br>string
+          td
+          td Stepper element. HTMLElement or string with CSS selector of stepper element
+        tr
+          td inputEl
+          td HTMLElement<br>string
+          td
+          td Stepper input element or CSS selector of input element. If not specified, will try to look for `<input>` inside of stepper element
+        tr
+          td step
+          td number
+          td 1
+          td Minimal step between values
+        tr
+          td min
+          td number
+          td 0
+          td Minimum value
+        tr
+          td max
+          td number
+          td 100
+          td Maximum value
+        tr
+          td value
+          td number
+          td 0
+          td Initial value
+        tr
+          td wraps
+          td boolean
+          td false
+          td When enabled, incrementing beyond maximum value sets value to minimum value; likewise, decrementing below minimum value sets value to maximum value
+        tr
+          td autorepeat
+          td boolean
+          td false
+          td When enabled it will repeatedly increase/decrease values while you tap and hold plus/minus buttons
+        tr
+          td autorepeatDynamic
+          td boolean
+          td false
+          td When enabled it will increase autorepeat ratio based on how long you hold the button
+        tr
+          td valueEl
+          td HTMLElement<br>string
+          td
+          td Stepper value element or CSS selector of this element where Stepper will insert value. If not specified, and there is no `inputEl` passed will try to look for `<div class="stepper-value">` inside of stepper element
+        tr
+          td formatValue
+          td function (value)
+          td
+          td Function to format value in required format. It accepts current value and must return new formatted value;
+        tr
+          td manualInputMode
+          td boolean
+          td false
+          td Enables manual input mode. This mode allows to type value from keyboard and check fractional part with defined accurancy. Also, `step` parameter is ignored when typing in this mode.
+        tr
+          td decimalPoint
+          td number
+          td 4
+          td Number of digits after dot, when in manual input mode.
+        tr
+          td buttonsEndInputMode
+          td boolean
+          td true
+          td Disables manual input mode on Stepper's minus or plus button click.
+        tr
+          td on
+          td object
+          td
+          td
+            p Object with events handlers. For example:
+            :code(lang="js")
+                  var stepper = app.stepper.create({
+                    el: '.stepper',
+                    on: {
+                      change: function () {
+                        console.log('Stepper value changed')
+                      }
+                    }
+                  })
+
+    h2 Stepper Methods & Properties
+    p So to create Stepper we have to call:
+    :code(lang="js")
+          var stepper = app.stepper.create({ /* parameters */ })
+    p After that we have its initialized instance (like `stepper` variable in example above) with useful methods and properties:
+    table.methods-table
+      tbody
+        tr
+          th(colspan="2") Properties
+        tr
+          td stepper.app
+          td Link to global app instance
+        tr
+          td stepper.el
+          td Stepper HTML element
+        tr
+          td stepper.$el
+          td Dom7 instance with stepper HTML element
+        tr
+          td stepper.min
+          td Stepper min value
+        tr
+          td stepper.max
+          td Stepper max value
+        tr
+          td stepper.value
+          td Stepper value
+        tr
+          td stepper.inputEl
+          td Stepper input HTML element
+        tr
+          td stepper.$inputEl
+          td Dom7 instance with stepper input HTML element
+        tr
+          td stepper.valueEl
+          td Stepper value container HTML element
+        tr
+          td stepper.$valueEl
+          td Dom7 instance with stepper value container HTML element
+        tr
+          td stepper.params
+          td Stepper parameters
+        tr
+          th(colspan="2") Methods
+        tr
+          td stepper.getValue()
+          td Returns stepper value
+        tr
+          td stepper.setValue(<span>value</span>)
+          td Set new stepper value
+        tr
+          td stepper.increment()
+          td Increment stepper value, similar to clicking on its "plus" button
+        tr
+          td stepper.decrement()
+          td Decrement stepper value, similar to clicking on its "minus" button
+        tr
+          td stepper.plus()
+          td Alias for `stepper.increment()`
+        tr
+          td stepper.minus()
+          td Alias for `stepper.decrement()`
+        tr
+          td stepper.destroy()
+          td Destroys stepper instance
+        tr
+          td stepper.on(<span>event</span>, <span>handler</span>)
+          td Add event handler
+        tr
+          td stepper.once(<span>event</span>, <span>handler</span>)
+          td Add event handler that will be removed after it was fired
+        tr
+          td stepper.off(<span>event</span>, <span>handler</span>)
+          td Remove event handler
+        tr
+          td stepper.off(<span>event</span>)
+          td Remove all handlers for specified event
+        tr
+          td stepper.emit(<span>event</span>, <span>...args</span>)
+          td Fire event on instance
+
+    h2 Stepper Events
+    p Stepper will fire the following DOM events on stepper element and events on app and stepper instance:
+    h3 DOM Events
+    table.events-table
+      thead
+        tr
+          th Event
+          th Target
+          th Description
+      tbody
+        tr
+          td stepper:change
+          td Stepper Element<span>&lt;div class="stepper"&gt;</span>
+          td Event will be triggered when Stepper value has been changed
+        tr
+          td stepper:beforedestroy
+          td Stepper Element<span>&lt;div class="stepper"&gt;</span>
+          td Event will be triggered right before Stepper instance will be destroyed
+    h3 App and Stepper Instance Events
+    p Stepper instance emits events on both self instance and app instance. App instance events has same names prefixed with `stepper`.
+    table.events-table.double-events-table
+      thead
+        tr
+          th Event
+          th Arguments
+          th Target
+          th Description
+      tbody
+        tr
+          td change
+          td <span>(stepper, value)</span>
+          td stepper
+          td(rowspan="2") Event will be triggered when stepper value has been changed. As an argument event handler receives stepper instance and stepper value
+        tr
+          td stepperChange
+          td <span>(stepper, value)</span>
+          td app
+        tr
+          td beforeDestroy
+          td <span>(stepper)</span>
+          td stepper
+          td(rowspan="2") Event will be triggered right before Stepper instance will be destroyed. As an argument event handler receives stepper instance
+        tr
+          td stepperBeforeDestroy
+          td <span>(stepper)</span>
+          td app
+    h2 Stepper Auto Initialization
+    p If you don't need to use Stepper API and your Stepper is inside of the page and presented in DOM on moment of page initialization then it can be auto initialized with just adding additional `stepper-init` class:
+    :code(lang="html")
+          <!-- Add stepper-init class -->
+          <div class="stepper stepper-init">
+            <div class="stepper-button-minus"></div>
+            <div class="stepper-input-wrap">
+              <input type="text" readonly>
+            </div>
+            <div class="stepper-button-plus"></div>
+          </div>
+    p In this case if you need to access created Stepper instance you can use the `app.stepper.get` app method:
+    :code(lang="js")
+          var stepper = app.stepper.get('.stepper');
+
+          if (stepper.value > 50) {
+            // do something
+          }
+    p When using auto init you may need to pass additional parameters. It can be done with two ways:
+    ul
+      li
+        p If you use stepper with input then `step`, `min`, `max`, `value` parameters can be set from same input attributes:
+        :code(lang="html")
+              <!-- min, max, step, value parameters will be set for same input attributes -->
+              <div class="stepper stepper-init">
+                <div class="stepper-button-minus"></div>
+                <div class="stepper-input-wrap">
+                  <input type="text" readonly min="0" max="50" step="10" value="15">
+                </div>
+                <div class="stepper-button-plus"></div>
+              </div>
+      li
+        p Otherwise, if you don't have input inside, you can set all available parameters via `data-` attributes on stepper element.
+        :code(lang="html")
+              <!-- parameters set via data- attributes -->
+              <div
+                class="stepper stepper-init"
+                data-min="0"
+                data-max="500"
+                data-step="25"
+                data-value="75"
+              >
+                <div class="stepper-button-minus"></div>
+                <div class="stepper-value"></div>
+                <div class="stepper-button-plus"></div>
+              </div>
+
+    +cssVars('stepper')
+
+    .with-device
+      h2(data-device-preview="../docs-demos/core/stepper.html") Examples
+      include:coreSource ../docs-demos/core/stepper.f7.html

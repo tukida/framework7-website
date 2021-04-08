@@ -1,7 +1,7 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Form | Framework7 Documentation';
+  - var title = 'Form | Zalo Mini Program Components';
 
 block content
   include ../_docs-demo-device
@@ -9,12 +9,12 @@ block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Form
     ul.docs-index
     .with-device
       h2(data-device-preview="../docs-demos/core/form-data.html") Form Data
-      p Framework7 comes with some very useful methods, this makes working with forms as simple as possible:
+      p ZaUI comes with some very useful methods, this makes working with forms as simple as possible:
       h3 Form Data App Methods
       p Using the following app methods we can easily convert all form fields values to data object and fill the form from data object:
       .method-wrap
@@ -89,7 +89,7 @@ block content
       include:coreSource ../docs-demos/core/form-data.f7.html
 
       h2(data-device-preview="../docs-demos/core/form-storage.html") Form Storage
-      p With form storage it is easy to store and parse forms data automatically, especially on Ajax loaded pages. And the most interesting part is that when you load this page again Framework7 will parse this data and fill up all form fields automatically!
+      p With form storage it is easy to store and parse forms data automatically, especially on Ajax loaded pages. And the most interesting part is that when you load this page again ZaUI will parse this data and fill up all form fields automatically!
       p To enable form storage for specific form, all you need is:
       ul
         li add `form-store-data` class to form
@@ -160,7 +160,7 @@ block content
       h3 Form Storage Example
       include:coreSource ../docs-demos/core/form-storage.f7.html
     h2 Ajax Form Submit
-    p Framework7 allows automatically send form data using Ajax.
+    p ZaUI allows automatically send form data using Ajax.
     p It could be done in two ways
     ul
       li when user submits it (when he clicks on "submit" button) or when "submit" event triggered on form programmatically
@@ -217,7 +217,7 @@ block content
           td Form Element<span>&lt;form class="form-ajax-submit"&gt;</span>
           td Event will be triggered on Ajax request error
     :code(lang="js")
-         var app = new Framework7();
+         var app = new ZMP();
 
          var $$ = Dom7;
 
@@ -257,7 +257,7 @@ block content
           td <span>(formEl, data, xhr)</span>
           td Event will be triggered on Ajax request error
     :code(lang="js")
-          var app = new Framework7();
+          var app = new ZMP();
 
           app.on('formAjaxSuccess', function (formEl, data, xhr) {
             // do something with response data

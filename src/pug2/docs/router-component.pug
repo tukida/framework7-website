@@ -1,0 +1,1170 @@
+extends ../_docs-template
+
+block vars
+  - var title = 'Router Component | Framework7 Documentation';
+
+block content
+  .docs-nav
+    include ../_docs-menu
+  .docs-content
+    +improveDocsLink
+    h1 Router Component
+    ul.docs-index
+    p Router Component is a special type of content that can be loaded by Router when we specify route content using `component` or `componentUrl` properties.
+    p It should help to better structure our apps, keep things in appropriate place, and make many things quicker and in a more clear and comfortable way.
+    h2 Component Function
+    p Component is a function that receives `props` and `context` and should return render function.
+    p Component render function should return <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates" target="_blank">Tagged template literal</a> with component HTML content.
+    p For example:
+    :code(lang="js")
+      const MyComponent = (props, context) => {
+        // some component logic
+        let value = 'foo';
+
+        // return render function
+        return () => context.$h`
+          <div class="page">
+            <p>Value is ${value}</p>
+          </div>
+        `;
+      }
+
+    h2 Component Template
+    p As mentioned above component render function should return <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates" target="_blank">Tagged template literal</a> with component HTML content. It has few important things to pay attention to.
+    p <b>All self-closing tags must be closed!</b>. If you will have not closed self-closing tags like `<br>`, `<img src="">`, `<input ...>`, then compiler will throw an error.
+    p <b>All empty elements can be self-closed</b>:
+    ```html
+      <div class="my-div"></div>
+
+      <!-- also valid as -->
+      <div class="my-div" />
+    ```
+
+    h2 Component Props
+    p First argument that receives component function is `props`. This object will contain all props that you will pass in navigate method, and all route parameters.
+    p For example if we have the following route:
+    ```js
+      {
+        path: '/blog/:id',
+        component: MyComponent
+      }
+    ```
+    p And when we navigate to route via `/blog/34/` URL then it will have `props.id` equal to `'34'`.
+    p And also when we navigate to component using API like so:
+    ```js
+      router.navigate('/blog/34/', {
+        props: {
+          foo: 'bar'
+        }
+      })
+    ```
+    p Then `props` will be the following object: `{ id: '34', foo: 'bar' }`
+    p Also props will contain properties passed to custom component as attributes. If custom component has such attributes:
+    :code(lang="html")
+      <my-component foo="bar" id="25" user=${{name: 'John'}} number=${30}></my-component>
+    p then `$props` will be:
+    :code(lang="js")
+      {
+        foo: 'bar',
+        id: '25',
+        user: {
+          name: 'John'
+        },
+        number: 30
+      }
+    h2 Component Context
+    p `context` object contains a lot of useful helpers:
+
+    table.methods-table
+      thead
+        tr
+          th Property
+          th Description
+      tbody
+        tr
+          td $h
+          td
+            p Special <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates" target="_blank">Tagged template literal</a> which is must be used to wrap component render function result and all HTML entries inside:
+            :code(lang="js")
+              const MyComponent = (props, { $h }) => {
+                let list = ['item 1', 'item 2'];
+
+                return () => $h`
+                  <div class="page">
+                    <ul>
+                      ${list.map((item) => $h`
+                        <li>${item}</li>
+                      `)}
+                    </ul>
+                  </div>
+                `
+              }
+        tr
+          td $el
+          td
+            p Object where `.value` property contains Dom7 instance with component HTML element.
+            p `$el.value` will be available only after component has been mounted (or in any page events like `pageInit`).
+            ```js
+              const MyComponent = (props, { $el, $onMounted }) => {
+                $onMounted(() => {
+                  $el.value.find('p').addClass('red')
+                })
+                // ...
+              }
+            ```
+        tr
+          td $
+          td
+            p <a href="dom7.html">Dom7</a> library:
+            ```js
+              const MyComponent = (props, { $, $onMounted }) => {
+                $onMounted(() => {
+                  $('p').text('hello world')
+                })
+                // ...
+              }
+            ```
+        tr
+          td $f7
+          td
+            p Framework7 app instance
+            :code(lang="js")
+              $f7.dialog.alert('Hello world!')
+        tr
+          td $store
+          td
+            p Store instance. Check <a href="store.html">Store documentation</a> for more details and examples.
+
+        tr
+          td $f7route
+          td Current route. Contains object with route `query`, `hash`, `params`, `path` and `url`
+        tr
+          td $f7router
+          td
+            p Related router instance
+            :code(lang="js")
+              $f7router.back(); //navigate back
+        tr
+          td $theme
+          td
+            p Object with `md`, `ios` and `aurora` boolean properties which indicating current theme. For example:
+            :code(lang="js")
+              if ($theme.ios) { /* do something when iOS theme is active */ }
+              if ($theme.md) { /* do something when MD theme is active */ }
+              if ($theme.aurora) { /* do something when Aurora theme is active */ }
+        tr
+          td $update(<span>callback</span>)
+          td
+            p This method tells that this component and its children need to be re-rendered with the updated state
+            :code(lang="js")
+              const MyComponent = (props, { $update, $h }) => {
+                // initial state
+                let value = 'foo';
+
+                const updateValue = () => {
+                  // update local state
+                  value = 'foo2';
+                  // call $update method
+                  $update();
+                }
+
+                return () => $h`
+                  <div class="page">
+                    <p>Value is ${value}</p>
+                    <button @click=${updateValue}>Update Value</button>
+                  </div>
+                `;
+              }
+
+            p It is not guaranteed that the DOM changes are applied immediately, so if you rely on DOM (e.g. need to get HTML content or attribute values after state changed) then pass `callback` function as argument.
+        tr
+          td $tick(<span>callback</span>)
+          td
+            p You can also use this method if you rely on DOM and need to be sure that component state and DOM updated after calling `$update()` methods.
+            p Passed callback will be executed on DOM update.
+            p This method returns Promise that will also be resolved on DOM update.
+            p So you can use it as this:
+            :code(lang="js")
+              $update();
+
+              $tick(function () {
+                console.log('DOM and state updated');
+              });
+
+              // Or as Promise
+              $tick().then(() => {
+                console.log('DOM and state updated');
+              })
+
+              // Or in async function/method as:
+              await $tick();
+              console.log('DOM and state updated');
+        tr
+          td $f7ready(<span>callback</span>)
+          td
+            p This method need to be used only when you use <a href="#main-app-component">Main App Component</a> to make sure to call Framework7 APIs when app initialized.
+            :code(lang="js")
+              const AppComponent = (props, { $f7, $f7ready }) => {
+                $f7ready(() => {
+                  // now it is safe to call Framework7 APIs
+                  $f7.dialog.alert('Hello!');
+                });
+
+                // ...
+              }
+        tr
+          th(colspan="2") Events
+        tr
+          td $on
+          td
+            p Function to attach DOM events handlers to component root element
+            ```js
+              const MyComponent = (props, { $on }) => {
+                // attach 'pageInit' event handler
+                $on('pageInit', (e, page) => {
+                  console.log(page.name)
+                });
+                // ...
+              }
+            ```
+            p Such event handlers will be automatically detached when component destroyed
+        tr
+          td $once
+          td
+            p Function to attach DOM events handlers to component root element. Same as `$on` but such handlers will be executed only once.
+        tr
+          td $emit(<span>event</span>, <span>data</span>)
+          td
+            p Function to emit custom DOM events in re-usable custom components:
+            ```js
+              const MyComponent = (props, { $emit }) => {
+                // emits custom event
+                $emit('myevent')
+                // ...
+              }
+            ```
+            p And in other parent component:
+            ```
+              <my-component @myevent=${doSomething} />
+            ```
+        tr
+          th(colspan="2") Lifecycle Hooks
+        tr
+          td $onBeforeMount
+          td Called right before component will be added to DOM
+        tr
+          td $onMounted
+          td
+            p Called right after component was be added to DOM
+            :code(lang="js")
+              const MyComponent = (props, { $onMounted }) => {
+                // do something when component mounted
+                $onMounted(() => {
+                  console.log('component mounted')
+                });
+                // ...
+              }
+        tr
+          td $onBeforeUpdate
+          td Called right after component before VDOM will be patched/updated
+        tr
+          td $onUpdated
+          td Called right after component VDOM has been patched/updated
+        tr
+          td $onBeforeUnmount
+          td Called right before component will be unmounted (detached from the DOM)
+        tr
+          td $onUnmounted
+          td Called when component unmounted and destroyed
+
+    p So the example route with page component may look like:
+    :code(lang="js")
+      routes = [
+        // ...
+        {
+          path: '/some-page/',
+          // Component
+          component: (props, { $h, $f7, $on }) => {
+            const title = 'Component Page';
+            const names = ['John', 'Vladimir', 'Timo'];
+
+            const openAlert = () => {
+              $f7.dialog.alert('Hello world!');
+            }
+
+            $on('pageInit', (e, page) => {
+              // do something on page init
+            });
+            $on('pageAfterOut', (e, page) => {
+              // page has left the view
+            });
+
+            return () => $h`
+              <div class="page">
+                <div class="navbar">
+                  <div class="navbar-bg"></div>
+                  <div class="navbar-inner">
+                    <div class="title">${title}</div>
+                  </div>
+                </div>
+                <div class="page-content">
+                  <a @click=${openAlert} class="red-link">Open Alert</a>
+                  <div class="list simple-list">
+                    <ul>
+                      ${names.map((name) => $h`
+                        <li>${name}</li>
+                      `)}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            `;
+          },
+        },
+        // ...
+      ]
+
+    h2 Component Page Events
+    p Component page events handlers can be passed in `$on` component event handler. They are usual DOM <a href="page.html#page-events">Page Events</a>. Because they are DOM events, they accept `event` as first agrument, and <a href="page.html#page-data">Page Data</a> as second argument. There only difference with usual DOM events is that event handler name must be specified in camelCase format (`page:init` -> `pageInit`):
+    :code(lang="js")
+      const MyComponent = (props, { $on }) => {
+        $on('pageMounted', (e, page) => {
+          console.log('page mounted');
+        });
+        $on('pageInit', (e, page) => {
+          console.log('page init');
+        });
+        $on('pageBeforeIn', (e, page) => {
+          console.log('page before in');
+        });
+        $on('pageAfterIn', (e, page) => {
+          console.log('page after in');
+        });
+        $on('pageBeforeOut', (e, page) => {
+          console.log('page before out');
+        });
+        $on('pageAfterOut', (e, page) => {
+          console.log('page after out');
+        });
+        $on('pageBeforeUnmount', (e, page) => {
+          console.log('page before unmount');
+        });
+        $on('pageBeforeRemove', (e, page) => {
+          console.log('page before remove');
+        });
+      }
+
+    h2 DOM Events Handling
+    p Note that additional `@` attribute in component template. It is a shorthand method to assign event listener to the specified element. Specified event handler will be searched in component scope.
+    p Such event handler attribute value must be a function:
+    :code(lang="js")
+      const MyComponent = (props, { $h, $update }) => {
+        let value = 10;
+        const addValue = (number) => {
+          value += number;
+          $update();
+        }
+        const onClick = () => {
+          console.log('click');
+        }
+
+        return () => $h`
+          <div class="page">
+            <!-- pass function to attribute -->
+            <button @click=${onClick}>Button</button>
+
+            <!-- also work -->
+            <button @click=${() => onClick()}>Button</button>
+
+            <!-- will not work, attribute value "onClick" is just a string -->
+            <button @click="onClick">Button</button>
+
+            <!-- passing dynamic data will work as expected -->
+            <button @click=${() => addValue(15)}>Button</button>
+          </div>
+        `
+      }
+    p Event handlers are processed only on initial rendering, or for elements patched with VDOM. <b>If you add such element to DOM manually it won't work!</b>
+    :code(lang="js")
+      const MyComponent = (props, { $h, $on }) => {
+        const onClick = () => {
+          console.log('click');
+        }
+
+        $on('pageInit', (e, page) => {
+          // this won't work
+          page.$el.append('<a @click="onClick">Link</a>');
+        });
+
+        return () => $h`
+          <div class="page">
+          </div>
+        `
+      }
+
+    h2 Component Root Element
+    p Component template or render function must return only single HTML element. And it must be an element that is supported by router:
+    ul
+      li
+        p If you load pages as router component then router component must return Page element:
+          :code
+            <template>
+              <div class="page">
+                ...
+              </div>
+            </template>
+      li
+        p If you load modal (<a href="routes.html#routable-modals">Routable Modals</a>) as router component then router component must return that modal element:
+          :code
+            <template>
+              <div class="popup">
+                ...
+              </div>
+            </template>
+      li
+        p If you load panel (<a href="routes.html#routable-panels">Routable Panels</a>) as router component then router component must return Panel element:
+          :code
+            <template>
+              <div class="panel panel-left panel-cover">
+                ...
+              </div>
+            </template>
+      li
+        p If you load tab content (<a href="routes.html#routable-tabs">Routable Tabs</a>) as router component then router component must return Tab's child element that will be inserted inside of routable Tab:
+          :code
+            <template>
+              <div class="some-element">
+                ...
+              </div>
+            </template>
+
+    h2 Single File Component
+    p It is not very comfortable to specify all component routes under same routes array, especially if we have a lot of such routes. This is why we can use `componentUrl` instead and put component into single file:
+    :code(lang="js")
+      routes = [
+        ...
+        {
+          path: '/some-page/',
+          componentUrl: './some-page.f7.html',
+        },
+        ..
+      ];
+    p And in `some-page.f7.html`:
+    :code(lang="html")
+      <!-- component template, uses same tagged template literals -->
+      <template>
+        <div class="page">
+          <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner">
+              <div class="title">${title}</div>
+            </div>
+          </div>
+          <div class="page-content">
+            <a @click=${openAlert}>Open Alert</a>
+            <div class="list simple-list">
+              <ul>
+                ${names.map((name) => $h`
+                  <li>${name}</li>
+                `)}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </template>
+      <!-- component styles -->
+      <style>
+        .red-link {
+          color: red;
+        }
+      </style>
+      <!-- rest of component logic -->
+      <script>
+        // script must return/export component function
+        export default (props, { $f7, $on }) => {
+          const title = 'Component Page';
+          const names = ['John', 'Vladimir', 'Timo'];
+
+          const openAlert = () => {
+            $f7.dialog.alert('Hello world!');
+          }
+
+          $on('pageInit', () => {
+            // do something on page init
+          });
+          $on('pageAfterOut', () => {
+            // page has left the view
+          });
+
+          // component function must return render function
+          return $render;
+        }
+      </script>
+    p Well, now it is much cleaner. The `<template>` and `<style>` tags will be automatically converted to the same properties of exported component.
+    .important-note
+      p It is mandatory to have `return $render` in the end of the component function, as it will be replaced by parser with content of the `<template>` tag.
+
+    h3 Usage With Webpack
+    p There is a special <a href="https://github.com/framework7io/framework7-loader" target="_blank">framework7-loader</a> plugin for Webpack that allows to bundle Single-File Components into main bundle and not to use XHR (e.g. `componentUrl`) to load and parse component files each time.
+    p This loader parses Single-File component's file and transforms it to plain JS object during bundling process. So, potentially, it can increase app performance because there won't be runtime parsing and compilation.
+    p When this loader is configured, we need to store Single-File components in `.f7.html` files and use `export default` for component export:
+    :code(lang="html")
+      <template>
+        <div class="page">
+          ...
+        </div>
+      </template>
+      <script>
+        export default () => {
+          let foo = 'bar';
+
+          const doThis = () => {
+            // ...
+          }
+
+          return $render;
+        }
+      </script>
+    p It also possible to import required dependencies and styles:
+    :code(lang="html")
+      <template>
+        <div class="page">
+          ...
+        </div>
+      </template>
+      <script>
+        import './path/to/some-styles.css';
+        import utils from './path/to/utils.js';
+
+        export default () => {
+          let foo = 'bar';
+          let now = utils.now();
+
+          const doThis = () => {
+            // ...
+          }
+
+          return $render;
+        }
+      </script>
+    p And then we can import it and add to routes:
+    :code(lang="js")
+      // routes.js
+
+      import NewsPage from './path/to/news.f7.html';
+      import ServicesPage from './path/to/services.f7.html';
+
+      export default [
+        {
+          path: '/news/',
+          component: NewsPage,
+        },
+        {
+          path: '/services/',
+          component: ServicesPage,
+        }
+      ]
+
+    h3 JSX
+    p Template literals doesn't have good syntax highlighting inside of HTML documents. But when using with webpack it is also possible to write components in <a href="https://facebook.github.io/jsx/" target="_blank">JSX syntax</a>.
+    p To make it work, we need to store components in `.f7.js` files and write them using JSX:
+    ```jsx
+      export default (props, { $update }) => {
+        let value = 10;
+        const items = ['Item 1', 'Item 2'];
+
+        const addValue = (number) => {
+          value += number;
+          $update();
+        }
+
+        //- render function should returns JSX
+        return () => (
+          <div class="page">
+            <p>The value is {value}</p>
+            <p>
+              {/* JSX doesn't support @ in attribute name so event handlers should start from "on" */}
+              <button onClick={() => addValue(10)}>Add Value</button>
+            </p>
+            <ul>
+              {items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+    ```
+    p And import them in the same way in `routes.js`:
+    ```js
+      import NewsPage from './path/to/news.f7.js';
+      import ServicesPage from './path/to/services.f7.js';
+
+      export default [
+        {
+          path: '/news/',
+          component: NewsPage,
+        },
+        {
+          path: '/services/',
+          component: ServicesPage,
+        }
+      ]
+    ```
+
+    h2 Virtual DOM
+    .important-note
+      p
+        b Virtual DOM and all VDOM related features available from Framework7 version 3.1.0.
+    p The virtual DOM (VDOM) is a programming concept where an ideal, or "virtual", representation of a UI is kept in memory and synced with the "real" DOM. It allows us to express our application's view as a function of its state.
+    p VDOM library called #[a(href="https://github.com/snabbdom/snabbdom" target="_blank") Snabbdom] because it is extremely lightweight, fast and fits great for Framework7 environment.
+    p So how does Framework7 router component VDOM rendering works? Component template is converted to VDOM instead of directly inserting to DOM. Later, when component state changes, it creates new VDOM and compares it with previous VDOM. And based on that diff it patches real DOM by changing only elements and attributes that need to be changed. And all this happens automatically!
+    p Let's look at that user profile component example that will auto update layout when we request user data:
+
+    :code(lang="html")
+      <template>
+        <div class="page">
+          <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner">
+              <div class="title">Profile</div>
+            </div>
+          </div>
+          <div class="page-content">
+            ${user && $h`
+              <!-- Show user list when it is loaded -->
+              <div class="list simple-list">
+                <ul>
+                  <li>First Name: ${user.firstName}</li>
+                  <li>Last Name: ${user.lastName}</li>
+                  <li>Age: ${user.age}</li>
+                </ul>
+              </div>
+            `}
+            ${!user && $h`
+              <!-- Otherwise show preloader -->
+              <div class="block block-strong text-align-center">
+                <div class="preloader"></div>
+              </div>
+            `}
+          </div>
+        </div>
+      </template>
+      <script>
+        export default (props, { $on, $f7, $update }) => {
+          // empty initial user data
+          let user = null;
+
+          $on('pageInit', () => {
+            // request user data on page init
+            $f7.request.get('https://api.website.com/get-user-profile').then((res) => {
+              // update user with new data
+              user = res.data;
+              // trigger re-render
+              $update();
+            });
+          })
+
+          return $render;
+        }
+      </script>
+    .important-note
+      p Note, that direct assignment to component state won't trigger layout update. Use `$update` whenever you need to update component layout!
+    h3 Keys in Lists & Auto-Init Components
+    p When VDOM is updating a list of elements, by default it uses an "in-place patch" strategy. If the order of the data items has changed, instead of moving the DOM elements to match the order of the items, it will patch each element in-place and make sure it reflects what should be rendered at that particular index.
+
+    p This default mode is efficient, but only suitable <b>when your render output does not rely on child component state or temporary DOM state (e.g. form input values)</b>.
+
+    p To give VDOM a hint so that it can track each node's identity, and thus reuse and reorder existing elements, you need to provide a unique `key` attribute for each item.
+
+    p When rendering lists, an ideal value for `key` would be the unique id of each item:
+
+    :code(lang="html")
+      <template>
+        ...
+        <ul>
+          ${items.map((item) => $h`
+            <li key=${item.id}>...</li>
+          `)}
+        </ul>
+        ...
+      </template>
+      <script>
+        export default () => {
+          const items = [
+            {
+              id: 1,
+              title: 'Item A'
+            },
+            {
+              id: 2,
+              title: 'Item B'
+            },
+          ];
+
+          return $render;
+        }
+      </script>
+
+    p Same with auto-initialized components like <a href="./range-slider.html">Range Slider</a>, <a href="./gauge.html">Gauge</a> and others that should be automatically initialized (if they have `range-slider-init`, `gauge-init`) when they added to DOM, and automatically destroyed when they removed from DOM. So such elements must be also indentified with unique keys.
+
+    :code(lang="html")
+      <template>
+        <div class="page">
+          ...
+          <div class="page-content">
+            ${gaugeVisible && $h`
+              <!-- must have unique key -->
+              <div key="gauge" class="gauge gauge-init" data-type="circle"
+                data-value="0.60"
+                data-value-text="60%"
+                data-value-text-color="#ff9800"
+                data-border-color="#ff9800"
+              ></div>
+            `}
+            ...
+            <a href="#" class="button" @click=${showGauge}>Show Gauge</a>
+          </div>
+        </div>
+      </template>
+      <script>
+        export default (props, { $update }) => {
+          let gaugeVisible = false;
+
+          const showGauge = () => {
+            gaugeVisible = true;
+            $update();
+          }
+
+          return $render;
+        }
+      </script>
+    .important-note
+      ul
+        li Note that `key` attribute must be unique accross single component.
+        li If `key` attribute was not specified and element has an `id` attribute, then `id` attribute will be used as virtual node unique key.
+
+    h3 innerHTML
+    p If we need to insert HTML string (for example, received from API endpoint), we need to use special `innerHTML` element prop/attribute:
+
+    :code(lang="html")
+      <template>
+        <div class="page">
+          ...
+          <div class="block" innerHTML=${customHTML}></div>
+        </div>
+      </template>
+      <script>
+        export default (props) => {
+          const customHTML = '<p>Hello <b>World!</b></p>';
+
+          return $render;
+        }
+      </script>
+    .important-note
+      p Using `innerHTML` on element will override all its children.
+      p HTML content passed in `innerHTML` is just a string and, for example, component event handlers (like `@click` attribute) won't work.
+
+    h2 Main App Component
+    p It is possible to make whole app layout as a component.
+
+    .important-note
+      p Note that due to VDOM implementation it is highly recommended to add unique `id` or `key` attribute to every auto initialized View (View with `view-init` class):
+
+    p To enable it, first, we should keep app root element empty in `index.html`:
+    ```html
+      <body>
+        <!-- empty app root element -->
+        <div id="app"></div>
+      </body>
+    ```
+    p Then we need to create main app component, for example, Single File Component using webpack:
+    :code(lang="html")
+      <!-- app.f7.html -->
+      <template>
+        <div id="app">
+          ${loggedIn.value && $h`
+            <div class="panel panel-left panel-reveal panel-init">
+              <!-- every View has unique ID attribute -->
+              <div class="view view-init" id="view-panel" data-url="/panel/"></div>
+            </div>
+            <div class="view view-main view-init" id="view-main" data-url="/"></div>
+          `}
+          ${!loggedIn.value && $h`
+            <div class="login-screen modal-in">
+              <div class="view view-init" id="view-auth" data-url="/auth/"></div>
+            </div>
+          `}
+        </div>
+      </template>
+      <script>
+        export default (props, { $store }) => {
+          const loggedIn = $store.getters.loggedIn;
+
+          return $render;
+        }
+      </script>
+    p Finally, when we init Framework7, we need to specify app component on init:
+    ```js
+      // import main app component
+      import App from './path/to/app.f7.html';
+
+      var app = new Framework7({
+        // specify main app component
+        component: App,
+      })
+    ```
+    p Or, if we don't use webpack, we can also load it via XHR:
+    ```js
+      var app = new Framework7({
+        // load main app component
+        componentUrl: './path/to/app.f7.html',
+      })
+    ```
+
+    p Also note that main app component will be mounted (added to DOM) BEFORE app initialization process finished. So if you need to call Framework7 APIs immediately, use `$f7ready` callback:
+    ```html
+      <template>
+        <div id="app">
+          ...
+        </div>
+      </template>
+      <script>
+        export default (props, { $f7ready, $f7 }) => {
+          $f7ready(() => {
+            // now it is safe to call Framework7 APIs
+            $f7.dialog.alert('Hello!');
+          })
+        }
+      </script>
+    ```
+
+    h2 Custom Components
+    h3 Register Components
+    p It is possible to create custom reusable components. We need to do it BEFORE Framework7 initialization with the following method:
+    .method-wrap
+      p
+        span.method Framework7.registerComponent(<span>tagName</span>, <span>component</span>)
+        | - register custom component
+      ul.method-parameters
+        li
+          span.parameter tagName
+          |  - <span class="parameter-type">string</span>. Component tag name, e.g. `my-component` (will be used as `<my-component>`).
+          p.important-note Custom component tag name must contain a hyphen/dash character "`-`"
+        li
+          span.parameter component
+          |  - <span class="parameter-type">object</span> or <span class="parameter-type">class</span>. Component function
+    .important-note
+      p Note, at the moment, it is possible to use custom components only in router components (components loaded by router).
+    :code(lang="js")
+      Framework7.registerComponent(
+        // component name
+        'my-list-item',
+
+        // component function
+        (props, { $h }) => {
+          let foo = 'bar';
+
+          return () => $h`
+            <li class="item-content" id="${props.id}">...</li>
+          `
+        }
+      )
+    p And use it in other components like:
+    :code(lang="html")
+      <div class="list">
+        <ul>
+          <my-list-item id="item-1"></my-list-item>
+        </ul>
+      </div>
+    p Note, that attributes passed to custom component element available in component `props`.
+
+    h3 Local Components
+    p It is possible to create local custom components in components:
+    :code(lang="html")
+      <template>
+        <ul>
+          <!-- use tag names as variables -->
+          <${ListItem} title="Item 1" />
+          <${ListItem} title="Item 2" />
+          <${ListItem} title="Item 3" />
+        </ul>
+      </template>
+      <script>
+        // create local component
+        const ListItem = (props, { $h }) => {
+          return () => $h`<li>${props.title}</li>`;
+        }
+
+        // export main component
+        export default () => {
+          return $render;
+        }
+      </script>
+    p Or they can be imported:
+    :code(lang="html")
+      <template>
+        <ul>
+          <!-- use tag names as variables -->
+          <${ListItem} title="Item 1" />
+          <${ListItem} title="Item 2" />
+          <${ListItem} title="Item 3" />
+        </ul>
+      </template>
+      <script>
+        // import component
+        import ListItem from 'path/to/list-item.f7.html';
+
+        // export main component
+        export default () => {
+          return $render;
+        }
+      </script>
+    p With JSX:
+    :code(lang="jsx")
+      const ListItem = (props) => {
+        return (
+          <li>{props.title}</li>
+        )
+      }
+      /* or
+      import ListItem from 'path/to/list-item.f7.js'
+      */
+
+      export default () => {
+        return () => (
+          <ul>
+            <ListItem title="Item 1" />
+            <ListItem title="Item 2" />
+            <ListItem title="Item 3" />
+          </ul>
+        )
+      }
+    p In JSX, it can be created inside of the main component:
+    :code(lang="jsx")
+      export default () => {
+
+        const ListItem = (props) => {
+          return (
+            <li>{props.title}</li>
+          )
+        }
+
+        return () => (
+          <ul>
+            <ListItem title="Item 1" />
+            <ListItem title="Item 2" />
+            <ListItem title="Item 3" />
+          </ul>
+        )
+      }
+
+    h3 Events
+    p You can assign DOM events for custom component in templates with same `@{event}` syntax. Event handler will be actually attached to custom component root element.
+    :code(lang="html")
+      <template>
+        <div class="page">
+          ...
+          <my-button @click="onClick">Click Me</my-button>
+        </div>
+      </template>
+      <script>
+        return {
+          // ...
+          methods: {
+            onClick: function(e) {
+              console.log('clicked');
+            }
+          },
+          // ...
+        }
+      </script>
+
+    h3 Slots
+    p If we need to pass children elements (or text) to custom component we need to use slots. Slots implementation here is similar to <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots#Adding_flexibility_with_slots" target="_blank">Web Components slots</a>.
+    p With `slot` tag we specify where component children should be placed. For example `my-button` component template:
+    :code(lang="html")
+      <a class="button button-fill">
+        <slot></slot>
+      </a>
+    p Can be used then like this:
+    :code(lang="html")
+      <my-button>Click Me</my-button>
+    p To specify slot default value (when no children passed), we just put it inside `<slot>` tag:
+    :code(lang="html")
+      <a class="button button-fill">
+        <slot>Default Button Text</slot>
+      </a>
+    p To distribute elements across component layout, we can use named slots. For example, template of `my-container` component:
+    :code(lang="html")
+      <div class="container">
+        <header>
+          <slot name="header"></slot>
+        </header>
+        <main>
+          <slot></slot>
+        </main>
+        <footer>
+          <slot name="footer"></slot>
+        </footer>
+      </div>
+    p And we can use it like following:
+    :code(lang="html")
+      <my-container>
+        <h1 slot="header">Title</h1>
+
+        <p>Text for main content.</p>
+        <p>More text for main content.</p>
+
+        <p slot="footer">Footer content</p>
+      </my-container>
+    p And component result output will be:
+    :code(lang="html")
+      <div class="container">
+        <header>
+          <h1>Title</h1>
+        </header>
+        <main>
+          <p>Text for main content.</p>
+          <p>More text for main content.</p>
+        </main>
+        <footer>
+          <p>Footer content</p>
+        </footer>
+      </div>
+
+    h2 Template Recepies
+    h3 Conditional Rendering
+    p To implement conditions in JavaScript we usually use `if` (`if-else`) statements. Inside of templates and JSX we can't use them directly and should use JavaScript operators.
+    h4 `if`
+    p For `if` statement we should use logical AND (`&&`) operator:
+    :code
+      <template>
+        <div class="page">
+          ${someVar && $h`
+            <p>Text will be visible when "someVar" is truthy</p>
+          `}
+
+          ${someVar === 1 && $h`
+            <p>Text will be visible when "someVar" equals to 1</p>
+          `}
+        </div>
+      </template>
+      <script>
+        export default () => {
+          const someVar = 1;
+
+          return $render;
+        }
+      </script>
+    p Same using JSX:
+    :code(lang="jsx")
+      export default () => {
+        const someVar = 1;
+
+        return () => (
+          <div class="page">
+            {someVar && (
+              <p>Text will be visible when "someVar" is truthy</p>
+            )}
+
+            {someVar === 1 && (
+              <p>Text will be visible when "someVar" equals to 1</p>
+            )}
+          </div>
+        )
+      }
+    h4 `if-else`
+    p For `if-else` we can use Ternary operator (`?:`) or combination of `&&` and `!` operators:
+    :code
+      <template>
+        <div class="page">
+          ${someVar ? $h`
+            <p>Text will be visible when "someVar" is truthy</p>
+          ` : $h`
+            <p>Text will be visible when "someVar" is falsy</p>
+          `}
+
+          {someVar && (
+            <p>Text will be visible when "someVar" is truthy</p>
+          )}
+          {!someVar && (
+            <p>Text will be visible when "someVar" is falsy</p>
+          )}
+        </div>
+      </template>
+      <script>
+        export default () => {
+          const someVar = 1;
+
+          return $render;
+        }
+      </script>
+    p Same using JSX:
+    :code(lang="jsx")
+      export default () => {
+        const someVar = 1;
+
+        return () => (
+          <div class="page">
+            {someVar ? (
+              <p>Text will be visible when "someVar" is truthy</p>
+            ) : (
+              <p>Text will be visible when "someVar" is falsy</p>
+            )}
+
+            {someVar && (
+              <p>Text will be visible when "someVar" is truthy</p>
+            )}
+            {!someVar && (
+              <p>Text will be visible when "someVar" is falsy</p>
+            )}
+
+          </div>
+        )
+      }
+    h3 Mapping Array To Elements
+    p To map array to elements we use Array's `.map()` method:
+    :code
+      <template>
+        <div class="page">
+          <ul>
+          ${items.map((item) => $h`
+            <li>${item}</li>
+          `)}
+          </ul>
+        </div>
+      </template>
+      <script>
+        export default () => {
+          const items = [
+            'item 1',
+            'item 2',
+            'item 3',
+          ];
+
+          return $render;
+        }
+      </script>
+    p Same using JSX:
+    :code(lang="jsx")
+      export default () => {
+        const items = [
+          'item 1',
+          'item 2',
+          'item 3',
+        ];
+
+        return () => (
+          <div class="page">
+            <ul>
+              {items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+
+
+

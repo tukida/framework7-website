@@ -1,0 +1,30 @@
+extends ../_introduction-template
+
+block vars
+  - var title = 'Zalo Mini Program Command-Line Interface (CLI) | Introduction';
+
+block content
+  .docs-nav
+    include ../_introduction-menu
+  .docs-content
+    h1 Zalo Mini Program Command-Line Interface (CLI)
+    ul.docs-index
+
+    h2 Giới Thiệu
+    p Zalo Mini Program CLI là một công cụ giúp chúng ta có thể tạo và deploy nhanh một ứng dụng
+    p Nó cung cấp các chức năng như:
+    ul
+      li Tạo ứng dụng mới
+      li Kiểm thử ứng dụng ở môi trường phát triển
+      li Deploy ứng dụng lên hệ thống Zalo Mini Program
+
+    h2 Cài Đặt
+    p Đầu tiên bạn phải cài đặt Node.js (12.x) và NPM
+    p Sau đó chúng ta có thể cài đặt Zalo Mini Program CLI từ NPM:
+    :code
+      npm install -g zmp-cli
+
+    h2 Sử Dụng
+    :code
+      zmp <command> [options]
+

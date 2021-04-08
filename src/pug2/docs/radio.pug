@@ -1,0 +1,104 @@
+extends ../_docs-template
+
+block vars
+  - var title = 'Radio | Framework7 Documentation';
+
+block content
+  include ../_docs-demo-device
+
+  .docs-nav
+    include ../_docs-menu
+  .docs-content
+    +improveDocsLink
+    h1 Radio
+    ul.docs-index
+    h2 Radio Layout
+    p Radio layout is pretty simple:
+    ```html
+      <!-- radio element -->
+      <label class="radio">
+        <!-- radio input -->
+        <input type="radio">
+        <!-- radio icon -->
+        <i class="icon-radio"></i>
+      </label>
+    ```
+    h2 Radio Group/List
+    p To create Radio group/list we need to use <a href="list-view.html">List View</a> with few additions:
+    ```html
+      <div class="list">
+        <ul>
+          <!-- Single radio item -->
+          <li>
+            <label class="item-radio item-content">
+              <!-- Radio input -->
+              <input type="radio" name="my-radio" value="radio-1"/>
+              <!-- Radio icon -->
+              <i class="icon icon-radio"></i>
+              <div class="item-inner">
+                <!-- Radio Title -->
+                <div class="item-title">Books</div>
+              </div>
+            </label>
+          </li>
+          <!-- Another radio item -->
+          <li>
+            <label class="item-radio item-content">
+              <!-- Checked by default -->
+              <input type="radio" name="my-radio" value="radio-2" checked/>
+              <i class="icon icon-radio"></i>
+              <div class="item-inner">
+                <div class="item-title">Music</div>
+              </div>
+            </label>
+          </li>
+          ...
+        </ul>
+      </div>
+    ```
+    .important-note
+      ul
+        li `item-content` must be a `<label>` element with additional `item-radio` class
+        li Radio input (`<input type="radio">`) must be a first child of `item-content`
+        li Radio icon must be <b>after</b> radio input
+    h3 Radio Icon Position
+    p By default radio list item icon is displayed in the end of the list item in iOS theme, and in the beginning of the list item in MD and Aurora themes.
+    p And it is possible to override this behavior to specify position of radio list item icon - in the beginning or in the end of the list item.
+    p To do this, we need to add additional `item-radio-icon-start` or `item-radio-icon-end` class to `item-radio`:
+    ```html
+      <!-- Additional "item-radio-icon-start" class will force radio icon to appear in the beginning of the list item for all themes -->
+      <li>
+        <!-- Additional "item-radio-icon-start" class -->
+        <label class="item-radio item-radio-icon-start item-content">
+          <!-- Radio input -->
+          <input type="radio" name="my-radio" value="radio-1"/>
+          <!-- Radio icon -->
+          <i class="icon icon-radio"></i>
+          <div class="item-inner">
+            <!-- Radio Title -->
+            <div class="item-title">Books</div>
+          </div>
+        </label>
+      </li>
+
+      <!-- Additional "item-radio-icon-end" class will force radio icon to appear in the end of the list item for all themes -->
+      <li>
+        <!-- Additional "item-radio-icon-end" class -->
+        <label class="item-radio item-radio-icon-end item-content">
+          <!-- Radio input -->
+          <input type="radio" name="my-radio" value="radio-1"/>
+          <!-- Radio icon -->
+          <i class="icon icon-radio"></i>
+          <div class="item-inner">
+            <!-- Radio Title -->
+            <div class="item-title">Books</div>
+          </div>
+        </label>
+      </li>
+    ```
+
+    +cssVars('radio')
+
+    .with-device
+      h2(data-device-preview="../docs-demos/core/radio.html") Examples
+      include:coreSource ../docs-demos/core/radio.f7.html

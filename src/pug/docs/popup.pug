@@ -1,7 +1,7 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Popup | Framework7 Documentation';
+  - var title = 'Popup | Zalo Mini Program Components';
 
 block content
   include ../_docs-demo-device
@@ -9,7 +9,7 @@ block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Popup
     ul.docs-index
     p Popup is a popup window with any HTML content that pops up over App's main content. Popup as all other overlays is part of so called "Temporary Views".
@@ -164,7 +164,7 @@ block content
     .important-note
       p Note that all following parameters can be used in global app parameters under `popup` property to set defaults for all popups. For example:
       :code(lang="js")
-            var app = new Framework7({
+            var app = new ZMP({
               popup: {
                 closeByBackdropClick: false,
               }

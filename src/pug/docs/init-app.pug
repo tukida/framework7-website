@@ -1,21 +1,21 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Initialize App | Framework7 Documentation';
+  - var title = 'Initialize App | Zalo Mini Program Components';
 
 block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Initialize App
     p Now you can see our HTML layout with linked required CSS and JavaScript files. Now we should initialize our app (for example in `my-app.js`):
     :code(lang="js")
-          var app = new Framework7();
-    p In the example above we use `app` variable where we store Framework7 initialized instance for easy access in future. It is not necessary to name it `app`, it could be any name you like.
-    p It was pretty simple. But Framework7 also provides more customization on initialization by passing object with parameters:
+          var app = new ZMP();
+    p In the example above we use `app` variable where we store ZaUI initialized instance for easy access in future. It is not necessary to name it `app`, it could be any name you like.
+    p It was pretty simple. But ZaUI also provides more customization on initialization by passing object with parameters:
     :code(lang="js")
-      var app = new Framework7({
+      var app = new ZMP({
         // App root element
         el: '#app',
         // App Name
@@ -41,7 +41,7 @@ block content
       var mainView = app.views.create('.view-main');
     p So your final initialization code in `my-app.js` could look like:
     :code(lang="js")
-      var app = new Framework7({
+      var app = new ZMP({
         // App root element
         el: '#app',
         // App Name

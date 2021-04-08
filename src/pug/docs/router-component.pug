@@ -1,13 +1,13 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'Router Component | Framework7 Documentation';
+  - var title = 'Router Component | Zalo Mini Program Components';
 
 block content
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 Router Component
     ul.docs-index
     p Router Component is a special type of content that can be loaded by Router when we specify route content using `component` or `componentUrl` properties.
@@ -127,7 +127,7 @@ block content
         tr
           td $f7
           td
-            p Framework7 app instance
+            p Zalo Mini Program instance
             :code(lang="js")
               $f7.dialog.alert('Hello world!')
         tr
@@ -202,11 +202,11 @@ block content
         tr
           td $f7ready(<span>callback</span>)
           td
-            p This method need to be used only when you use <a href="#main-app-component">Main App Component</a> to make sure to call Framework7 APIs when app initialized.
+            p This method need to be used only when you use <a href="#main-app-component">Main App Component</a> to make sure to call ZaUI APIs when app initialized.
             :code(lang="js")
               const AppComponent = (props, { $f7, $f7ready }) => {
                 $f7ready(() => {
-                  // now it is safe to call Framework7 APIs
+                  // now it is safe to call ZaUI APIs
                   $f7.dialog.alert('Hello!');
                 });
 
@@ -505,7 +505,7 @@ block content
       p It is mandatory to have `return $render` in the end of the component function, as it will be replaced by parser with content of the `<template>` tag.
 
     h3 Usage With Webpack
-    p There is a special <a href="https://github.com/framework7io/framework7-loader" target="_blank">framework7-loader</a> plugin for Webpack that allows to bundle Single-File Components into main bundle and not to use XHR (e.g. `componentUrl`) to load and parse component files each time.
+    p There is a special <a href="https://github.com/zmpio/zmp-loader" target="_blank">zmp-loader</a> plugin for Webpack that allows to bundle Single-File Components into main bundle and not to use XHR (e.g. `componentUrl`) to load and parse component files each time.
     p This loader parses Single-File component's file and transforms it to plain JS object during bundling process. So, potentially, it can increase app performance because there won't be runtime parsing and compilation.
     p When this loader is configured, we need to store Single-File components in `.f7.html` files and use `export default` for component export:
     :code(lang="html")
@@ -615,10 +615,10 @@ block content
     h2 Virtual DOM
     .important-note
       p
-        b Virtual DOM and all VDOM related features available from Framework7 version 3.1.0.
+        b Virtual DOM and all VDOM related features available from ZaUI version 3.1.0.
     p The virtual DOM (VDOM) is a programming concept where an ideal, or "virtual", representation of a UI is kept in memory and synced with the "real" DOM. It allows us to express our application's view as a function of its state.
-    p VDOM library called #[a(href="https://github.com/snabbdom/snabbdom" target="_blank") Snabbdom] because it is extremely lightweight, fast and fits great for Framework7 environment.
-    p So how does Framework7 router component VDOM rendering works? Component template is converted to VDOM instead of directly inserting to DOM. Later, when component state changes, it creates new VDOM and compares it with previous VDOM. And based on that diff it patches real DOM by changing only elements and attributes that need to be changed. And all this happens automatically!
+    p VDOM library called #[a(href="https://github.com/snabbdom/snabbdom" target="_blank") Snabbdom] because it is extremely lightweight, fast and fits great for ZaUI environment.
+    p So how does ZaUI router component VDOM rendering works? Component template is converted to VDOM instead of directly inserting to DOM. Later, when component state changes, it creates new VDOM and compares it with previous VDOM. And based on that diff it patches real DOM by changing only elements and attributes that need to be changed. And all this happens automatically!
     p Let's look at that user profile component example that will auto update layout when we request user data:
 
     :code(lang="html")
@@ -804,25 +804,25 @@ block content
           return $render;
         }
       </script>
-    p Finally, when we init Framework7, we need to specify app component on init:
+    p Finally, when we init ZaUI, we need to specify app component on init:
     ```js
       // import main app component
       import App from './path/to/app.f7.html';
 
-      var app = new Framework7({
+      var app = new ZMP({
         // specify main app component
         component: App,
       })
     ```
     p Or, if we don't use webpack, we can also load it via XHR:
     ```js
-      var app = new Framework7({
+      var app = new ZMP({
         // load main app component
         componentUrl: './path/to/app.f7.html',
       })
     ```
 
-    p Also note that main app component will be mounted (added to DOM) BEFORE app initialization process finished. So if you need to call Framework7 APIs immediately, use `$f7ready` callback:
+    p Also note that main app component will be mounted (added to DOM) BEFORE app initialization process finished. So if you need to call ZaUI APIs immediately, use `$f7ready` callback:
     ```html
       <template>
         <div id="app">
@@ -832,7 +832,7 @@ block content
       <script>
         export default (props, { $f7ready, $f7 }) => {
           $f7ready(() => {
-            // now it is safe to call Framework7 APIs
+            // now it is safe to call ZaUI APIs
             $f7.dialog.alert('Hello!');
           })
         }
@@ -841,10 +841,10 @@ block content
 
     h2 Custom Components
     h3 Register Components
-    p It is possible to create custom reusable components. We need to do it BEFORE Framework7 initialization with the following method:
+    p It is possible to create custom reusable components. We need to do it BEFORE ZaUI initialization with the following method:
     .method-wrap
       p
-        span.method Framework7.registerComponent(<span>tagName</span>, <span>component</span>)
+        span.method ZaUI.registerComponent(<span>tagName</span>, <span>component</span>)
         | - register custom component
       ul.method-parameters
         li
@@ -857,7 +857,7 @@ block content
     .important-note
       p Note, at the moment, it is possible to use custom components only in router components (components loaded by router).
     :code(lang="js")
-      Framework7.registerComponent(
+      ZaUI.registerComponent(
         // component name
         'my-list-item',
 

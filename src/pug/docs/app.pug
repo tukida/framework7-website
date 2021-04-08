@@ -1,19 +1,19 @@
 extends ../_docs-template
 
 block vars
-  - var title = 'App / Core | Framework7 Documentation';
+  - var title = 'App / Core | Zalo Mini Program Components';
 
 block content
 
   .docs-nav
     include ../_docs-menu
   .docs-content
-    +improveDocsLink
+
     h1 App / Core
     ul.docs-index
-    p When we init the app we can use the `new Framework7` constructor and pass an object with main app parameters:
+    p When we init the app we can use the `new ZaUI` constructor and pass an object with main app parameters:
     :code(lang="js")
-      var app = new Framework7({
+      var app = new ZMP({
         // App id
         id: 'com.myapp.test',
         // Enable swipe panel
@@ -22,7 +22,7 @@ block content
         },
         // ... other parameters
       });
-    p This constructor returns main app Framework7 instance.
+    p This constructor returns main app ZaUI instance.
     h2 App Parameters
     p Lets look at the list of available parameters:
     table.params-table
@@ -42,21 +42,21 @@ block content
           td component
           td Router Component
           td
-          td Load app layout from passed <a href="./router-component.html#main-app-component">main app component</a>. Only for Framework7 Core version
+          td Load app layout from passed <a href="./router-component.html#main-app-component">main app component</a>. Only for ZaUI Core version
         tr
           td componentUrl
           td string Component
           td
-          td Path to Single File <a href="./router-component.html#main-app-component">main app component</a> to be loaded via XHR. Only for Framework7 Core version
+          td Path to Single File <a href="./router-component.html#main-app-component">main app component</a> to be loaded via XHR. Only for ZaUI Core version
         tr
           td id
           td string
-          td io.framework7.testapp
+          td io.zmp.testapp
           td App bundle id.
         tr
           td name
           td string
-          td Framework7
+          td ZaUI
           td App name. Can be used by other components, e.g. as the default title for <a href="dialog.html">Dialog</a> component.
         tr
           td version
@@ -87,7 +87,7 @@ block content
           td lazyModulesPath
           td string
           td
-          td Path to Framework7's lazy components. Required to use <a href="lazy-modules.html">Lazy Modules</a> with browser modules.
+          td Path to ZaUI's lazy components. Required to use <a href="lazy-modules.html">Lazy Modules</a> with browser modules.
         tr
           td autoDarkTheme
           td boolean
@@ -97,7 +97,7 @@ block content
           td init
           td boolean
           td true
-          td By default Framework7 will be initialized automatically when you call `new Framework7()`. If you want to prevent this behavior you can disable it with this option and then initialize it manually with `app.init()` when you need it.
+          td By default ZaUI will be initialized automatically when you call `new ZMP()`. If you want to prevent this behavior you can disable it with this option and then initialize it manually with `app.init()` when you need it.
         tr
           td initOnDeviceReady
           td boolean
@@ -120,7 +120,7 @@ block content
           td
             p Object with events handlers. For example:
             :code(lang="js")
-              var app = new Framework7({
+              var app = new ZMP({
                 on: {
                   init: function () {
                     console.log('App initialized');
@@ -138,7 +138,7 @@ block content
           td
           td Object with clicks-module related parameters:
             :code(lang="js")
-                  var app = new Framework7({
+                  var app = new ZMP({
                     clicks: {
                       externalLinks: '.external',
                     }
@@ -149,7 +149,7 @@ block content
           td externalLinks
           td string
           td '.external'
-          td CSS selector for links that should be treated as external and shouldn't be handled by Framework7. For example such '.external' value will match to links like `<a href="somepage.html" class="external">` (with class "external")
+          td CSS selector for links that should be treated as external and shouldn't be handled by ZaUI. For example such '.external' value will match to links like `<a href="somepage.html" class="external">` (with class "external")
         tr.subparam-close-row
           td(colspan="4") }
         tr
@@ -160,7 +160,7 @@ block content
           td
           td Object with touch-module related parameters:
             :code(lang="js")
-                  var app = new Framework7({
+                  var app = new ZMP({
                     touch: {
                       tapHold: true,
                     }
@@ -241,7 +241,7 @@ block content
           td
           td Object with service worker module parameters:
             :code(lang="js")
-              var app = new Framework7({
+              var app = new ZMP({
                 serviceWorker: {
                   path: './service-worker.js',
                   scope: '/',
@@ -265,7 +265,7 @@ block content
     p Most of components that has JavaScript API may extend this list of parameters with the property named as component. For example <a href="panel.html">Panel</a> component extends app parameters with `panel` property that accepts Panel specific parameters.
     p Example:
     :code(lang="js")
-          var app = new Framework7({
+          var app = new ZMP({
             id: 'com.myapp.test',
             // Extended by Panel component:
             panel: {
@@ -282,7 +282,7 @@ block content
             },
           });
     h2 App Methods & Properties
-    p Returned Framework7 instance `app` contains a lot of useful properties and methods:
+    p Returned ZaUI instance `app` contains a lot of useful properties and methods:
     table.methods-table
       tbody
         tr
@@ -408,7 +408,7 @@ block content
         tr
           td init
           td
-          td Event will be fired on app initialization. Automatically after `new Framework7()` or after `app.init()` if you disabled auto init.
+          td Event will be fired on app initialization. Automatically after `new ZMP()` or after `app.init()` if you disabled auto init.
         tr
           td resize
           td
